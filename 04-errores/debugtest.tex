@@ -1,0 +1,57 @@
+\section{Depuración}
+
+\begin{frame}{Razones para depurar}
+\begin{itemize}
+  \item Hay diversas razones para depurar un programa:
+    \begin{itemize}
+      \item Se obtienen resultados no esperados.
+      \item El programa termina de forma abrupta.
+      \item Comprender mejor el funcionamiento del programa.
+    \end{itemize}
+  \item Alternativas de depuración:
+    \begin{itemize}
+      \item Uso de un entorno de depuración.
+      \item Inserción de sentencias de impresión en el código.
+    \end{itemize}
+  \item Recuerda:
+    \begin{itemize}
+      \item La alternativa a usar depende mucho de las circunstancias.
+      \item Es complicado depurar ciertas aplicaciones: multi-hilo, fuentes de eventos externas, tiempo real.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Herramientas de depuración}
+\begin{itemize}
+  \item Algunos ejemplos:
+    \begin{itemize}
+      \item gdb.
+      \item \cppid{Code::Blocks}.
+      \item DDD.
+      \item Eclipse CDT.
+      \item KDevelop.
+      \item Nemiver.
+    \end{itemize}
+  \item \url{http://www.drdobbs.com/testing/13-linux-debuggers-for-c-reviewed/240156817}.
+\end{itemize}
+\end{frame}
+
+\subsection{Pruebas}
+
+\begin{frame}{Pruebas}
+\begin{itemize}
+  \item Las pruebas son parte esencial del proceso de desarrollo de software.
+  \item Existen muchas herramientas de pruebas unitarias para C++.
+  \item Altamente recomendables:
+    \begin{itemize}
+      \item GTest (Google).
+      \item CPPUnit.
+      \item CUTE (HSR Rapperswil).
+    \end{itemize}
+  \item Recomendaciones:
+    \begin{itemize}
+      \item Escribir pruebas a la vez que el código (o incluso antes).
+      \item Ejecutar todas las pruebas después de cada construcción.
+    \end{itemize}
+\end{itemize}
+\end{frame}

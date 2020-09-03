@@ -17,17 +17,20 @@ include guide/Makefile.def
 include 01-introcpp/Makefile.def
 include 02-valores/Makefile.def
 include 03-vector/Makefile.def
+include 04-errores/Makefile.def
 
 ALL_PARTS= \
 $(GUIDE_PARTS) \
 $(INTROCPP_PARTS) \
 $(VALORES_PARTS) \
 $(VECTOR_PARTS) \
+$(ERRORES_PARTS) \
 
 ALL_SLIDES_FINAL_PDF= \
 $(FINAL_DIR)/$(INTROCPP_PDF) \
 $(FINAL_DIR)/$(VALORES_PDF) \
 $(FINAL_DIR)/$(VECTOR_PDF) \
+$(FINAL_DIR)/$(ERRORES_PDF) \
 
 ALL_FINAL_PDF=\
 $(FINAL_DIR) \
@@ -53,3 +56,4 @@ include guide/Makefile.mk
 include 01-introcpp/Makefile.mk
 include 02-valores/Makefile.mk
 include 03-vector/Makefile.mk
+include 04-errores/Makefile.mk

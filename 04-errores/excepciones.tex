@@ -1,0 +1,180 @@
+\section{Excepciones}
+
+\begin{frame}[fragile]{Detección de errores}
+\begin{itemize}
+  \item Una función no puede siempre realizar su tarea.
+  \item Alternativas:
+    \begin{itemize}
+      \item Comprobar antes de llamar.
+      \item Comprobar dentro de la función.
+        \begin{itemize}
+          \item Realizar acción apropiada en caso de error.
+          \item Devolver código de error.
+          \item Usar excepciones.
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Comprobar antes de llamar}
+\begin{lstlisting}
+void imprime_velocidad(double s, double t) {
+  cout << s/t << endl;
+}
+
+void f() {
+  double s = lee_espacio();
+  double t = lee_tiempo();
+  if (t > 0.0) {
+    imprime_velocidad(s,t);
+  }
+  else {
+    cerr << "Error: Tiempo negativo" << endl;
+  }
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Comprobar y realizar acción}
+\begin{lstlisting}
+void imprime_velocidad(double s, double t) {
+  if (t > 0.0) {
+    cout << s/t << endl;
+  }
+  else {
+    cerr << "Error: Tiempo negativo" << endl;
+  }
+}
+
+void f() {
+  double s = lee_espacio();
+  double t = lee_tiempo();
+  imprime_velocidad(s,t);
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Comprobar y devolver código de error}
+\begin{lstlisting}
+int imprime_velocidad(double s, double t) {
+  if (t > 0.0) {
+    cout << s/t << endl;
+    return 0;
+  }
+  return -1;
+}
+
+void f() {
+  double s = lee_espacio();
+  double t = lee_tiempo();
+  int r = imprime_velocidad(s,t);
+  if (r<0) {
+    cerr << "Error: Tiempo negativo" << endl;
+  }
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Excepciones}
+\begin{itemize}
+  \item \alert{IMPORTANTE}: El modelo de excepciones de C++ tiene diferencias con otros lenguajes.
+  \item Resumen básico:
+    \begin{itemize}
+      \item Una excepción puede ser de cualquier tipo definido por el usuario.
+\begin{lstlisting}
+class tiempo_negativo {};
+\end{lstlisting}
+      \item Cuando una función detecta una situación excepcional lanza (\cppkey{throw}) una excepción.
+\begin{lstlisting}
+void imprime_velocidad(double s, double t) {
+  if (t > 0.0) {
+    cout << s/t << endl;
+  }
+  else {
+    throw tiempo_negativo{};
+}
+\end{lstlisting}
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Tratamiento de excepciones}
+\begin{itemize}
+  \item Resumen básico:
+    \begin{itemize}
+      \item El llamante puede tratar la excepción con un bloque \cppkey{try}-\cppkey{catch}.
+\begin{lstlisting}
+void f() {
+  double s = lee_espacio();
+  double t = lee_tiempo();
+  try {
+    imprime_velocidad(s,t);
+  }
+  catch (tiempo_negativo) {
+    cerr << "Error: Tiempo negativo" << endl;
+  }
+}
+\end{lstlisting}
+      \item No es obligatorio tratar una excepción.
+\begin{lstlisting}
+void f() {
+  double s = lee_espacio(), t = lee_tiempo();
+  imprime_velocidad(s,t);
+}
+\end{lstlisting}
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Excepciones estándar}
+\begin{itemize}
+  \item Existen varios tipos de excecpión predefinidos en la biblioteca estándar.
+    \begin{itemize}
+      \item \cppid{out\_of\_range}, \cppid{invalid\_argument}, \ldots
+      \item Todos generalizados en el tipo \cppid{exception}.
+      \item Todos tienen una operación \cppid{what()}.
+    \end{itemize}
+  \mode<article>{
+  \item Se puden poner varias claúsulas \cppkey{catch}.
+  }
+\end{itemize}
+\begin{lstlisting}
+int main()
+try {
+  f();
+  return 0;
+}
+catch (out_of_range & e) {
+  cerr << "Out of range:" << e.what() << endl;
+  return -1;
+}
+catch (exception & e) {
+  cerr << "Excepción: " << e.what() << endl;
+  return -2;
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Captura completa}
+\begin{itemize}
+  \item Se puede incluir una claúsula que captura cualquier excepción.
+    \begin{itemize}
+      \item Incluso las no estándar.
+    \end{itemize}
+\end{itemize}
+\begin{lstlisting}
+int main()
+try {
+  f();
+  return 0;
+}
+catch (exception & e) {
+  cerr << "Excepción: " << e.what() << endl;
+  return -1;
+}
+catch (...) {
+  cerr << "Excepción no esperada" << endl;
+  return -10;
+}
+\end{lstlisting}
+\end{frame}
