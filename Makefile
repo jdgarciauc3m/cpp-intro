@@ -15,13 +15,16 @@ logos/logo-uc3m.jpg
 
 include guide/Makefile.def
 include 01-introcpp/Makefile.def
+include 02-valores/Makefile.def
 
 ALL_PARTS= \
 $(GUIDE_PARTS) \
 $(INTROCPP_PARTS) \
+$(VALORES_PARTS) \
 
 ALL_SLIDES_FINAL_PDF= \
 $(FINAL_DIR)/$(INTROCPP_PDF) \
+$(FINAL_DIR)/$(VALORES_PDF) \
 
 ALL_FINAL_PDF=\
 $(FINAL_DIR) \
@@ -45,3 +48,4 @@ $(FINAL_DIR):
 
 include guide/Makefile.mk
 include 01-introcpp/Makefile.mk
+include 02-valores/Makefile.mk
