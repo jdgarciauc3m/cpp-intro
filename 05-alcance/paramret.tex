@@ -1,0 +1,162 @@
+\section{Declaración de funciones}
+
+\begin{frame}[fragile]{Declaración}
+\begin{itemize}
+  \item Incluye sus parámetros y su tipo de retorno.
+  \item Dos sintaxis alternativas:
+\begin{lstlisting}
+double area(double nx, double ny);
+auto area(double nx, double ny) -> double;
+\end{lstlisting}
+  \item Los nombres de parámetros no son obligatorios en declaraciones.
+\begin{lstlisting}
+double area(double, double); // Declaración
+double area(double nx, double ny) { return nx*ny; } // Definición
+\end{lstlisting}
+  \item El tipo de retorno puede ser \cppkey{void}.
+\begin{lstlisting}
+void imprime(string nombre, int edad) {
+  std::cout << nombre << " -> " << edad << std::endl;
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\section{Retorno}
+
+\begin{frame}[fragile]{Retorno}
+\begin{itemize}
+  \item La sentencia \cppkey{return} devuelve un valor al llamante.
+\begin{lstlisting}
+double max(double x, double y) {
+  if (x>y) return x;
+  else return y;
+}
+\end{lstlisting}
+  \item Una función con tipo de retorno debe devolver siempre un valor.
+\begin{lstlisting}
+double max(double x, double y) {
+  if (x>y) return x;
+  if (y>x) return y;
+} // Problema x==y
+\end{lstlisting}
+    \begin{itemize}
+      \item No siempre detectable por compilador.
+    \end{itemize}
+  \item \cppid{main()} es un caso especial.
+    \begin{itemize}
+      \item Si no se ejecuta \cppkey{return} se considera que devuelve \cppkey{0}.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\section{Paso por valor}
+
+\begin{frame}[fragile]{Paso por valor}
+\begin{itemize}
+  \item Se pasa a la función una copia del argumento especificado en la llamada.
+\begin{lstlisting}
+int incrementa(int n) {
+  ++n;
+  return n;
+}
+
+void f() {
+  int x = 5;
+  int a = incrementa(x);
+  int b = incrementa(x);
+  // ...
+}
+\end{lstlisting}
+  \item \pause Se pueden pasar literales y temporales como argumentos.
+\begin{lstlisting}
+void g() {
+  int a = incrementa(3);
+  int b = incrementa(a+2);
+  // ...
+}
+\end{lstlisting}
+
+\end{itemize}
+\end{frame}
+
+\section{Paso por referencia}
+
+\begin{frame}[fragile]{Paso por referencia constante}
+\begin{itemize}
+  \item El paso por valor siempre realiza una copia.
+    \begin{itemize}
+      \item Si el objeto pasado es grande puede ser muy costoso.
+    \end{itemize}
+  \item \alert{Paso por referencia constante}: Pasa la dirección del objeto pero impide su alteración dentro de la función.
+    \begin{itemize}
+      \item Conceptualmente equivalente a paso por valor.
+    \end{itemize}
+\begin{lstlisting}
+double maxref(const vector<doulbe> & v) {
+  if (v.size() == 0) throw invalid_argument;
+  double r = v[0];
+  for (int i=1; i<v.size(); ++i) {
+    if (r>v[i]) r=v[i];
+  }
+  return r;
+}
+
+void f() {
+  vector<double> vec(10000000);
+  // ...
+  double m = maxref(vec);
+  // ...
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Paso por referencia}
+\begin{itemize}
+  \item Elimina la restricción de no modificar el parámetro dentro de la función.
+\begin{lstlisting}
+void rellena(vector<int> & v, int n) {
+  for (int i=0; i!=n; ++i) { v.push_back(i); }
+}
+\end{lstlisting}
+  \item No se está pasando una copia.
+    \begin{itemize}
+      \item Se tiene acceso al propio objeto y se puede modificar.
+    \end{itemize}
+\begin{lstlisting}
+int incrementa(int & n) {
+  ++n;
+  return n;
+}
+
+void f() {
+  int x = 5;
+  int a = incrementa(x);
+  int b = incrementa(x);
+  // ...
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Ejemplo}
+\begin{lstlisting}
+void intercambia(int & x, int & y) {
+  int tmp = x;
+  x = y;
+  y = tmp;
+}
+
+void f() {
+  int a = 5, b=15;
+  intercambia(a,b);
+}
+\end{lstlisting}
+\begin{itemize}
+  \item La biblioteca estańdar ofrece intercambio de datos para todos los tipos predefinidos.
+    \begin{itemize}
+      \item \cppid{std::swap()}.
+    \end{itemize}
+\end{itemize}
+\end{frame}

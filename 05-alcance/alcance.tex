@@ -1,0 +1,200 @@
+\section{Clases de alcance}
+
+\begin{frame}[fragile]{Alcance}
+\begin{itemize}
+  \item Un \alert{alcance} es una región de código fuente.
+    \begin{itemize}
+      \item Normalmente delimitada por un par de llaves.
+      \item El nombre de una entidad es válido desde su punto de declaración hasta el
+            final del alcance en que se produjo dicha delcaración.
+      \item Se pueden anidar alcances.
+    \end{itemize}
+\end{itemize}
+\begin{lstlisting}
+int x; // Alcance global
+
+void f() {
+  int y; // Alcance local
+  y = x;
+  if (x == 0) {
+    int z = 2; // Alcance anidado
+    // ...
+  }
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}{Clases de alcance}
+\begin{itemize}
+  \item \alert{Alcance global}: No incluido en ningún otro.
+  \item \alert{Alcance de espacio de nombres}: Alcance con un nombre asociado.
+    \begin{itemize}
+      \item Puede estar anidado en el alcance global o en otro espacio de nombres.
+    \end{itemize}
+  \item \alert{Alcance de clase}: Alcance de la definición de una clase.
+  \item \alert{Alcance local}: Alcance de un bloque delimitado por un par de llaves.
+  \item \alert{Alcance de sentencia}: Alcance vinculado a algunas sentencias (p.ej. bucles-\emph{for}).
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Alcance global}
+\begin{itemize}
+  \item Las entidades declaradas en el alcance global son accesibles desde cualquier entidad del programa.
+  \item Una entidad con alcance global puede ser accedida desde su punto de declaración hasta el final de la unidad
+        de traducción en que se declaró.
+\end{itemize}
+\begin{lstlisting}
+#include <iostream>
+
+int x; // Global
+
+void f() {
+  std::cout << x << std::endl;
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Alcance de espacio de nombres}
+\begin{itemize}
+  \item La entidades declaradas en un espacio de nombres son accesibles dentro del mismo.
+  \item Una entidad puede ser accedida desde su punto de declaración hasta el final de la unidad de traducción
+        siempre que se esté dentro del espacio de nombres.
+  \item También puede accederse cualificando el acceso.
+\end{itemize}
+\begin{lstlisting}
+namespace geom {
+  double area(double l, double a);
+  double volumen(double nx, double ny, double nz) {
+    return area(nx,ny) * nz;
+  }
+} // Fin de espacio de nombres
+
+void f() {
+  double a1 = geom::area(2,3);
+  double a2 = volumen(2,3,4); // Error: volumen no esta en alcance
+  // ...
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Alcance de clase}
+\begin{itemize}
+  \item Las entidades declaradas dentro de una clase son accesible dentro de la definición de la clase.
+  \item También puede accederse cualificando el acceso.
+\end{itemize}
+\begin{lstlisting}
+class punto {
+public:
+  punto(double cx, double cy);
+  double modulo() { return sqrt(x*x+y*y); }
+  void simetria_x();
+private:
+  double x;
+  double y;
+};
+
+punto::simetria_x() {
+  y = -y;
+}
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Alcance local}
+\begin{itemize}
+  \item Las entidades declaradas dentro de una función son accesibles solamente dentro de la función.
+  \item Una entidad puede ser accedida desde su punto de declaración hasta el final del bloque en que se encuentra
+        dicha declaración.
+  \item Los parámetros se consideran locales al bloque de primer nivel de la función.
+\end{itemize}
+\begin{lstlisting}
+void f(int x, int y) {
+  int z = (x>y) ? x : y;
+  if (z>0) {
+    int t = x - y;
+    // ...
+  } // Fin de alcance de t
+} // Fin de alcance de x, y, z
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Alcance de sentencia}
+\begin{itemize}
+  \item La entidades declaradas dentro de los paréntesis de sentencias \cppkey{for}, \cppkey{while}, \cppkey{if} o \cppkey{switch}
+        tienen alcance de sentencia.
+  \item Una entidad puede ser accedida solamente dentro de la sentencia correspondiente.
+\end{itemize}
+\begin{lstlisting}
+void f(int n) {
+  for (int i=0; i<n; ++i) {
+    std::cout << i;
+    std::cout << " -> ";
+    int cuad = i*i;
+    std::cout << cuad << std::endl;
+  } // Fin de alcance para i, cuad
+}
+\end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]{Espacio de nombres}
+\begin{itemize}
+  \item Un \alert{espacio de nombres} permite agrupar un conjunto de entidades en un alcance con nombre.
+\end{itemize}
+\begin{lstlisting}
+#include <iostream>
+
+namespace geom {
+  area_rect(double nx, double ny);
+  area_circ(double r);
+  // ...
+}
+
+void f() {
+  std::cout << geom::area_rect(2.0, 3.5) << std::endl;
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Declaraciones de uso}
+\begin{itemize}
+  \item Declara un sinónimo local para una entidad de otro espacio de nombres.
+\end{itemize}
+\begin{lstlisting}
+#include <iostream>
+
+namespace geom {
+  area_rect(double nx, double ny);
+  area_circ(double r);
+  // ...
+}
+
+void f() {
+  using std::cout;
+  using std::endl;
+  using geom::area_rect;
+  cout << area_rect(2.0, 3.5) << endl;
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Directiva de uso}
+\begin{itemize}
+  \item Hace que se busquen los nombres no encontrados en otro espacio de nombres.
+\end{itemize}
+\begin{lstlisting}
+#include <iostream>
+
+namespace geom {
+  area_rect(double nx, double ny);
+  area_circ(double r);
+  // ...
+}
+
+void f() {
+  using namespace std;
+  using namespace geom;
+  cout << area_rect(2.0, 3.5) << endl;
+}
+\end{lstlisting}
+\end{frame}
