@@ -38,7 +38,7 @@ build:
 	mkdir $(BUILD_DIR)
 
 updatevers:	$(BUILD_DIR)
-	LANG="C" git log -1 --format=%ad --date=format:'\date{%B %d, %Y}' > $(BUILD_DIR)/date.tex
+	git log -1 --format=%ad --date=format:'\date{%d de %B de %Y}' > $(BUILD_DIR)/date.tex
 
 $(FINAL_DIR):
 	mkdir $(FINAL_DIR)

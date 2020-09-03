@@ -1,0 +1,164 @@
+\subsection{El lenguaje C++}
+
+\begin{frame}{¿Qué es C++?}
+\mode<presentation>{
+
+\begin{center}
+\begin{tikzpicture}[small mindmap,
+    concept color=blue,
+    level 1 concept/.append style={font=\tiny,level distance=2.3cm},
+    level 2 concept/.append style={font=\tiny,level distance=1.7cm},
+    level 3 concept/.append style={font=\tiny},
+    every node/.append style={scale=0.9},
+    text=white,
+    ]
+  \node [concept, font=\small] {C++}
+    child [grow=25, visible on=<1->] {node[concept] {Es C con ...}}
+    child [grow=340, visible on=<2->] {node[concept, visible on=<2->] {Demasiado \ldots}
+      child [grow=40, visible on=<3->]{node[concept] {difícil}}
+      child [grow=0, visible on=<4->]{node[concept] {bajo nivel}}
+      child [grow=320, visible on=<5->]{node[concept] {alto nivel}}
+    }
+    child [grow=90,visible on=<6->] {node[concept] {Programación}
+      child [grow=20,visible on=<7->]{node[concept] {Orientada a objetos}
+        child [grow=10]{node[concept] {Clases}}
+        child [grow=330]{node[concept] {Jerarquías de clases}}
+      }
+      child [grow=150,visible on=<8->] {node[concept] {Genérica}
+        child [grow=180] {node[concept] {Metapro\-gramción}}
+      }
+      child [grow=200,visible on=<9->]{node[concept] {Multi\-paradigma}}
+    }
+    child [grow=180, level distance=2.25cm,visible on=<10->] {node[concept] {Problemas}
+      child [grow=200, visible on=<11->] {node[concept] {Buffer overflow}}
+      child [grow=150,visible on=<11->] {node[concept] {Goteos de memoria}}
+    }
+    child [grow=220, visible on=<12->] {node[concept] {Un cajón de sastre}}
+
+  ;
+\end{tikzpicture}
+\end{center}
+
+}
+\mode<article>{
+
+\begin{itemize}
+  \item C++ es:
+    \begin{itemize}
+      \item \pause  C (C89, ..., C11).
+      \item \pause  \emph{Buffer overflows}.
+      \item \pause  Problemas con punteros.
+      \item \pause  Clases.
+      \item \pause  Jerarquías de clases.
+      \item \pause  Un lenguaje orientado a objetos.
+      \item \pause  Programación genérica.
+      \item \pause  Colección aleatoria de características.
+      \item \pause  Una lenguaje híbrido.
+      \item \pause  Demasiado grande.
+      \item \pause  Demasiado bajo nivel.
+      \item \pause  Demasiado alto nivel.
+      \item \pause  Un lenguaje para sistemas empotrados.
+      \item \pause  Metaprogramación con plantillas.
+      \item \pause  Un lenguaje multi-paradigma.
+    \end{itemize}
+\end{itemize}
+}
+\end{frame}
+
+\begin{frame}{¿De donde viene?}
+\begin{itemize}
+  \item \pause Influencias de alto nivel.
+    \begin{itemize}
+      \item Lenguajes de abstracción de propósito general.
+        \begin{itemize}
+          \item Simula.
+        \end{itemize}
+      \item Lenguajes de abstración de dominio específico.
+        \begin{itemize}
+          \item FORTRAN, COBOL.
+        \end{itemize}
+    \end{itemize}
+  \item \pause Influencias de bajo nivel.
+    \begin{itemize}
+      \item Correspondencia directa con el hardware.
+        \begin{itemize}
+          \item Ensamblador.
+        \end{itemize}
+      \item Abstracción mínima del hardware.
+        \begin{itemize}
+          \item BCPL.
+          \item C.
+        \end{itemize}
+    \end{itemize}
+  \item \pause Influencias sobre otros lenguajes.
+    \begin{itemize}
+      \item Java.
+      \item C\#.
+      \item C (C11).
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Evolución}
+\vspace{-0.5em}
+\begin{itemize}
+  \item Serie de normas ISO/IEC 14882 (1998, 2011, 2014, 2017, 2020, \ldots).
+  \mode<presentation>{\vfill\pause}
+  \item \emph{``Un lenguaje de programación de abstracciones ligeras''} (B. Stroustroup).
+  \mode<presentation>{\vfill\pause}
+  \item Evolución de C++.
+    \begin{itemize}
+      \item Tiene muchos elementos de compatibilidad.
+        \begin{itemize}
+          \item La raíz histórica de algunos llega hasta 1972.
+        \end{itemize}
+      \item Evolucionar un lenguaje con miles de millones de línea de código es
+      distinto que diseñar un nuevo lenguaje de programación.
+    \end{itemize}
+  \mode<presentation>{\vfill\pause}
+  \item Si alguien dice que tiene un lenguaje de programación perfecto:
+    \begin{itemize}
+      \item Es na\"{i}ve.
+      \item Es un vendedor.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\begin{itemize}
+  \item 1998: C++98 $\rightarrow$ ISO/IEC 14882:1998
+  \item 2003: C++03 $\rightarrow$ ISO/IEC 14882:2003.
+    \begin{itemize}
+      \item Technical Corrigendum
+    \end{itemize}
+  \item 2005: C++ TR1 $\rightarrow$ ISO/IEC TR 19768.
+    \begin{itemize}
+      \item C++ Library Extensions
+    \end{itemize}
+  \item 2011: C++11 $\rightarrow$ ISO/IEC 14882:2011.
+  \item 2014: C++14 $\rightarrow$ ISO/IEC 14882:2014. 
+  \item 2017: ISO/IEC 14882:2017.
+  \item 2020: ISO/IEC 14882:2020 (\textgood{pendiente de publicar}).
+  \item 2023: \textbad{Probablemente} ISO/IEC 14882:2023.
+\end{itemize}
+\end{frame}
+
+\mode<presentation>{
+\begin{frame}{C++ timeline}
+\centering
+\includegraphics[height=.8\textheight]{images/wg21-timeline-2020.png}
+\end{frame}
+}
+
+\begin{frame}{Principios de diseño}
+\begin{itemize}
+  \item \pause  Mantener compatibilidad hacia atrás.
+  \item \pause  Mejor extender la biblioteca que el lenguaje.
+  \item \pause  Facilitar el diseño de sistemas y bibliotecas (en vez de dominios concretos).
+  \item \pause  Mejorar la seguridad de tipos.
+  \item \pause  Mejorar el rendimiento y la interacción con el hardware.
+  \item \pause  Principio de \emph{zero-overhead}.
+  \item \pause  Hacer C++ más fácil de enseñar y aprender.
+\end{itemize}
+\end{frame}
+

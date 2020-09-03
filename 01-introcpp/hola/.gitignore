@@ -1,0 +1,6 @@
+*.ii
+*.nm
+*.nm.cpp
+*.o
+*.s
+hola
