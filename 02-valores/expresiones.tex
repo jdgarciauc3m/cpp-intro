@@ -1,0 +1,159 @@
+\section{Expresiones, sentencias y operadores}
+
+\begin{frame}[fragile]{Expresiones}
+\begin{itemize}
+  \item Una expresión combina otras (sub)-expresiones mediante operadores.
+    \begin{itemize}
+      \item Asignación: \cppid{x=y}.
+      \item Llamada a función: \cppid{f(a)}.
+      \item Incremento/Decremento: \cppid{++x}, \cppid{x++}, \cppid{-{}-x}, \cppid{x-{}-}.
+      \item Aritméticos: 
+        \cppid{-x},
+        \cppid{x+y},
+        \cppid{x-y},
+        \cppid{x*y},
+        \cppid{x/y},
+        \cppid{x\%y},
+      \item Aritmético-asignación:
+        \cppid{x+=y},
+        \cppid{x-=y},
+        \cppid{x*=y},
+        \cppid{x/=y},
+        \cppid{x\%=y},
+      \item Comparación:
+        \cppid{x<y},
+        \cppid{x<=y},
+        \cppid{x>y},
+        \cppid{x>=y},
+        \cppid{x==y},
+        \cppid{x!=y},
+      \item Lógicos:
+        \cppid{!x},
+        \cppid{x\&\&y},
+        \cppid{x||y}.
+      \item Entrada/salida:
+        \cppid{os<{}<x}, \cppid{is>{}>x}.
+    \end{itemize}
+  \item Cualquier expresión puede ser una sentencia
+\begin{lstlisting}
+x = y + z * ( x + y * f(z,t));
+x1 = x2 = g(z,t);
+++x;
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Declaraciones de variable}
+\begin{itemize}
+  \item Una declaración de variable introduce una variable en un bloque.
+\begin{lstlisting}
+string mision = "Apolo XI";
+\end{lstlisting}
+  \item No es necesario (ni recomendable) poner las declaraciones al principio del bloque.
+\begin{lstlisting}
+void f() {
+  double distancia;
+  cin >> distancia;
+  double tiempo;
+  cin >> tiempo;
+  double velocidad = distancia / tiempo;
+  cout << "Velocidad: " << velocidad << endl;
+}  
+\end{lstlisting}
+  \item ¿Qué pasa con variables sin valor inicial?
+    \begin{itemize}
+      \item Se quedan sin iniciar (valor no definido).
+      \item Es una fuente común de errores.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Inferencia de tipo}
+\begin{itemize}
+  \item Una declaración de variable con iniciador puede deducir automáticamente
+        el tipo de datos de la declaración.
+\begin{lstlisting}
+auto x = 10; // int x = 10;
+auto y = 2.5; // double y = 2.5;
+auto z = 1.0f; // float z = 1.0f;
+\end{lstlisting}
+  \item La deducción de tipos no funciona con cadenas.
+    \begin{itemize}
+      \item El literal \cppid{"Hola"} no es de tipo \cppid{string}.
+    \end{itemize}
+\begin{lstlisting}
+auto c1 = "Hola"; // c1 no es de tipo string
+auto c2 = string{"Hola"}; // c2 si es de tipo string
+auto c3 = "Hola"s; // c3 es de tipo string (propuesto para C++14)
+\end{lstlisting}
+  \item También deduce automáticamente el tipo de expresiones.
+\begin{lstlisting}
+auto t1 = x + y;
+auto t2 = f();
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Constantes}
+\begin{itemize}
+\item Dos alternativas:
+  \begin{itemize}
+    \item Variable inmutables:
+\begin{lstlisting}
+const int max_nodos = 1024;
+\end{lstlisting}
+      \begin{itemize}
+        \item Es una variable que no puede modificarse.
+        \item Su valor no se conoce hasta que no comienza a ejecutarse el programa.
+      \end{itemize}
+    \item Expresiones constantes:
+\begin{lstlisting}
+constexpr int max_nodos = 1024;
+\end{lstlisting}
+      \begin{itemize}
+        \item Es un sinónimo para una expresión constante.
+        \item Su valor se conoce en tiempo de compilación.
+        \item Más apropiado para la mayoría de constantes.
+      \end{itemize}
+  \end{itemize}
+\item Rara vez es necesario usar \cppkey{\#define}.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Sentencias de control}
+\begin{itemize}
+  \item Heredadas del lenguaje C:
+    \begin{itemize}
+      \item Sentencia \cppkey{if}.
+      \item Sentencia \cppkey{switch}.
+      \item Sentencia \cppkey{while}.
+      \item Sentencia \cppkey{do}.
+      \item Sentencia \cppkey{for}.
+    \end{itemize}
+  \item Introducción de variable de control en \emph{bucles-for}.
+\begin{lstlisting}
+for (int i=0; i<100; ++i) {
+  cout << i << endl;
+}
+cout << i << endl; // Error: i no está definido
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Sentencias for basadas en rango}
+\begin{itemize}
+  \item Permiten recorrer una lista de valores.
+\begin{lstlisting}
+for (int x : {1, 2, 3, 4}) {
+  cout << i << endl;
+}
+\end{lstlisting}
+  \item Se pueden combinar con \cppkey{auto}.
+\begin{lstlisting}
+for (auto x : {1, 2, 3, 4}) {
+  cout << i << endl;
+}
+\end{lstlisting}
+
+\end{itemize}
+\end{frame}

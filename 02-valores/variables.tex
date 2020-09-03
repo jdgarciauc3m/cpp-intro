@@ -1,0 +1,253 @@
+\section{Variables, valores y tipos}
+
+\begin{frame}[fragile]{Variables, valores y objetos}
+\begin{lstlisting}
+int x = 65;
+\end{lstlisting}
+\begin{itemize}
+  \item \alert{Variable}: Nombre de un objeto en un programa.
+    \begin{itemize}
+      \item \cppid{x} es una variable.
+    \end{itemize}
+  \item \alert{Valor}: Secuencia de bits que se interpreta de acuerdo con las reglas de un tipo.
+    \begin{itemize}
+      \item El valor \verb+00000000 00000000 00000000 01000001+ represetan el número \cppid{65} para el tipo \cppkey{int}.
+      \item El valor \verb+01000001+ represetna el carácter \cppid{'A'} para el tipo \cppkey{char}.
+    \end{itemize}
+  \item \alert{Objeto}: Secuencia de uno o más \emph{bytes} que contiene un valor de un tipo.
+    \begin{itemize}
+      \item Un objeto es lugar en la memoria en que se almacena un valor.
+      \item Una variable permite referenciar un objeto.
+        \mode<article>{
+          \item \alert{IMPORTANTE}: El concepto de objeto no tiene que ver necesariamente con la \emph{orientación a objetos}.
+        }
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Tipo}
+\begin{itemize}
+  \item \alert{Tipo}: Definición del conjunto de valores y operaciones admisibles para un objeto.
+    \begin{itemize}
+      \item \alert{Tipos fundamentales}: Definidos por el lenguaje.
+        \begin{itemize}
+          \item \alert{\emph{Booleanos}}: \cppkey{bool}.
+          \item \alert{Carácter}: \cppkey{char}, \cppkey{signed char}, \cppkey{unsigned char}, \cppkey{wchar\_t}, \cppkey{char16\_t}, \cppkey{char32\_t}.
+          \item \alert{Enteros}: \cppkey{short}, \cppkey{int}, \cppkey{long}, \cppkey{long long}.
+            \mode<article>{
+              \begin{itemize}
+                \item Pueden llevar prefijo \cppkey{signed} o \cppkey{unsigned}.
+                \item Si no se indica nada, se toma \cppkey{signed}.
+              \end{itemize}
+            }
+          \item \alert{Coma flotante}: \cppkey{float}, \cppkey{double}, \cppkey{long double}.
+        \end{itemize}
+      \item \alert{Tipos predefinidos}: Definidos por al biblioteca estándar.
+        \begin{itemize}
+          \item Algunos ejemplos \cppid{string}, \cppid{vector}, \ldots
+        \end{itemize}
+      \item \alert{Tipos definidos por el usuario}: Definidos por otra biblioteca o por el programa.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{\texttt{bool}}
+\begin{itemize}
+  \item Literales: \cppkey{false} y \cppkey{true}.
+  \item Operaciones:
+    \begin{itemize}
+      \item Asignación.
+\begin{lstlisting}
+x = true;
+\end{lstlisting}
+      \item Comparación de igualdad.
+\begin{lstlisting}
+bool b1=true, b2=false;
+x = {b1 == b2};
+x = {b1 != b2};
+\end{lstlisting}
+      \item Comparación relacional
+\begin{lstlisting}
+bool b1=true, b2=false;
+x = {b1 < b2};
+x = {b1 <= b2};
+x = {b1 < b2};
+x = {b1 >= b2};
+\end{lstlisting}
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Tipos carácter}
+\begin{itemize}
+  \item Literales entre comillas simples son de tipo \cppkey{char}.
+    \begin{itemize}
+      \item \cppid{'a'}, \cppid{'x'}, \ldots
+      \mode<article>{
+        \item También hay formatos para literales \cppkey{char16\_t}, \cppkey{char32\_t} y \cppkey{wchar\_t}.
+      }
+    \end{itemize}
+  \item Secuencias de escape para caracteres especiales:
+    \begin{itemize}
+      \item Caracteres especiales: \cppkey{\textbackslash{}n}, \cppkey{\textbackslash{}r}, 
+        \cppkey{\textbackslash{}t}, \cppkey{\textbackslash{}v},
+        \cppkey{\textbackslash{}b}, \cppkey{\textbackslash{}f}, 
+        \cppkey{\textbackslash{}a}.
+      \item Secuencias de escape:
+        \cppkey{\textbackslash{}\textbackslash}, 
+        \cppkey{\textbackslash{}?}, 
+        \cppkey{\textbackslash{}'}, 
+        \cppkey{\textbackslash{}''}, 
+    \end{itemize}
+  \item Operaciones:
+    \begin{itemize}
+      \item Asignación.
+\begin{lstlisting}
+x = 'a';
+\end{lstlisting}
+      \item Comparaciones.
+\begin{lstlisting}
+bool b;
+char c1 = 'a', c2 = 'b';
+b = { c1 != c2};
+b = { c1 >= c2};
+\end{lstlisting}
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Tipos enteros}
+\begin{itemize}
+  \item Literales:
+    \begin{itemize}
+      \item Base en los literales:
+        \begin{itemize}
+          \item \cppid{1000} $\rightarrow$ Base 10.
+          \item \cppid{01000} $\rightarrow$ Base 8.
+          \item \cppid{0x1000} $\rightarrow$ Base 16.
+        \end{itemize}
+      \item Tipo en los literales:
+        \begin{itemize}
+          \item \cppid{1234} $\rightarrow$ \cppkey{int}.
+          \item \cppid{1234u} $\rightarrow$ \cppkey{unsigned int}.
+          \item \cppid{1234l} $\rightarrow$ \cppkey{long int}.
+          \item \cppid{1234ul} $\rightarrow$ \cppkey{unsigned long int}.
+          \item \cppid{1234ll} $\rightarrow$ \cppkey{long long int}.
+          \item \cppid{1234ull} $\rightarrow$ \cppkey{unsigned long long int}.
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile,t]{Operaciones sobre tipos enteros}
+\begin{itemize}
+      \item Asignación.
+\begin{lstlisting}
+x = 42;
+\end{lstlisting}
+      \item Comparaciones:
+        \cppkey{==},
+        \cppkey{!=},
+        \cppkey{<},
+        \cppkey{<=},
+        \cppkey{>},
+        \cppkey{>=}.
+  \item Operaciones aritméticas: 
+    \cppkey{+}, \cppkey{-}, \cppkey{*}, \cppkey{/}, \cppkey{\%}.
+\begin{lstlisting}
+int y=2, z=3;
+int x = y + z;
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile,t]{Operaciones sobre tipos enteros}
+\begin{itemize}
+  \item Operaciones aritméticas con asignación.
+    \cppkey{+=}, \cppkey{-=}, \cppkey{*=}, \cppkey{/=}, \cppkey{\%=}.
+\begin{lstlisting}
+int y=2, z=3;
+y *= z;
+\end{lstlisting}
+  \item Incremento/decremento: \cppkey{++}, \cppkey{-{}-}.
+\begin{lstlisting}
+int n = 10;
+int x;
+x = ++n;
+x = n++;
+x = --n;
+x = n--;
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{Coma flotante}
+\begin{itemize}
+  \item Literales:
+    \begin{itemize}
+      \item \cppid{1.5} $\rightarrow$ \cppkey{double}.
+      \item \cppid{1.5f} $\rightarrow$ \cppkey{float}.
+      \item \cppid{1.5l} $\rightarrow$ \cppkey{long double}.
+    \end{itemize}
+  \item Operaciones:
+    \begin{itemize}
+      \item Asignación.
+\begin{lstlisting}
+x = 1.5;
+\end{lstlisting}
+      \item Comparaciones:
+        \cppkey{==},
+        \cppkey{!=},
+        \cppkey{<},
+        \cppkey{<=},
+        \cppkey{>},
+        \cppkey{>=}.
+      \item Operaciones aritméticas: 
+        \cppkey{+}, \cppkey{-}, \cppkey{*}, \cppkey{/}.
+\begin{lstlisting}
+double y=2.5, z=1.5;
+double x = y + z;
+\end{lstlisting}
+      \item Operaciones aritméticas con asignación.
+        \cppkey{+=}, \cppkey{-=}, \cppkey{*=}, \cppkey{/=}.
+\begin{lstlisting}
+double y=2.5, z=1.5;
+y *= z;
+\end{lstlisting}
+      \item Incremento/decremento: \cppkey{++}, \cppkey{-{}-}.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Cadenas (\texttt{string})}
+\begin{itemize}
+  \item Literales:
+    \begin{itemize}
+      \item Entre comillas dobles: \cppid{"Hola"}
+    \end{itemize}
+  \item Operaciones:
+    \begin{itemize}
+      \item Asignación:
+\begin{lstlisting}
+string x;
+x = "Hola";
+\end{lstlisting}
+      \item Concatenación:
+\begin{lstlisting}
+string n="Daniel", a="Garcia";
+string nc = n + c;
+string nc2 = n;
+nc2 += c;
+\end{lstlisting}
+      \item Comparaciones:
+        \cppkey{==},
+        \cppkey{!=},
+        \cppkey{<},
+        \cppkey{<=},
+        \cppkey{>},
+        \cppkey{>=}.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
