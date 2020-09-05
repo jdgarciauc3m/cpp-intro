@@ -1,0 +1,67 @@
+\section{Tamaño de un vector}
+
+\begin{frame}[fragile]{Vectores que crecen}
+\begin{itemize}
+  \item Un \cppid{vector} puede \emph{crecer} cuando se añaden elementos.
+    \begin{itemize}
+      \item Operación \cppid{push\_back()}: \mode<presentation>{Añade un elemento al final del vector.}
+    \end{itemize}
+\end{itemize}
+\pause
+\begin{lstlisting}
+vector<int> v;
+\end{lstlisting}
+\begin{tikzpicture}
+\tikzset{
+    bloque/.style={rectangle,draw=black, top color=white, bottom color=blue!50,
+                   very thick, inner sep=0.5em, minimum size=0.6cm, text centered, font=\tiny},
+    flecha/.style={->, >=latex', shorten >=1pt, thick},
+    etiqueta/.style={text centered, font=\tiny} 
+}  
+\node[bloque] (bsize) {0};
+\node[bloque,right=0cm of bsize] (bptr) { };
+\node[etiqueta, left=0.1cm of bsize] {v:};
+\node[etiqueta, above=0cm of bsize] {size()};
+\end{tikzpicture}
+\pause
+\begin{lstlisting}
+v.push_back(1);
+\end{lstlisting}
+\begin{tikzpicture}
+\tikzset{
+    bloque/.style={rectangle,draw=black, top color=white, bottom color=blue!50,
+                   very thick, inner sep=0.5em, minimum size=0.6cm, text centered, font=\tiny},
+    flecha/.style={->, >=latex', shorten >=1pt, thick},
+    etiqueta/.style={text centered, font=\tiny} 
+}  
+\node[bloque] (bsize) {1};
+\node[bloque,right=0cm of bsize] (bptr) { };
+\node[bloque,right=0.75cm of bptr] (v0) {1};
+\draw[flecha] (bptr) -- (v0);
+\node[etiqueta, left=0.1cm of bsize] {v:};
+\node[etiqueta, above=0cm of bsize] {size()};
+\node[etiqueta, above=0cm of v0] {v[0]};
+\end{tikzpicture}
+\pause
+\begin{lstlisting}
+v.push_back(4);
+\end{lstlisting}
+\begin{tikzpicture}
+\tikzset{
+    bloque/.style={rectangle,draw=black, top color=white, bottom color=blue!50,
+                   very thick, inner sep=0.5em, minimum size=0.6cm, text centered, font=\tiny},
+    flecha/.style={->, >=latex', shorten >=1pt, thick},
+    etiqueta/.style={text centered, font=\tiny} 
+}  
+\node[bloque] (bsize) {2};
+\node[bloque,right=0cm of bsize] (bptr) { };
+\node[bloque,right=0.75cm of bptr] (v0) {1};
+\node[bloque,right=0cm of v0] (v1) {4};
+\draw[flecha] (bptr) -- (v0);
+\node[etiqueta, left=0.1cm of bsize] {v:};
+\node[etiqueta, above=0cm of bsize] {size()};
+\node[etiqueta, above=0cm of v0] {v[0]};
+\node[etiqueta, above=0cm of v1] {v[1]};
+\end{tikzpicture}
+\end{frame}
+

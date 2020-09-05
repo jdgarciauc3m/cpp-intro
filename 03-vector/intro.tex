@@ -1,0 +1,106 @@
+\section{Introducción}
+
+\begin{frame}{Colecciones de valores}
+\begin{itemize}
+  \item \cppid{vector} permite almacenar y procesar un conjunto de valores
+  de un mismo tipo.
+    \mode<article>{
+      \begin{itemize}
+        \item C++ también tiene \emph{arrays} pero son demasiado limitados
+          y simples. Se revisará su uso más adelante.
+      \end{itemize}
+    }
+  \item Un \cppid{vector}:
+    \begin{itemize}
+      \item Tiene una secuencia de elementos.
+      \item Se puede acceder a los elementos por su índice.
+      \item Incluye información de su tamaño.
+    \end{itemize}
+\begin{tikzpicture}
+\tikzset{
+    bloque/.style={rectangle,draw=black, top color=white, bottom color=blue!50,
+                   very thick, inner sep=0.5em, minimum size=0.6cm, text centered, font=\tiny},
+    flecha/.style={->, >=latex', shorten >=1pt, thick},
+    etiqueta/.style={text centered, font=\tiny} 
+}  
+\node[bloque] (bsize) {5};
+\node[bloque,right=0cm of bsize] (bptr) { };
+\node[bloque,below right=0.5cm and 0.75cm of bptr] (v0) {1};
+\node[bloque,right=0cm of v0] (v1) {2};
+\node[bloque,right=0cm of v1] (v2) {4};
+\node[bloque,right=0cm of v2] (v3) {8};
+\node[bloque,right=0cm of v3] (v4) {16};
+\draw[flecha] (bptr) -- (v0);
+\node[etiqueta, left=0.1cm of bsize] {v:};
+\node[etiqueta, above=0cm of bsize] {size()};
+\node[etiqueta, above=0cm of v0] {v[0]};
+\node[etiqueta, above=0cm of v1] {v[1]};
+\node[etiqueta, above=0cm of v2] {v[2]};
+\node[etiqueta, above=0cm of v3] {v[3]};
+\node[etiqueta, above=0cm of v4] {v[4]};
+\end{tikzpicture}
+  \item Alternativa a usar arrays directamente.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Uso básico}
+\begin{columns}[t]
+
+\column{.5\textwidth}
+\lstinputlisting{03-vector/vector/vec1.cpp}
+
+\column{.5\textwidth}
+\begin{itemize}
+  \item Archivo de cabecera:
+    \mode<presentation>{
+      \cppid{<vector>}
+    }
+  \item Se debe indicar el tipo del elemento.
+    \begin{itemize}
+      \item Todos del mismo tipo.
+    \end{itemize}
+  \item Parámetro del constructor:
+    \mode<presentation>{
+      \alert{Tamaño inicial}.
+    }
+  \item No se puede acceder a indices más allá del tamaño.
+\end{itemize}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Vectores y tipos}
+\lstinputlisting{03-vector/vector/vec2.cpp}
+\end{frame}
+
+\mode<article>{
+\begin{itemize}
+  \item Cada vector debe indicar su tipo de elemento.
+  \item Se realiza comprobación de tipos.
+    \begin{itemize}
+      \item No se pueden mezclar tipos.
+    \end{itemize}
+\end{itemize}
+}
+
+\begin{frame}[t,fragile]{Vectores e iniciación}
+\begin{itemize}
+  \item Un vector con tamaño inicia todos sus valores al valor por defecto del tipo.
+    \begin{itemize}
+      \item Valores numéricos: \mode<presentation>{\cppid{0}}
+      \item Valores de cadena: \mode<presentation>{\cppid{``''}}
+    \end{itemize}
+  \item Si no se indica tamaño inicial, el vector tiene tamaño \cppid{0}.
+\begin{lstlisting}
+vector<double> v; // Vector con 0 elementos
+\end{lstlisting}
+  \item Se puede suministrar un valor inicial distinto.
+\begin{lstlisting}
+vector<double> v{100, 0.5}; // 100 posiciones iniciadas a 0.5
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Iniciación en la declaración}
+\lstinputlisting{03-vector/vector/vec3.cpp}
+\end{frame}
+
