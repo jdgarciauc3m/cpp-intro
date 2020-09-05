@@ -20,6 +20,7 @@ include 03-vector/Makefile.def
 include 04-errores/Makefile.def
 include 05-alcance/Makefile.def
 include 06-deftipos/Makefile.def
+include 07-iostream/Makefile.def
 
 ALL_PARTS= \
 $(GUIDE_PARTS) \
@@ -29,6 +30,7 @@ $(VECTOR_PARTS) \
 $(ERRORES_PARTS) \
 $(ALCANCE_PARTS) \
 $(DEFTIPOS_PARTS) \
+$(IOSTREAM_PARTS) \
 
 ALL_SLIDES_FINAL_PDF= \
 $(FINAL_DIR)/$(INTROCPP_PDF) \
@@ -37,6 +39,7 @@ $(FINAL_DIR)/$(VECTOR_PDF) \
 $(FINAL_DIR)/$(ERRORES_PDF) \
 $(FINAL_DIR)/$(ALCANCE_PDF) \
 $(FINAL_DIR)/$(DEFTIPOS_PDF) \
+$(FINAL_DIR)/$(IOSTREAM_PDF) \
 
 ALL_FINAL_PDF=\
 $(FINAL_DIR) \
@@ -65,3 +68,4 @@ include 03-vector/Makefile.mk
 include 04-errores/Makefile.mk
 include 05-alcance/Makefile.mk
 include 06-deftipos/Makefile.mk
+include 07-iostream/Makefile.mk

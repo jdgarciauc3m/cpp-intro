@@ -1,0 +1,65 @@
+\section{Formato de entrada/salida}
+
+\begin{frame}[fragile]{Números enteros}
+\begin{itemize}
+  \item La salida de enteros se hace normalmente en decimal.
+  \item Se puede enviar a un flujo manipuladores de cambio de base.
+    \begin{itemize}
+      \item \cppid{oct} (octal), \cppid{dec} (decimal), \cppid{hex} (hexadecimal).
+    \end{itemize}
+\begin{lstlisting}
+cout << 255 << " " << hex << 255 << " " << oct << 255;
+\end{lstlisting}
+  \item Un manipulador cambia permanentemente el estado.
+  \item Si se desea mostrar los prefijos \cppid{0x} (para hexadecimal() y \cppid{0} para decimal:
+\begin{lstlisting}
+cout << showbase << 255;
+\end{lstlisting}
+  \item Si no se desea mostrar los prefijos:
+\begin{lstlisting}
+cout << noshowbase << 255;
+\end{lstlisting}
+  \item También se pueden usar estos manipuladores con un flujo de entrada.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Anchura de campo}
+\begin{itemize}
+  \item El manipulador \cppid{setw(n)} permite fijar el ancho del siguiente dato que se envía al flujo.
+    \begin{itemize}
+      \item Después la anchura \alert{se olvida}.
+    \end{itemize}
+\begin{lstlisting}
+cout << 123123 << setw(8) << 123123 << 99 << endl;
+\end{lstlisting}
+  \item Salida:
+\begin{lstlisting}[language=bash]
+123123  12312399
+\end{lstlisting}
+  \item Si el dato excede el tamaño del campo, el tamaño se ignora:
+\begin{lstlisting}
+cout << setw(4) << 123123 << endl;
+\end{lstlisting}
+  \item Salida:
+\begin{lstlisting}[language=bash]
+123123
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Números reales}
+\begin{itemize}
+  \item La salida de números reales (por defecto) selecciona la representación más exacta entre:
+    \begin{itemize}
+      \item Fija: Usa el número de dígitos definidos por la precisión (6 por defecto).
+      \item Cienticia: Usa notación normalizada con mantisa exponente.
+    \end{itemize}
+  \item Si se quiere forzar la representación, se puede usar los manipuladores \cppid{fixed}
+        o \cppid{scientific}.
+  \item Se puede modificar la precisión con \cppid{flujo.setprecision(n)}.
+    \begin{itemize}
+      \item Para \cppid{fixed} y \cppid{scientific} la precisión define el número de dígitos después de la coma.
+      \item En otro caso define el número total de dígitos.
+    \end{itemize}
+\end{itemize}
+\end{frame}

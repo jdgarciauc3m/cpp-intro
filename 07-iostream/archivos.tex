@@ -1,0 +1,118 @@
+\section{Archivos}
+
+\begin{frame}[t,fragile]{Flujos de archivo}
+\begin{itemize}
+  \item Tipos de flujos para archivos:
+    \begin{itemize}
+      \item \cppid{ofstream}: Es un \cppid{ostream} para escribir en un fichero.
+      \item \cppid{ifstream}: Es un \cppid{istream} para leer de un fichero.
+    \end{itemize}
+  \vfill
+  \item Necesitna construirse con un nombre de archivo.
+\begin{lstlisting}
+ofstream fsalida{"salida.txt"};
+ifstream fentrada{"entrada.txt"};
+\end{lstlisting}
+  \vfill
+  \item Cuando el objeto sale de alcance el archivo se cierra automáticamente.
+    \begin{itemize}
+      \item Cuando se cierra el archivo se vacía el búfer asociado.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Flujos de archivo}
+\begin{itemize}
+  \item Aceptan el operador \cppkey{!} para comprobar si el estado es correcto.
+\begin{lstlisting}
+if (!flujo) { 
+  hay_error(); 
+}
+\end{lstlisting}
+  \item Se pueden usar en una condición para comprobar si el estado es correcto.
+\begin{lstlisting}
+while (fe >> x) { 
+  procesa(x); 
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\mode<presentation> {
+
+\begin{frame}
+\begin{block}{main.cpp}
+\lstinputlisting[lastline=21]{07-iostream/filtro/main.cpp}
+\ldots
+\end{block}
+\end{frame}
+
+\begin{frame}
+\begin{block}{main.cpp}
+\ldots
+\lstinputlisting[firstline=23]{07-iostream/filtro/main.cpp}
+\end{block}
+\end{frame}
+
+}
+
+\mode<article> {
+\begin{frame}
+\begin{block}{main.cpp}
+\lstinputlisting{07-iostream/filtro/main.cpp}
+\end{block}
+\end{frame}
+}
+
+\begin{frame}{Ejemplo}
+\begin{itemize}
+  \item Archivo con ruta de un vehículo.
+  \item Cada línea contiene:
+     \begin{itemize}
+       \item Marca de tiempo ascendente (en segundos).
+       \item Posición del vehículo: par \cppid{x,y}.
+     \end{itemize}
+  \item Calcular:
+    \begin{itemize}
+      \item Distancia recorrida.
+      \item Tiempo empleado.
+      \item Velocidad media.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\mode<presentation> {
+
+\begin{frame}
+\begin{block}{main.cpp}
+\lstinputlisting[lastline=15]{07-iostream/ruta/main.cpp}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\begin{block}{main.cpp}
+\lstinputlisting[firstline=17,lastline=30]{07-iostream/ruta/main.cpp}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\begin{block}{main.cpp}
+\lstinputlisting[firstline=31,lastline=43]{07-iostream/ruta/main.cpp}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\begin{block}{main.cpp}
+\lstinputlisting[firstline=45]{07-iostream/ruta/main.cpp}
+\end{block}
+\end{frame}
+
+}
+
+\mode<article> {
+\begin{frame}
+\begin{block}{main.cpp}
+\lstinputlisting{07-iostream/ruta/main.cpp}
+\end{block}
+\end{frame}
+}

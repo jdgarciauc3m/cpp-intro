@@ -1,0 +1,96 @@
+\section{Manipulación de archivos}
+
+\begin{frame}[fragile]{Modos de apertura}
+\begin{itemize}
+  \item Apertura por defecto.
+    \begin{itemize}
+      \item \cppid{ifstream}: Abre para lectura.
+      \item \cppid{ofstream}: Abre para escritura.
+    \end{itemize}
+  \item Modos de apertura:
+    \begin{itemize}
+      \item \cppid{ios\_base::app}: Abre para añadir al final del fichero.
+      \item \cppid{ios\_base::ate}: Se posiciona al final del fichero.
+      \item \cppid{ios\_base::binary}: Abre en modo binario.
+      \item \cppid{ios\_base::in}: Abre para lectura.
+      \item \cppid{ios\_base::out}: Abre para escritura.
+      \item \cppid{ios\_base::trunc}: Abre y trunca el fichero (tamaño 0).
+    \end{itemize}
+  \item Los modos se pueden combinar:
+\begin{lstlisting}
+ofstream f1{"f1.txt", ios_base::app};
+ofstream f2{"f2.txt", ios_base::in | ios_base::out};
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{Entrada/salida binaria}
+\begin{itemize}
+  \item Si se abre un archivo en modo binario no se usan los operadores \cppid{<{}<} y \cppid{>{}>}.
+    \begin{itemize}
+      \item \cppid{flujo.write(buf, nbytes)}.
+      \item \cppid{flujo.read(buf, nbytes)}.
+    \end{itemize}
+  \item Es necesario convertir el dato que se desea operar a la dirección de una secuencia de bytes.
+\begin{lstlisting}
+template <class T>
+char * como_bufer(T & x) {
+  void * dir = &x;
+  return static_cast<char*>(dir);
+}
+\end{lstlisting}
+  \item Utilización:
+\begin{lstlisting}
+int x = 42;
+flujo.write(como_bufer(x), sizeof(x));
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Ejemplo}
+\begin{itemize}
+  \item Leer una secuencia de números de la entrada estándar, hasta fin de archivo.
+  \item Guardar los números en formato binario de doble precisión en un archivo.
+  \item El archivo binario tiene una cabecera indicando la cantidad de números que hay en el archivo.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Posiciones}
+\begin{itemize}
+  \item Un archivo tiene asociado dos punteros:
+    \begin{itemize}
+      \item \alert{get pointer}: Posición del siguiente carácter a leer.
+      \item \alert{put pointer}: Posición del siguiente carácter a escribir.
+    \end{itemize}
+  \item Consulta de posiciones:
+\begin{lstlisting}
+n1 = flujo.tellg(); // Puntero de lectura
+n2 = flujo.tellp(); // Puntero de escritura
+\end{lstlisting}
+  \item Posicionamiento absoluto
+\begin{lstlisting}
+flujo.seekp(n1); // Puntero de lectura
+flujo.seekg(n2); // Puntero de escritura
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Posiciones relativas}
+\begin{itemize}
+  \item Dirección de posicionamiento
+    \begin{itemize}
+      \item \cppid{ios\_base::beg}: Desde el principio.
+      \item \cppid{ios\_base::cur}: Desde la posición actual.
+      \item \cppid{ios\_base::end}: Desde el final.
+    \end{itemize}
+  \item Posicionamiento relativo:
+\begin{lstlisting}
+// Mueve el puntero de lectura 5 posiciones atrás 
+flujo.seekg(-5, ios_base::cur);
+
+// Mueve el punter de escritura al final
+flujo.seekp(0, ios::base::end); 
+\end{lstlisting}
+\end{itemize}
+\end{frame}

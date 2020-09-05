@@ -1,0 +1,37 @@
+\section{Introducción}
+
+\begin{frame}{Visión general}
+\begin{itemize}
+  \item La entrada/salida se gestiona a varios niveles:
+    \begin{enumerate}
+      \item Dispostivo.
+      \item Driver de dispositivo.
+      \item Servicios del sistema operativo.
+      \item Bibliotecas (sistema y \emph{run-time}).
+      \item Aplicación.
+    \end{enumerate}
+  \item C++ ofrece una biblioteca propia de entrada/salida.
+    \begin{itemize}
+       \item Distinta de POSIX / Win32 / \ldots
+       \item Entrada/salida portable.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Flujos de entrada y salida}
+\begin{itemize}
+  \item Un flujo representa una secuencia de caracteres que entran o salen
+        de la aplicación.
+  \item Tiene asociado un origen o destino: archivo, dispositivo, \ldots
+  \item Dos tipos de flujos:
+    \begin{itemize}
+      \item \cppid{ostream}: Transforma valores de un tipo en secuencias de caracteres y los envía
+            al destino asociado al flujo.
+      \item \cppid{istream}: Transforma secuencias de caracteres procedentes de un origen
+            en valores de un tipo.
+    \end{itemize}
+  \item Un flujo tiene internamente asociado un búfer.
+\end{itemize}
+\end{frame}
+
+
