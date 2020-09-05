@@ -1,0 +1,382 @@
+\section{Arrays}
+
+\subsection{Objetos de tipo array}
+
+\begin{frame}[fragile]{Arrays fuera de memoria dinámica}
+\begin{itemize}
+  \item Como variables globales:
+\begin{lstlisting}
+constexpr int max1 = 100;
+constexpr int max2 = 50;
+double v1[max1];
+double v2[max2];
+double v3[25];
+\end{lstlisting}
+  \item Como variables locales:
+\begin{lstlisting}
+void f() {
+  double v[10];
+  // ...
+}
+\end{lstlisting}
+  \item Diferencias con \cppid{std::vector}:
+    \begin{itemize}
+      \item El tamaño de un array debe ser conocido en tiempo de compilación.
+      \item No se puede obtener el número de elementos de un array.
+      \item Los arrays locales no se inician a ningún valor.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\vspace{-0.5em}
+\begin{itemize}
+  \item No se puede definir un array usando como tamaño un parámetro de función.
+\begin{lstlisting}
+void f(int n) {
+ double v[n]; // Error
+ v[0] = 1.0;
+ // ...
+}
+\end{lstlisting}
+  \item Pero si se puede hacer con memoria dinámica
+\begin{lstlisting}
+void f(int n) {
+ double * v = new double[n];
+ v[0] = 1.0;
+ // ...
+ delete []v; // Si se olvida hay goteo
+}
+\end{lstlisting}
+  \item O con \cppid{std::vector}:
+\begin{lstlisting}
+void f(int n) {
+ vector<double> v(n);
+ v[0] = 1.0;
+ // ...
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\subsection{Iniciación de arrays}
+
+\begin{frame}[fragile]{Iniciadores}
+\vspace{-0.5em}
+\begin{itemize}
+  \item Un array puede iniciarse con una lista de valores.
+\begin{lstlisting}
+double v[4] = { 1.0, 2.0, 3.5, 4.7 };
+char c[4] = { 'c', '+', '+', 0 };
+\end{lstlisting}
+  \item Si un array se declara con iniciador, se puede omitir el tamaño para
+        que se calcule automáticamente.
+\begin{lstlisting}
+double v[] = {1.2, 2.4, 3.6 }; // Tamaño = 3
+char c[] = { 'H', 'o', 'l', 'a' }; // Tamaño = 4
+\end{lstlisting}
+  \item Si se especifican menos iniciadores de los necesarios, se completa con \cppid{0}.
+\begin{lstlisting}
+double v[4] = {1.5, 2.5}; // v[2]==0.0, v[3]==0.0
+\end{lstlisting}
+  \item No se pueden especificar más iniciadores de los necesarios.
+\begin{lstlisting}
+char c[3] = { 'H', 'o', 'l', 'a' };
+\end{lstlisting}
+  \item Iniciación a 0.
+\begin{lstlisting}
+double v[10] = {};
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Iniciación de cadenas}
+\begin{itemize}
+  \item Un literal de cadena equivale a un array de caracteres constantes con un carácter adicional para el terminador. 
+\begin{lstlisting}
+const char c1[5] = "Hola";
+const char c2[5] = {'H', 'o', 'l', 'a', 0 };
+\end{lstlisting}
+  \item Se puede asignar un literal de cadena a un array no constante.
+\begin{lstlisting}
+char c[] = "Hola";
+c[0] = 'C';
+c[2] = 's';
+\end{lstlisting}
+  \item Se puede iniciar con un literal un puntero a carácter constante.
+\begin{lstlisting}
+const char * p = "Hola";
+\end{lstlisting}
+  \item Pero no un puntero a carácter no constante.
+\begin{lstlisting}
+char * p = "Hola"; // Error
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Otros tipos de cadenas}
+\begin{itemize}
+  \item Cadenas en modo \emph{crudo}:
+\begin{lstlisting}
+cout << R"(\t")"; // Imprime '\', 't', '"'
+\end{lstlisting}
+  \item Cadenas UTF:
+    \begin{itemize}
+      \item Cadenas UTF-8.
+        \begin{itemize}
+          \item \cppid{u8"Hola"};
+        \end{itemize}
+      \item Cadenas UTF-16.
+        \begin{itemize}
+          \item \cppid{u"Hola"};
+        \end{itemize}
+      \item Cadenas UTF-32.
+        \begin{itemize}
+          \item \cppid{U"Hola"};
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Iniciación de array como dato miembro}
+\begin{itemize}
+  \item Un dato miembro que sea de tipo array se puede iniciar con una lista de valores.
+\begin{lstlisting}
+class conversor {
+private:
+  double coef[4];
+public:
+  conversor(double x, double y, double z, double t) : coef{x,y,z,t} {}
+  double convierte(double a) {
+    return coef[0] * a + coef[1] * a + coef[2] * a + coef[3] * a;
+  }
+};
+
+void f() {
+  conversor c{1.0, 0.0, -1, 2};
+  cout << c.convierte(3) << endl;
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\subsection{Arrays y aritmética de punteros}
+
+\begin{frame}[fragile]{Punteros a posiciones de un array}
+\begin{itemize}
+  \item Un objeto de tipo array se puede usar como un puntero a la primera posición del array.
+\begin{lstlisting}
+double v[4];
+*v = 1.5;
+double x = v[0]; // x == 1.5
+\end{lstlisting}
+  \item Se puede iniciar un puntero a cualquier posición del array.
+\begin{lstlisting}
+double v[4];
+double * p = &v[1];
+p = &v[3];
+\end{lstlisting}
+  \item También se puede apuntar a la posición siguiente a la última.
+    \begin{itemize}
+      \item Pero no a posiciones anteriores o posteriores.
+    \end{itemize}
+\begin{lstlisting}
+double v[4];
+double * p = &v[-1]; // Comportamiento no definido
+double * p = &v[7]; // Comportamiento no definido
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Aritmética de punteros}
+\begin{itemize}
+  \item Se puede avanzar con un puntero en un array, sumando un entero al puntero.
+\begin{lstlisting}
+double v[4] = {}
+double * p = v + 1; // Apunta a v[1]
+p = p + 2; // Apunta a v[3];
+++p; // Apunta a v[4]
+\end{lstlisting}
+  \item Igualmente se puede retroceder;
+\begin{lstlisting}
+--p; // Apunta a v[3]
+p = p - 2; // Apunta a v[1]
+p -=1; // Apunta a v[0]
+\end{lstlisting}
+  \item Se puede calcular la distancia entre dos punteros como número de elementos.
+    \begin{itemize}
+      \item Solamente si apuntan a objetos del mismo array.
+    \end{itemize}
+\begin{lstlisting}
+double v[4] = {};
+int n = &v[4] - &v[0]; // n == 4
+int m = &v[4] - &w[2]; // No definido
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Conversión}
+\begin{itemize}
+  \item Existe una conversión implícita del nombre de un array a puntero.
+\begin{lstlisting}
+double v[4] = {};
+f(v); // Pasa a f el puntero &v[0]
+\end{lstlisting}
+  \item Esto impide el paso por valor de arrays a funciones.
+    \begin{itemize}
+      \item Objetivo: Evitar paso accidental por copia de arrays grandes.
+    \end{itemize}
+\begin{lstlisting}
+double f(double vec[], int n) {
+  double r{};
+  for (int i = 0; i<n; ++i) {
+    r += vec[i];
+  }
+  return r;
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Conversión}
+\begin{itemize}
+  \item El resultado de la conversión es un valor, no una variable
+\begin{lstlisting}
+double v[4] = {};
+v = new double[4]; // Error: v no es una variable punter
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\subsection{Copia de arrays}
+
+\begin{frame}[fragile]{Copia de arrays}
+\begin{itemize}
+  \item La asignación de punteros copia direcciones.
+\begin{lstlisting}
+double v[4]={}, w[4]={};
+double * p = v; // p apunta a v
+\end{lstlisting}
+  \item No se puede colocar el nombre de un array en la parte izquierda de una asignación.
+\begin{lstlisting}
+v = w; // Error: v no es una variable
+\end{lstlisting}
+  \item Alternativas:
+    \begin{itemize}
+      \item Copia explícita elemento a elemento.
+\begin{lstlisting}
+for (int i=0; i<4; ++i) v[i] = w[i];
+\end{lstlisting}
+      \item Copia de memoria.
+\begin{lstlisting}
+memcpy(v, w, 4 * sizeof(double)); // Cuidado
+\end{lstlisting}
+      \item Algoritmo de copia.
+\begin{lstlisting}
+std::copy_n(w, 4, v); // Preferida
+\end{lstlisting}
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\subsection{Paso de parámetros array}
+
+\begin{frame}[fragile]{Cuestión de estilo}
+\begin{itemize}
+  \item Estilo alternativo a paso de dirección más tamaño:
+\begin{lstlisting}
+double suma(double * b, double * e) {
+  double r{};
+  while (b!=e) {
+    r+= *b++;
+  }
+  return r;
+}
+\end{lstlisting}
+  \item Invocación:
+\begin{lstlisting}
+void f() {
+  double v[] = { 1, 2, 3, 4 };
+  cout << suma(v, v+4) << endl;
+}
+\end{lstlisting}
+  \item Enfoque: Paso de un rango semiabierto.
+    \begin{itemize}
+      \item Inicio: Puntero a primer elemento.
+      \item Fin: Puntero al siguiente del último elemento.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Constantes arrays y punteros}
+\begin{itemize}
+  \item El calificador \cppkey{const} indica la inmutabilidad de un objeto.
+    \begin{itemize}
+      \item Forma parte del tipo
+    \end{itemize}
+\begin{lstlisting}
+const int max = 4; // max es const int
+const double v[max] = { 1, 2, 3, 4 }; // v[0] es const double
+\end{lstlisting}
+  \item En el caso de un puntero realmente hay dos objetos:
+    \begin{itemize}
+      \item El puntero (dirección de memoria).
+      \item El objeto apuntado.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{itemize}
+  \item Puntero a valor constante:
+\begin{lstlisting}
+const double * p = v; // p apunta a v[0]
+p = v + 2; // OK. Modificación del puntero
+*p = 10; // Error: elementos constantes
+\end{lstlisting}
+  \item Puntero a valor constante (notación alternativa):
+\begin{lstlisting}
+double const * p = v; // p apunta a v[0]
+p = v + 2; // OK. Modificación del puntero
+*p = 10; // Error: elementos constantes
+\end{lstlisting}
+  \item Puntero constante a valor variable:
+\begin{lstlisting}
+double * const p = v; // p apunta a v[0]
+p = v + 2; // Error no se puede apuntar a otro sitio
+*p = 10; // OK: Modificación de objeto apuntado
+\end{lstlisting}
+  \item Puntero constante a valor constante:
+\begin{lstlisting}
+const double * const p = v; // p apunta a v[0]
+p = v + 2; // Error no se puede apuntar a otro sitio
+*p = 10; // OK: Modificación de objeto apuntado
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Parámetros de función constantes}
+\begin{itemize}
+  \item \cppkey{const} forma parte del tipo $\rightarrow$ se puede usar para restringir las operaciones que se
+        pueden realizar sobre un parámetro.
+\begin{lstlisting}
+void copia(char * dest, const char * orig) {
+  while (*orig) {
+    *dest++ = *orig++;
+  }
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\subsection{Problemas con punteros}
+
+\begin{frame}{Lista de problemas}
+\begin{itemize}
+  \item Indirección de un puntero nulo.
+  \item Indirección de un puntero no iniciado.
+  \item Indirección de un puntero al final de un rango (uno después del final).
+  \item Indirección de un puntero desasignado.
+  \item Indirección de un puntero a un objeto que ha salido de alcance.
+\end{itemize}
+\end{frame}

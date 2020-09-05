@@ -1,0 +1,46 @@
+\section{Punteros y referencias}
+
+\begin{frame}[fragile]{Comparación: punteros/referencias}
+\begin{itemize}
+  \item Un puntero almacena la dirección de memoria de un objeto.
+    \begin{itemize}
+      \item Se puede modificar la dirección de memoria y el valor del objeto.
+    \end{itemize}
+\begin{lstlisting}
+int * p = nullptr; 
+p = f(); // Modificación de dirección
+*p = 42; // Modificación de objeto.
+\end{lstlisting}
+  \item Una referencia mantiene un vínculo con una variable
+    \begin{itemize}
+      \item No se puede modificar la dirección de memoria, pero si el valor del objeto.
+    \end{itemize}
+\begin{lstlisting}
+int & r = x; // r es una referencia a x
+r = 12; // x == 12
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{itemize}
+  \item Un puntero se puede declarar sin valor inicial, pero una referencia debe vincularse
+        a un objeto al declararse.
+\begin{lstlisting}
+int x;
+int * p;
+p = &x; // p apunta a x
+int & r = x;
+int & s; // Error: Falta valor
+\end{lstlisting}
+  \item Una asignación a una referencia cambia el objeto.
+  \item Una asignación a un puntero cambia la dirección.
+\begin{lstlisting}
+int x = 0;
+int & r = x;
+int * p = &x;
+r = 42; // x == 42
+p = &y; // p apunta ahora a y
+\end{lstlisting}
+\end{itemize}
+\end{frame}

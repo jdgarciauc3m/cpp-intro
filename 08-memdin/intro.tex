@@ -1,0 +1,44 @@
+\section{Introducción}
+
+\begin{frame}{Pila y montículo}
+\begin{itemize}
+  \item La mayor parte de las operaciones pueden realizarse con objetos alojados en la pila.
+  \item Más sencillos de usar:
+    \begin{itemize}
+      \item Reglas claras sobre el alcance.
+      \item No es necesario hacer uso del concepto de puntero.
+    \end{itemize}
+  \item Los objetos almacenados en el montículo ofrecen más flexibilidad.
+    \begin{itemize}
+      \item Gestión del tamaño en tiempo de ejecución.
+      \item Uso más eficiente de la memoria.
+      \item Coste adicional en tiempo de ejecución.
+    \end{itemize}
+  \item Algunos tipos (como \cppid{vector} o \cppid{string}) usan internamente el montículo.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Punteros}
+\begin{itemize}
+  \item Un \alert{puntero} es un objeto que almacena la dirección de otro objeto.
+    \begin{itemize}
+      \item Tiene asociado un tipo y solamente puede apuntar a objetos de ese tipo.
+    \end{itemize}
+\begin{lstlisting}
+int * pi; // pi es un puntero a entero
+char * pc; // pc es un puntero a carácter
+\end{lstlisting}
+  \item El operador \cppkey{\&} permite obtener la dirección de un objeto.
+\begin{lstlisting}
+int i = 42;
+int * pi = &i;
+char c = 'a';
+char * pc = & c;
+\end{lstlisting}
+  \item El operador \cppkey{*} permite acceder al objeto apuntado por un puntero.
+\begin{lstlisting}
+int x = *pi; // x = 42
+*pc = 'z'; // c = 'z'
+\end{lstlisting}
+\end{itemize}
+\end{frame}

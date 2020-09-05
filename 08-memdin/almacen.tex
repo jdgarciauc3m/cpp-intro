@@ -1,0 +1,225 @@
+\section{El almacén libre}
+
+\subsection{Asignación de memoria}
+
+\begin{frame}{Memoria del almacén libre}
+\begin{itemize}
+  \item El \alert{almacén libre} contiene la memoria libre que un programa
+        puede adquirir y liberar.
+    \begin{itemize}
+      \item Típicamente implementado mediante el \emph{montículo}.
+    \end{itemize}
+  \item \alert{IMPORTANTE}: C++ no es un lenguaje con gestión automática de recursos.
+    \begin{itemize}
+      \item Si se adquiere un recurso, éste se debe liberar.
+      \item Si se adquire memoria del almacén libre, ésta se debe devolver.
+    \end{itemize}
+\end{itemize}
+\begin{quote}
+C++ Is my favorite garbage collected language because it generates so little garbage.
+
+\textbf{Bjarne Stroustrup}
+\end{quote}
+\end{frame}
+
+\begin{frame}[fragile]{Operador de asignación de memoria}
+\begin{itemize}
+  \item El operador \cppkey{new} permite asignar memoria del almacén libre.
+\begin{lstlisting}
+int * p = new int; // Asigna memoria para un int
+char * q = new char[10]; // Asigna memoria para 10 char
+\end{lstlisting}
+  \item \emph{Efecto}:
+    \begin{itemize}
+      \item El operador \cppkey{new} devuelve un puntero al inicio de la memoria asignada.
+      \item Una expresión \cppkey{new} \cppid{T} devuelve un valor de tipo \cppid{T*}.
+    \end{itemize}
+  \item No se puede saber el tamaño de la memoria asignada después de evaluar la expresión \cppkey{new}.
+\end{itemize}
+\end{frame}
+
+\subsection{Acceso e memoria mediante punteros}
+
+\begin{frame}[fragile]{Operadores de acceso}
+\begin{itemize}
+  \item Dos operadores de acceso:
+    \begin{itemize}
+      \item \alert{Relativo}: Operador \cppkey{[]} (indexación).
+        \begin{itemize}
+          \item Accede de forma indexada en una secuencia de valores.
+\begin{lstlisting}
+int * v = new int[10];
+v[0] = 42;
+v[1] = 84;
+\end{lstlisting}
+        \end{itemize}
+
+      \item \alert{Indirecto}: Operador \cppkey{*} (desreferencia).
+        \begin{itemize}
+          \item Si se apunta a un valor, accede al valor apuntado.
+\begin{lstlisting}
+int * p = new int;
+*p = 42;
+int x = *p; // x = 42
+\end{lstlisting}
+
+          \item Si se apunta a una secuencia de valores, accede al primer valor de la secuencia.
+\begin{lstlisting}
+int * v = new int[10];
+*v = 42; // Equivale a v[0] = 42;
+\end{lstlisting}
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Problemas de acceso}
+\begin{itemize}
+  \item Una variable de tipo puntero no se inicia de forma automática a ningún valor.
+    \begin{itemize}
+      \item Si se desreferencia un puntero no iniciado se tiene un comportamiento no definido.
+    \end{itemize}
+\begin{lstlisting}
+int * p;
+*p = 42; // Comportamiento no definido.
+p[0] = 42; // Comportamiento no definido.
+\end{lstlisting}
+  \item Una variable de tipo puntero iniciada a una secuencia solamente puede accederse dentro
+        de sus límites establecidos.
+\begin{lstlisting}
+int * v = new int[10];
+v[0] = 42; // OK
+x = v[-1]; // No definido
+x = v[15]; // No definido
+v[10] = 0; // No definido
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{El puntero nulo}
+\begin{itemize}
+  \item Se puede iniciar un puntero al valor \emph{puntero-nulo} para indicar que no apunta a ningún objeto.
+    \begin{itemize}
+      \item Literal \cppkey{nullptr}.
+    \end{itemize}
+\begin{lstlisting}
+int * p = nullptr;
+char * q = nullptr;
+if (p != nullptr) { /* ... */ }
+if (q == nullptr) { /* ... */ }
+\end{lstlisting}
+  \item Otras alternativas heredades de C y C++98:
+    \begin{itemize}
+      \item Literal \cppid{0}.
+      \item Macro predefinida \cppid{NULL}.
+    \end{itemize}
+  \item Un puntero es contextualmente convertible a booleano.
+    \begin{itemize}
+      \item Si aparece en el contexto en que se espera un booleano.
+    \end{itemize}
+\begin{lstlisting}
+if (p) { /* ... */ } // if (p != nullptr) 
+if (!q) { /* ... */ } // if (q == nullptr)
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Asignación de memoria e iniciación}
+\vspace{-0.5em}
+\begin{itemize}
+  \item El operador \cppkey{new} no inicia el objeto asignado.
+\begin{lstlisting}
+int * p = new int;
+x = *p; // x tiene un valor desconocido
+\end{lstlisting}
+    \begin{itemize}
+      \item Se puede indicar el valor inicial entre llaves.
+    \end{itemize}
+\begin{lstlisting}
+p = new int{42}; // *p == 42
+p = new int{}; // *p == 0
+\end{lstlisting}
+  \item Si se reserva una secuencia con \cppkey{new} no se inicia ninguno de los objetos.
+\begin{lstlisting}
+int * v = new int[10];
+\end{lstlisting}
+    \begin{itemize}
+      \item Se puede indicar los valores iniciales entre llaves.
+    \end{itemize}
+\end{itemize}
+\begin{lstlisting}
+v = new int[4]{1,2,3,4}; // v[0] = 1, v[1] = 2, v[2] = 3, v[3] = 4
+v = new int[4]{1, 2};    // v[0] = 1, v[1] = 2, v[2] = 0, v[3] = 0
+v = new int[4]{};        // v[0] = 0, v[1] = 0, v[2] = 0, v[3] = 0
+v = new int[4]{1,2,3,4,5}; // Error demasiados iniciadores
+\end{lstlisting}
+\end{frame}
+
+\subsection{Desasignación de memoria}
+
+\begin{frame}[fragile]{Operador de desasignación de memoria}
+\begin{itemize}
+  \item El operador \cppkey{delete} permite liberar memoria y marcarla como no asignada.
+  \item Pude aplicarse solamente a:
+    \begin{itemize}
+      \item Memoria devuelta por el operador \cppkey{new} y actualmente asignada.
+      \item El punter nulo.
+    \end{itemize}
+\begin{lstlisting}
+int * p = new int{10};
+*p = 20;
+delete p; // Libera p
+\end{lstlisting}
+  \item Es un error invocar dos veces a \cppkey{delete} sobre un mismo puntero.
+\begin{lstlisting}
+int * p = new int{10};
+delete p; // Libera p
+delete p; // Comportamiento no definido
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Desasignación de arrays}
+\begin{itemize}
+  \item Existe una versión diferente para liberar \emph{arrays}.
+\begin{lstlisting}
+int * p = new int{10};
+int * v = new int[10];
+delete p; // Libera p
+delete []v;
+\end{lstlisting}
+  \item \alert{Importante}: Se debe usar la versión correcta de desasignación.
+    \begin{itemize}
+      \item Si se reserva memoria con \cppkey{new T} debe liberarse con \cppkey{delete}.
+      \item Si se reserva memoria con \cppkey{new T[n]} debe liberarse con \cppkey{delete[]}.
+    \end{itemize}
+\begin{lstlisting}
+int * p = new int{10};
+int * v = new int[10];
+delete []p; // Comportamiento no definido
+delete v; // Comportamiento no definido
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Razones para desasignar}
+\begin{itemize}
+  \item Si se reserva memoria y no se libera esta queda asignada.
+\begin{lstlisting}
+void f() {
+  int * v = new int[1024*1024];
+  // ...
+}
+\end{lstlisting}
+    \begin{itemize}
+      \item Cada vez que se invoca a \cppid{f()} se pierden 8 MB (si \cppkey{sizeof(int)}\cppid{==8}).
+    \end{itemize}
+  \item Problemas con los goteos de memoria:
+    \begin{itemize}
+      \item En cada asignación de memoria puede requerirse más tiempo.
+      \item Si el programa se ejecuta durante mucho tiempo, puede acabar agotándose la memoria.
+    \end{itemize}
+  \item Se se agota la memoria se lanza la excepción \cppid{bad\_alloc}.
+\end{itemize}
+\end{frame}
+
