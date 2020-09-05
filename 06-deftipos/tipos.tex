@@ -1,0 +1,39 @@
+\section{Tipos definidos por el usuario}
+
+\begin{frame}[t]{Tipos}
+\begin{itemize}
+  \item Cada objeto manipulado tiene un tipo asociado.
+  \item Un \alert{tipo} tiene asociada:
+    \begin{itemize}
+      \item Una \alert{representación} de los datos necesarios en la memoria del computador.
+      \item Un conjunto de \alert{operaciones} que pueden realizarse sobre un objeto.
+    \end{itemize}
+  \item Los tipos pueden ser:
+    \begin{itemize}
+      \item Primitivos: \cppkey{int}, \cppkey{char}, \ldots
+      \item Definidos por la biblioteca: \cppid{string}, \cppid{vector}, \ldots
+      \item Definidos por el usuario: \cppid{punto}, \cppid{fecha}, \ldots
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Definición de tipos}
+\begin{itemize}
+  \item Dos mecanismos básicos de definición de nuevos tipos en C++:
+    \begin{itemize}
+      \item \alert{Clase}: Define un tipo mediante su representación y conjunto de operaciones.
+\begin{lstlisting}
+class punto {
+  punto(double cx, double cy);
+  // ...
+private:
+  double x, y;
+};
+\end{lstlisting}
+      \item \alert{Enumerados}: Define un tipo como un conjunto de valores admisibles.
+\begin{lstlisting}
+enum color { rojo, verde, azul };
+\end{lstlisting}
+    \end{itemize}
+\end{itemize}
+\end{frame}

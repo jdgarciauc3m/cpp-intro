@@ -3,6 +3,7 @@ GUIDE_BASE=guide
 GUIDE_PARTS= \
 metadata.tex \
 guide/guide.tex \
+guide/content.tex \
 guide/titlepage.tex \
 guide/license.tex \
 guide/foreword.tex \

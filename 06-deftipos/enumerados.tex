@@ -1,0 +1,178 @@
+\section{Enumerados}
+
+\begin{frame}[fragile]{Enumerados}
+\begin{itemize}
+  \item Un tipo enumerado es un tipo definido por el usuario que puede
+        representar un conjunto finito de valores enteros.
+  \item Dos familias de tipos enumerados:
+    \begin{itemize}
+      \item \cppkey{enum class}: Enumerados fuertemente tipados y con alcance.
+\begin{lstlisting}
+enum class color { rojo, verde, azul};
+\end{lstlisting}
+      \item \cppkey{enum}: Enumerados heredados de C y C++98.
+\begin{lstlisting}
+enum nivel { bajo, medio, alto, extremo };
+\end{lstlisting}
+    \end{itemize}
+  \item Cada valor enumerado se representa internamete mediante un valor entero.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Alcance y tipo}
+\begin{itemize}
+  \item Un enumerado define un tipo con un conjunto de valores que puede tomar.
+\begin{lstlisting}
+enum class color { rojo, verde, azul };
+\end{lstlisting}
+  \item El tipo define un alcance con el nombre del tipo.
+\begin{lstlisting}
+color c = rojo; // Error: rojo no está en alcance
+color c = color::rojo; // OK
+\end{lstlisting}
+  \item No hay conversiones implícitas a entero
+\begin{lstlisting}
+color c = 2; // Error: int->color
+color d = static_cast<color>(2); // OK
+int x = color::rojo; // Error: color->int
+int y = static_cast<int>(color::rojo); // OK
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Representación interna}
+\begin{itemize}
+  \item Un enumerado se representa internamente con algún tipo entero.
+    \begin{itemize}
+      \item Cada valor enumerado se corresponde con un valor entero.
+      \item El tipo subyacente debe ser un tipo entero con o sin signo.
+      \item Por defecto, el tipo subyacente es \cppkey{int}.
+    \end{itemize}
+  \item Se puede especificar explícitamente el tipo subyacente.
+\begin{lstlisting}
+enum class color : int { rojo, verde, azul };
+enum class alerta : char { amarilla, naranja, roja };
+int n1 = sizeof(color); // sizeof(int)
+int n2 = sizeof(alerta); // 1
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Valores de enumeradores}
+\begin{itemize}
+  \item Los enumeradores toman valores consecutivos empezando desde 0;
+\begin{lstlisting}
+enum class color { 
+  rojo, // 0
+  verde, // 1
+  azul // 2
+};
+\end{lstlisting}
+  \item Se puede especificar el valor concreto de un enumerador
+\begin{lstlisting}
+enum class estado { correcto = 0, ocupado = 1, esperando = 2, 
+    error = 4, apagado = 8 };
+
+enum class color { 
+  rojo=1, // 1
+  verde, // 2
+  azul // 3
+};
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{Enumerados simples}
+\begin{itemize}
+  \item Los enumerados simples permancen por compatibilidad hacia atrás.
+\begin{lstlisting}
+enum color { rojo, verde, azul };
+enum semaforo { naranja, verde, rojo };
+\end{lstlisting}
+  \item Los enumeradores se inyectan en el alcance externo.
+\begin{lstlisting}
+color x = azul; // OK
+color y = color::rojo; // OK
+color z = verde; // ¿Qué verde?
+\end{lstlisting}
+  \item Hay conversiones implícitas a enteros
+\begin{lstlisting}
+color x = 2; // Error: int -> color
+int n = naranja; // semaforo -> int
+if (x == 4) { /*...*/ } // OK. ¿Qué color es ese?
+if (x == semaforo::rojo) { /* ... */ } // OK. Cuidado
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Representación interna y conversiones}
+\begin{itemize}
+  \item El tipo subyacente es un tipo entero.
+    \begin{itemize}
+      \item Se puede especificar el tipo subyacente.
+\begin{lstlisting}
+enum color : int { rojo, verde, azul };
+\end{lstlisting}
+      \item Si no se especifica hay un algoritmo que lo determina.
+        \begin{itemize}
+          \item El número de bits más pequeño capaz de contener los valores usando
+                complemento a dos.
+        \end{itemize}
+    \end{itemize}
+  \item Las conversiones no están definidas si el valor está fuera del rango de representación
+\begin{lstlisting}
+enum estado { ok = 0, ocupado = 1, esperando = 2, error = 4, apagado = 8};
+estado e1 = static_cast<estado>(5); // OK
+estado e2 = static_cast<estado>(22); // No definido. Rango 0:15
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\section{Ejemplo: Meses como enumerados}
+
+\begin{frame}
+\begin{block}{fecha.h}
+\lstinputlisting[lastline=12]{06-deftipos/fecha5/fecha.h}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\begin{block}{fecha.h}
+\lstinputlisting[firstline=14]{06-deftipos/fecha5/fecha.h}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\begin{block}{main.cpp}
+\lstinputlisting{06-deftipos/fecha5/main.cpp}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\begin{block}{fecha.cpp}
+\lstinputlisting[lastline=20]{06-deftipos/fecha5/fecha.cpp}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\begin{block}{fecha.cpp}
+\lstinputlisting[firstline=22, lastline=39]{06-deftipos/fecha5/fecha.cpp}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\begin{block}{fecha.cpp}
+\lstinputlisting[firstline=41, lastline=48]{06-deftipos/fecha5/fecha.cpp}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\begin{block}{fecha.cpp}
+\lstinputlisting[firstline=50]{06-deftipos/fecha5/fecha.cpp}
+\end{block}
+\end{frame}
+
+
+
+

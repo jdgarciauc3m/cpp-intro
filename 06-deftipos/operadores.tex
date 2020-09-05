@@ -1,0 +1,70 @@
+\section{Sobrecarga de operadores}
+
+
+\begin{frame}[fragile]{Operadores}
+\begin{itemize}
+  \item Permite definir el comportamiento de un operador cuando
+        se aplica a un tipo definido por el usuario.
+\begin{lstlisting}
+enum class dia_semana { 
+  lunes, martes, miercoles, jueves, viernes, 
+  sabado, domingo
+};
+dia_semana d { dia_semana::martes };
+++d; // miércoles
+++d; // jueves
+d = dia_semana::domingo;
+++d; // lunes
+\end{lstlisting}
+  \item Se puede definir una función operador
+\begin{lstlisting}
+dia_semana operator++(dia_semana & d) {
+  d = (d==dia_semana::domingo)?
+    lunes :
+    static_cast<dia_semana>(static_cast<int>(d)+1);
+  return d;
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Operadores de salida}
+\begin{itemize}
+  \item Permite definir la salida a un flujo de un dato de un tipo definido por el usuario.
+  \item Hacen uso de tipo de biblioteca \cppid{ostream} (flujo de salida).
+    \begin{itemize}
+      \item \cppid{cout} es un \cppid{ostream}.
+    \end{itemize}
+\begin{lstlisting}
+ostream & operator<<(ostream & os, color c) {
+  switch (c) {
+    case color::rojo:
+      return cout << "rojo";
+    case color::verde:
+      return cout << "verde";
+    case color::azul:
+      return cout << "azul";
+  }
+  throw logic_error("Dia no esperado");
+}
+\end{lstlisting}
+  \item Ejemplo de uso:
+\begin{lstlisting}
+  cout << color::verde << endl;
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\section{Ejemplo: Operadores en \texttt{fecha}}
+
+\begin{frame}
+\begin{block}{fecha.h}
+\lstinputlisting[lastline=17]{06-deftipos/fecha6/fecha.h}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\begin{block}{fecha.cpp}
+\lstinputlisting[firstline=7,lastline=21]{06-deftipos/fecha6/fecha.cpp}
+\end{block}
+\end{frame}
