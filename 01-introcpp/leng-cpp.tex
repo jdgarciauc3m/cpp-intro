@@ -6,10 +6,10 @@
 \begin{center}
 \begin{tikzpicture}[small mindmap,
     concept color=blue,
-    level 1 concept/.append style={font=\tiny,level distance=2.3cm},
-    level 2 concept/.append style={font=\tiny,level distance=1.7cm},
+    level 1 concept/.append style={font=\tiny,level distance=2.0cm},
+    level 2 concept/.append style={font=\tiny,level distance=1.5cm},
     level 3 concept/.append style={font=\tiny},
-    every node/.append style={scale=0.9},
+    every node/.append style={scale=0.8},
     text=white,
     ]
   \node [concept, font=\small] {C++}
@@ -21,20 +21,22 @@
     }
     child [grow=90,visible on=<6->] {node[concept] {Programación}
       child [grow=20,visible on=<7->]{node[concept] {Orientada a objetos}
-        child [grow=10]{node[concept] {Clases}}
+        child [grow=30]{node[concept] {Clases}}
         child [grow=330]{node[concept] {Jerarquías de clases}}
       }
       child [grow=150,visible on=<8->] {node[concept] {Genérica}
-        child [grow=180] {node[concept] {Metapro\-gramción}}
+        child [grow=140] {node[concept] {Metapro\-gramción}}
       }
-      child [grow=200,visible on=<9->]{node[concept] {Multi\-paradigma}}
+      child [grow=200, visible on=<9->] {node[concept] {Funcional}
+        child [grow=150] {node[concept] {Lambdas}}
+        child [grow=210] {node[concept] {Genéricos}}
+      }
+      child [grow=90,visible on=<10->]{node[concept] {Multi\-paradigma}}
     }
-    child [grow=180, level distance=2.25cm,visible on=<10->] {node[concept] {Problemas}
-      child [grow=200, visible on=<11->] {node[concept] {Buffer overflow}}
-      child [grow=150,visible on=<11->] {node[concept] {Goteos de memoria}}
+    child [grow=210, level distance=2.25cm,visible on=<11->] {node[concept] {Problemas}
+      child [grow=200, visible on=<12->] {node[concept] {Buffer overflow}}
+      child [grow=150,visible on=<12->] {node[concept] {Goteos de memoria}}
     }
-    child [grow=220, visible on=<12->] {node[concept] {Un cajón de sastre}}
-
   ;
 \end{tikzpicture}
 \end{center}
@@ -45,24 +47,41 @@
 \begin{itemize}
   \item C++ es:
     \begin{itemize}
-      \item \pause  C (C89, ..., C11).
-      \item \pause  \emph{Buffer overflows}.
-      \item \pause  Problemas con punteros.
-      \item \pause  Clases.
-      \item \pause  Jerarquías de clases.
-      \item \pause  Un lenguaje orientado a objetos.
-      \item \pause  Programación genérica.
-      \item \pause  Colección aleatoria de características.
-      \item \pause  Una lenguaje híbrido.
-      \item \pause  Demasiado grande.
-      \item \pause  Demasiado bajo nivel.
-      \item \pause  Demasiado alto nivel.
-      \item \pause  Un lenguaje para sistemas empotrados.
-      \item \pause  Metaprogramación con plantillas.
-      \item \pause  Un lenguaje multi-paradigma.
+      \item (C89, C99, C11, C17).
+      \item Demasiado:
+        \begin{itemize}
+          \item Demasiado grande.
+          \item Demasiado alto nivel.
+          \item Demasiado bajo nivel.
+        \end{itemize}
+      \item Programación:
+        \begin{itemize}
+          \item Orientada a objetos: clases, jerarquías, polimorfismo dinámico.
+          \item Genérica: Plantillas.
+          \item Funcional: Funcional: Lambdas, metaprogramación.
+          \item Multiparadigma.
+        \end{itemize} 
+      \item Problemas:
+        \begin{itemize}
+          \item Goteos de memoria.
+          \item \emph{Buffer overflow}.
+        \end{itemize}
     \end{itemize}
 \end{itemize}
 }
+\end{frame}
+
+\begin{frame}[t]{Ventajas de C++ (perspectiva de negocio)}
+\begin{itemize}
+  \item Enorme base de usuarios y código existente.
+    \begin{itemize}
+      \item Rico ecosistema de proveedores de herramientas y servicios.
+    \end{itemize}
+  \item Permite ofrecer interfaces simplificadas a componentes software.
+  \item Sobrecarga de operadores simplifica curvas de aprendizaje.
+  \item Reduce la tensión entre seguridad y velocidad.
+  \item Facilita la reutilización de código mediante polimorfismo estático y dinámico.
+\end{itemize}
 \end{frame}
 
 \begin{frame}{¿De donde viene?}
@@ -104,7 +123,7 @@
 \begin{itemize}
   \item Serie de normas ISO/IEC 14882 (1998, 2011, 2014, 2017, 2020, \ldots).
   \mode<presentation>{\vfill\pause}
-  \item \emph{``Un lenguaje de programación de abstracciones ligeras''} (B. Stroustroup).
+  \item \textmark{``Un lenguaje de programación de abstracciones ligeras''} (B. Stroustroup).
   \mode<presentation>{\vfill\pause}
   \item Evolución de C++.
     \begin{itemize}
@@ -124,7 +143,7 @@
 \end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[t]{Normalización}
 \begin{itemize}
   \item 1998: C++98 $\rightarrow$ ISO/IEC 14882:1998
   \item 2003: C++03 $\rightarrow$ ISO/IEC 14882:2003.
@@ -138,7 +157,7 @@
   \item 2011: C++11 $\rightarrow$ ISO/IEC 14882:2011.
   \item 2014: C++14 $\rightarrow$ ISO/IEC 14882:2014. 
   \item 2017: ISO/IEC 14882:2017.
-  \item 2020: ISO/IEC 14882:2020 (\textgood{pendiente de publicar}).
+  \item 2020: ISO/IEC 14882:2020.
   \item 2023: \textbad{Probablemente} ISO/IEC 14882:2023.
 \end{itemize}
 \end{frame}
@@ -150,7 +169,7 @@
 \end{frame}
 }
 
-\begin{frame}{Principios de diseño}
+\begin{frame}[t]{Principios de diseño}
 \begin{itemize}
   \item \pause  Mantener compatibilidad hacia atrás.
   \item \pause  Mejor extender la biblioteca que el lenguaje.
