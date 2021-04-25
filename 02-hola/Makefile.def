@@ -1,0 +1,9 @@
+HOLA_BASE= 02-hola
+HOLA_PARTS= \
+$(HOLA_BASE)/*.tex  \
+metadata.tex
+
+HOLA_OUT=02-hola
+HOLA_PDF=$(HOLA_OUT).pdf
+
+FINAL_HOLA_PDF=$(FINAL_DIR)/$(HOLA_PDF)

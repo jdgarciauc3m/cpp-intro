@@ -5,7 +5,7 @@
 
 \column{ .5\textwidth}
 \begin{block}{hola.cpp}
-\lstinputlisting{01-introcpp/hola/hola.cpp}
+\lstinputlisting{02-hola/hola/hola.cpp}
 \end{block}
 
 \column{.5\textwidth}
@@ -157,10 +157,10 @@ g++ hola.cpp -c -o hola.o
 \begin{block}{hola.s}
 \ldots
 \mode<presentation>{
-\lstinputlisting[language={[x86masm]Assembler},basicstyle=\tiny\ttfamily,firstline=10,lastline=28]{01-introcpp/hola/hola.s}
+\lstinputlisting[language={[x86masm]Assembler},basicstyle=\tiny\ttfamily,firstline=10,lastline=28]{02-hola/hola/hola.s}
 }
 \mode<article>{
-\lstinputlisting[language={[x86masm]Assembler},basicstyle=\ttfamily,firstline=10,lastline=28]{01-introcpp/hola/hola.s}
+\lstinputlisting[language={[x86masm]Assembler},basicstyle=\ttfamily,firstline=10,lastline=28]{02-hola/hola/hola.s}
 }
 \ldots
 \end{block}
@@ -192,13 +192,13 @@ nm hola.o | c++filt
 
 \begin{frame}{Símbolos}
 \begin{block}{nm hola.o}
-\lstinputlisting[style=terminal,basicstyle=\tiny\ttfamily]{01-introcpp/hola/hola.nm}
+\lstinputlisting[style=terminal,basicstyle=\tiny\ttfamily]{02-hola/hola/hola.nm}
 \end{block}
 \end{frame}
 
 \begin{frame}{Símbolos con nombres descrifrados}
 \begin{block}{nm hola.o | c++filt}
-\lstinputlisting[style=terminal,basicstyle=\tiny\ttfamily]{01-introcpp/hola/hola.nm.cpp}
+\lstinputlisting[style=terminal,basicstyle=\tiny\ttfamily]{02-hola/hola/hola.nm.cpp}
 \end{block}
 \end{frame}
 
