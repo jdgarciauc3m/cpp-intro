@@ -22,6 +22,9 @@ include 05-errores/Makefile.def
 include 06-alcance/Makefile.def
 include 07-funciones/Makefile.def
 include 08-clases/Makefile.def
+include 09-enum/Makefile.def
+include 10-operadores/Makefile.def
+include 11-interfaz/Makefile.def
 include 11-iostream/Makefile.def
 include 12-memdin/Makefile.def
 
@@ -34,7 +37,10 @@ $(VECTOR_PARTS) \
 $(ERRORES_PARTS) \
 $(FUNCIONES_PARTS) \
 $(ALCANCE_PARTS) \
-$(DEFTIPOS_PARTS) \
+$(CLASES_PARTS) \
+$(ENUM_PARTS) \
+$(OPERADORES_PARTS) \
+$(INTERFAZ_PARTS) \
 $(IOSTREAM_PARTS) \
 $(MEMDIN_PARTS) \
 
@@ -46,7 +52,10 @@ $(FINAL_DIR)/$(VECTOR_PDF) \
 $(FINAL_DIR)/$(ERRORES_PDF) \
 $(FINAL_DIR)/$(FUNCIONES_PDF) \
 $(FINAL_DIR)/$(ALCANCE_PDF) \
-$(FINAL_DIR)/$(DEFTIPOS_PDF) \
+$(FINAL_DIR)/$(CLASES_PDF) \
+$(FINAL_DIR)/$(ENUM_PDF) \
+$(FINAL_DIR)/$(OPERADORES_PDF) \
+$(FINAL_DIR)/$(INTERFAZ_PDF) \
 $(FINAL_DIR)/$(IOSTREAM_PDF) \
 $(FINAL_DIR)/$(MEMDIN_PDF) \
 
@@ -79,5 +88,8 @@ include 05-errores/Makefile.mk
 include 06-alcance/Makefile.mk
 include 07-funciones/Makefile.mk
 include 08-clases/Makefile.mk
+include 09-enum/Makefile.mk
+include 10-operadores/Makefile.mk
+include 11-interfaz/Makefile.mk
 include 11-iostream/Makefile.mk
 include 12-memdin/Makefile.mk
