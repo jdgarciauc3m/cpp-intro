@@ -15,13 +15,13 @@ logos/logo-uc3m.jpg
 
 include guide/Makefile.def
 include 01-introcpp/Makefile.def
-include 02-valores/Makefile.def
-include 03-vector/Makefile.def
-include 04-errores/Makefile.def
-include 05-alcance/Makefile.def
-include 06-deftipos/Makefile.def
-include 07-iostream/Makefile.def
-include 08-memdin/Makefile.def
+include 03-valores/Makefile.def
+include 04-vector/Makefile.def
+include 05-errores/Makefile.def
+include 06-alcance/Makefile.def
+include 08-clases/Makefile.def
+include 11-iostream/Makefile.def
+include 12-memdin/Makefile.def
 
 ALL_PARTS= \
 $(GUIDE_PARTS) \
@@ -66,10 +66,10 @@ $(FINAL_DIR):
 
 include guide/Makefile.mk
 include 01-introcpp/Makefile.mk
-include 02-valores/Makefile.mk
-include 03-vector/Makefile.mk
-include 04-errores/Makefile.mk
-include 05-alcance/Makefile.mk
-include 06-deftipos/Makefile.mk
-include 07-iostream/Makefile.mk
-include 08-memdin/Makefile.mk
+include 03-valores/Makefile.mk
+include 04-vector/Makefile.mk
+include 05-errores/Makefile.mk
+include 06-alcance/Makefile.mk
+include 08-clases/Makefile.mk
+include 11-iostream/Makefile.mk
+include 12-memdin/Makefile.mk

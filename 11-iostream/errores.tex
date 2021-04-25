@@ -1,0 +1,63 @@
+\section{Errores}
+
+\begin{frame}[fragile]{Estado}
+\begin{itemize}
+  \item Un flujo puede estar en cuatro estados:
+    \begin{itemize}
+      \item \cppid{good}: La última operación tuvo éxito.
+      \item \cppid{eof}: Se ha llegado a fin de archivo.
+      \item \cppid{fail}: Error recuperable.
+        \begin{itemize}
+          \item \alert{Ejemplo}: Error de formato.
+        \end{itemize}
+      \item \cppid{bad}: Error severo.
+        \begin{itemize}
+          \item \alert{Ejemplo}: Error de disco.
+        \end{itemize}
+    \end{itemize}
+  \item Funciones miembro de consulta: \cppid{good()}, \cppid{eof()}, \cppid{fail()}, \cppid{bad()}.
+  \item Se puede restablecer el estado a \cppid{good}.
+\begin{lstlisting}
+flujo.clear(); // Estado pasa a good.
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Ejemplo}
+\begin{itemize}
+  \item Leer números enteros de un archivo.
+  \item Si se encuentran caracteres no numéricos se ignoran y se sigue leyendo.
+  \item Presentar un número por línea en la salida estándar.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\begin{block}{main.cpp}
+\lstinputlisting[firstline=15,lastline=36]{11-iostream/error/main.cpp}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Excecpción de entrada/salida}
+\begin{itemize}
+  \item La biblioteca de E/S no lanza normalmente excecpiones.
+  \item Se puede configurar un flujo para que lance excepciones al cambiar de estado.
+\begin{lstlisting}
+flujo.exceptions(ios_base::badbit); // Lanza si pasa a bad
+flujo.exceptions(ios_base::failbit); // Lanza si pasa a fail
+flujo.exceptions(ios_base::badbit | ios_base::failbit); // Lanza si pasa a bad o fail
+\end{lstlisting}
+  \item En caso de producirse fallo se lanza \cppid{ios\_base::exception}.
+  \item Se puede obtener la máscara de excepciones actual.
+\begin{lstlisting}
+auto m = flujo.exceptions();
+m |= ios_base::failbit;
+flujo.exceptions(m);
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Uso de excepciones en entrada/salida}
+\begin{block}{main.cpp}
+\lstinputlisting{11-iostream/except/main.cpp}
+\end{block}
+\end{frame}

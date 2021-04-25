@@ -1,0 +1,275 @@
+\section{Clases}
+
+\begin{frame}[fragile]{¿Qué es una clase?}
+\begin{itemize}
+  \item Tipo definido por el usuario.
+    \begin{itemize}
+      \item \alert{Representación} $\rightarrow$ \textbf{Datos miembro}.
+      \item \alert{Operaciones} $\rightarrow$ \textbf{Funciones miembro}
+    \end{itemize}
+  \item Construcciones del lenguaje:
+    \begin{itemize}
+      \item Estructura.
+\begin{lstlisting}
+struct fecha {
+  // Miembros
+};
+\end{lstlisting}
+      \item Clase
+\begin{lstlisting}
+class fecha {
+  // Miembros
+};
+\end{lstlisting}
+    \end{itemize}
+  \item Alternativas:
+    \begin{itemize}
+      \item Estructura + Funciones sobre estructura.
+      \item Estructura con funciones miembro.
+      \item Clase.    
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Estructura y funciones sobre estructura}
+\vspace{-.8em}
+\begin{block}{fecha.h}
+\lstinputlisting{08-clases/fecha1/fecha.h}
+\end{block}
+\begin{block}{main.cpp}
+\lstinputlisting[firstline=6]{08-clases/fecha1/main.cpp}
+\end{block}
+\end{frame}
+
+\vspace{-.25em}
+\begin{frame}
+\begin{block}{fecha.cpp}
+\mode<presentation>{
+\lstinputlisting[lastline=18]{08-clases/fecha1/fecha.cpp}
+}
+\mode<article>{
+\lstinputlisting{08-clases/fecha1/fecha.cpp}
+}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Función miembro}
+\begin{itemize}
+  \item Es una función que puede invocarse solamente para una variable del tipo definido.
+    \begin{itemize}
+      \item Recibe implícitamente un parámetro del tipo definido.
+      \item Puede acceder a los datos miembro de la variable.
+      \item Se invoca usando la notación de acceso.
+        \begin{itemize}
+          \item \cppid{variable.funcion(param)}.
+        \end{itemize}
+    \end{itemize}
+\begin{lstlisting}
+struct punto {
+  double x, y;
+  double modulo();
+};
+
+void f() {
+  punto p { 2.0, 3.5 };
+  double x = p.modulo(); // Invocación
+  // ...
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Estructura con fucniones miembro}
+\begin{block}{fecha.h}
+\lstinputlisting{08-clases/fecha2/fecha.h}
+\end{block}
+\begin{block}{main.cpp}
+\lstinputlisting[firstline=6]{08-clases/fecha2/main.cpp}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\begin{block}{fecha.cpp}
+\mode<presentation>{
+\lstinputlisting[lastline=18]{08-clases/fecha2/fecha.cpp}
+}
+\mode<article>{
+\lstinputlisting{08-clases/fecha2/fecha.cpp}
+}
+\end{block}
+\end{frame}
+
+\begin{frame}[t,fragile]{Visibilidad}
+\vspace{-0.25cm}
+\begin{itemize}
+  \item Los miembros de una estructura (o una clase) tienen asociado un nivel de visibilidad.
+    \begin{itemize}
+      \item \cppkey{public}: El miembro puede ser accedido por cualquiera.
+      \item \cppkey{private}: El miembro puede ser accedido solamente por otros miembros.
+      \item \cppkey{protected}: Relacionado con herencia.
+    \end{itemize}
+  \item Visibilidad por defecto:
+    \begin{itemize}
+      \item Los miembros de una estructura son públicos por defecto.
+      \item Los miembros de una clase son privados por defecto.
+    \end{itemize}
+\end{itemize}
+\vspace{-0.25cm}
+\begin{lstlisting}
+class X {
+  int x; // x es privado
+  double y; // y es privado
+public:
+  void f(int n); // f es pública
+  void g(double x); // g es pública
+private:
+  void h(); // h es privada
+};
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Interfaz e implementación}
+\begin{itemize}
+  \item Los niveles de visiblidad permiten especificar y separar:
+    \begin{itemize}
+      \item La interfaz pública de la clase.
+      \item Los detalles privados de implementación.
+    \end{itemize}
+\end{itemize}
+\begin{lstlisting}
+class ejemplo {
+public:
+  // Miembros públicos
+  // Funciones, tipos y datos
+private:
+  // Miembros privados
+  // Funciones, tipos y datos
+};
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}{Una clase fecha}
+\begin{block}{fecha.h}
+\lstinputlisting{08-clases/fecha3/fecha.h}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\begin{block}{main.cpp}
+\lstinputlisting{08-clases/fecha3/main.cpp}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\begin{block}{fecha.cpp}
+\lstinputlisting[lastline=19]{08-clases/fecha3/fecha.cpp}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\begin{block}{fecha.cpp}
+\lstinputlisting[firstline=21,lastline=39]{08-clases/fecha3/fecha.cpp}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\begin{block}{fecha.cpp}
+\lstinputlisting[firstline=40,lastline=47]{08-clases/fecha3/fecha.cpp}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\begin{block}{fecha.cpp}
+\lstinputlisting[firstline=49]{08-clases/fecha3/fecha.cpp}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Constructor}
+\begin{itemize}
+  \item Un \alert{constructor} es una función miembro especial.
+    \begin{itemize}
+      \item Se usa para iniciar objetos del tipo definido por la clase.
+      \item La sintaxis refuerza la invocación del constructor.
+        \begin{itemize}
+          \item Es obligatorio pasar agumentos del constructor al declarar una variable.
+        \end{itemize}
+      \item Es una función miembro con el nombre de la clase y sin tipo de retorno.
+    \end{itemize}
+\begin{lstlisting}
+class punto {
+public:
+  punto(double cx, double cy);
+  // ...
+private:
+  double x;
+  double y;
+};
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Invocación al constructor}
+\begin{itemize}
+  \item Dos notaciones para invocar al constructor.
+\begin{lstlisting}
+punto p1(2.3, 3.5); // Clásica
+punto p2{2.3, 3.5}; // C++11
+\end{lstlisting}
+  \item Si una clase tiene constructor se debe suministrar argumentos.
+\begin{lstlisting}
+punto p; // Error faltan argumentos
+\end{lstlisting}
+  \item Se puede iniciar copiando otro objeto.
+\begin{lstlisting}
+punto p1{2.5, 3.5};
+punto p2 { p1 };
+punto p3 = p1;
+punto p4 = punto(1.5, 2.5);
+punto p5 = punto{2.5, 3.5};
+\end{lstlisting}
+    \begin{itemize}
+      \item La copia por defecto es miembro a miembro.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Implementación del constructor}
+\begin{itemize}
+  \item El contructor debe iniciar todos los datos miembro del tipo.
+\begin{lstlisting}
+punto::punto(double cx, double cy) {
+  x = cx;
+  y = cy;
+}
+\end{lstlisting}
+  \item Se puede usar una lista de iniciación de miembros.
+\begin{lstlisting}
+punto::punto(double cx, double cy) : x{cx}, y{cy}
+{
+}
+\end{lstlisting}
+    \begin{itemize}
+      \item Evita el uso de un miembro antes de iniciarse.
+      \item Fácilmente extensible con herencia.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Construcción de fechas}
+\begin{block}{fecha.h}
+\lstinputlisting{08-clases/fecha4/fecha.h}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\begin{block}{fecha.cpp}
+\lstinputlisting[lastline=10]{08-clases/fecha4/fecha.cpp}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\begin{block}{main.cpp}
+\lstinputlisting{08-clases/fecha4/main.cpp}
+\end{block}
+\end{frame}
+

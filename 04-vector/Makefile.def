@@ -1,0 +1,9 @@
+VECTOR_BASE= 04-vector
+VECTOR_PARTS= \
+$(VECTOR_BASE)/*.tex  \
+metadata.tex
+
+VECTOR_OUT=04-vector
+VECTOR_PDF=$(VECTOR_OUT).pdf
+
+FINAL_VECTOR_PDF=$(FINAL_DIR)/$(VECTOR_PDF)

@@ -1,0 +1,69 @@
+\section{Conversiones de tipo}
+
+\begin{frame}{Conversiones de tipo}
+\begin{itemize}
+  \item C++ es más estricto con la seguridad de tipos que C.
+  \item Conversiones:
+    \begin{itemize}
+      \item \alert{Conversiones seguras}: Se pueden realizar siempre.
+        \begin{itemize}
+          \item \cppkey{int} $\rightarrow$ \cppkey{long}.
+        \end{itemize}
+      \item \alert{Conversiones no seguras}: Problemas en algunos casos.
+        \begin{itemize}
+          \item \cppkey{long} $\rightarrow$ \cppkey{int}.
+        \end{itemize}
+    \end{itemize}
+  \item Conversiones implícitas:
+    \begin{itemize}
+      \item Promociones integrales. Ej.: \cppkey{char} $\rightarrow$ \cppkey{int}.
+      \item Promoociones de coma flotante. Ej.: \cppkey{float} $\rightarrow$ \cppkey{double}.
+      \item Conversiones enteras. Ej. \cppkey{int} $\rightarrow$ \cppkey{long}.
+      \item Conversiones de coma flotante. Ej. \cppkey{double} $\rightarrow$ \cppkey{float}.
+      \item Conversiones de flotante a entero. Ej. \cppkey{double} $\rightarrow$ \cppkey{int}.
+      \item Conversiones de booleanos. Ej. \cppkey{bool} $\rightarrow$ \cppkey{int}.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Conversiones no seguras}
+\vspace{-0.5em}
+\begin{itemize}
+  \item Son conversiones en las que se puede llegar a obtener un valor incorrecto.
+\lstinputlisting[firstline=5,lastline=9]{03-valores/casts/main1.cpp}
+  \item Posible salida:
+\begin{lstlisting}[language=bash,basicstyle=\footnotesize\ttfamily]
+f1(): 1000000 , 16960
+\end{lstlisting}
+  \item Conversiones estrechadoras.
+    \begin{itemize}
+      \item Tipo de coma flotante $\rightarrow$ Tipo entero.
+      \item \cppkey{long double} $\rightarrow$ \cppkey{double} o \cppkey{float}.
+      \item \cppkey{double} $\rightarrow$ \cppkey{float}.
+      \item Tipo entero $\rightarrow$ Tipo de coma flotante.
+      \item Tipo entero $\rightarrow$ Tipo entero que no puede representar todos los valores del tipo original.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Conversiones estrechadoras e iniciación}
+\begin{itemize}
+  \item ¿Por qué no se prohiben las conversiones estrechadoras?
+    \begin{itemize}
+      \item Herencia de C.
+      \item Hay muchos usos válidos (p. ej. si se ha validado el valor).
+    \end{itemize}
+  \item ¿Por qué no se diagnostican los casos problemáticos?
+    \begin{itemize}
+      \item No se puede de forma general (p. ej. valor leído de un archivo).
+    \end{itemize}
+  \item Sintaxis de iniciación uniforme.
+\begin{lstlisting}
+  int x1 { 1000000 };
+  short x2 { 1000 };
+  short x3 { 1000000 }; // Error: narrowing
+  short x4 { x1 }; // Error: narrowing
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+

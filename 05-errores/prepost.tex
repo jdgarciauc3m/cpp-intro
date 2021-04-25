@@ -1,0 +1,148 @@
+\section{Precondiciones}
+
+\begin{frame}[fragile]{Precondiciones}
+\begin{itemize}
+  \item Una \alert{precondición} es una condición que debe cumplirse
+        antes de ejecutar una función.
+\begin{lstlisting}
+void imprime(vector<string> personas, vector<int> edades);
+// Pre: personas.size() == edades.size()
+\end{lstlisting}
+  \item Alternativas:
+    \begin{itemize}
+      \item Comprobar todas las precondiciones.
+        \begin{itemize}
+          \item Requiere una acción si se incumple (¿excepción?).
+          \item No siempre es factible.
+          \item Computacinalmente más costoso.
+        \end{itemize}
+      \item No realizar las comprobaciones.
+        \begin{itemize}
+          \item El llamante es responsable de cumplir la precondición.
+          \item Computacionalmente menos costoso.
+          \item Puede dar lugar a errores.
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\mode<presentation>{
+
+\begin{frame}
+\begin{block}{check.cpp}
+\lstinputlisting[lastline=17]{05-errores/prepost/check.cpp}
+\ldots
+\end{block}
+\end{frame}
+
+\begin{frame}
+\begin{block}{check.cpp}
+\ldots
+\lstinputlisting[firstline=19,lastline=31]{05-errores/prepost/check.cpp}
+\ldots
+\end{block}
+\end{frame}
+
+\begin{frame}
+\begin{block}{check.cpp}
+\ldots
+\lstinputlisting[firstline=33]{05-errores/prepost/check.cpp}
+\end{block}
+\end{frame}
+
+}
+
+\mode<article>{
+\begin{frame}{Comprobación de precondiciones}
+\begin{block}{check.cpp}
+\lstinputlisting{05-errores/prepost/check.cpp}
+\end{block}
+\end{frame}
+}
+
+\begin{frame}[t,fragile]{Salida}
+\begin{lstlisting}[style=terminal]
+Error: Distinta longitud
+Carlos -> 10
+Daniel -> 43
+José -> 67
+Manuel -> 98
+Maria -> 8
+\end{lstlisting}
+\begin{itemize}
+  \item La primera invocación genera una excepción porque las longitudes son distintas.
+  \item Se añade un valor al \cppid{vector e}.
+  \item La segunda invocación funciona correctamente.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Ausencia de comprobación}
+\begin{itemize}
+  \item La precondición no se comprueba.
+  \mode<article>{
+    \begin{itemize}
+      \item Es responsabilidad del llamante cumplirla.
+    \end{itemize}
+  }
+\end{itemize}
+\pause
+\begin{block}{nocheck.cpp}
+\mode<presentation>{
+\lstinputlisting[firstline=1,lastline=14]{05-errores/prepost/nocheck.cpp}
+\ldots
+}
+\mode<article>{
+\lstinputlisting{05-errores/prepost/nocheck.cpp}
+}
+\end{block}
+\end{frame}
+
+\mode<presentation>{
+\begin{frame}
+\begin{block}{nocheck.cpp}
+\ldots
+\lstinputlisting[firstline=15]{05-errores/prepost/nocheck.cpp}
+\end{block}
+\end{frame}
+}
+
+\begin{frame}[fragile]{Salida}
+\begin{lstlisting}[style=terminal]
+Carlos -> 10
+Daniel -> 43
+José -> 67
+Manuel -> 98
+Maria -> 0
+Carlos -> 10
+Daniel -> 43
+José -> 67
+Manuel -> 98
+Maria -> 8
+\end{lstlisting}
+\begin{itemize}
+  \item \alert{Peligro}: El primer valor para María no está garantizado.
+  \item Otras implementaciones podrían causar errores
+\end{itemize}
+\end{frame}
+
+\subsection{Postcondiciones}
+
+\begin{frame}[fragile]{Postcondiciones}
+\begin{itemize}
+  \item Una \alert{postcondición} es una condición que debe cumplirse tras
+        la ejecución de una función.
+  \item Pueden ser más complejas y costosas de comprobar.
+\begin{lstlisting}
+vector<int> copia_ordenado(vector<int> v);
+// Post: Resultado es copia ordenada de v.
+\end{lstlisting}
+  \item Es una buena práctica documentarlas.
+  \item El incumplimiento de una postcondición puede venir dado por:
+    \begin{itemize}
+      \item Incumplimiento de una precondición.
+      \item Error de programación.
+    \end{itemize}
+  \item No se suelen comprobar.
+\end{itemize}
+\end{frame}
