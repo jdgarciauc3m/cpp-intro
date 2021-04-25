@@ -1,9 +1,9 @@
-MEMDIN_BASE= 12-memdin
+MEMDIN_BASE= 13-memdin
 MEMDIN_PARTS= \
 $(MEMDIN_BASE)/*.tex  \
 metadata.tex
 
-MEMDIN_OUT=12-memdin
+MEMDIN_OUT=13-memdin
 MEMDIN_PDF=$(MEMDIN_OUT).pdf
 
 FINAL_MEMDIN_PDF=$(FINAL_DIR)/$(MEMDIN_PDF)
