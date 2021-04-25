@@ -13,9 +13,10 @@ Temas:
  7. Funciones y paso de parámetros.
  8. Tipos definidos por el usuario: clases.
  9. Tipos definidos por el usuario: enumerados.
- 10. Caso práctico: Biblioteca de calendario.
- 11. Flujos de entrada/salida.
- 12. Memoria dinámica básica.
- 13. Herencia de interfaz y herencia de implementación.
- 14. Punteros elegantes.
+ 10. Sobrecarga de operadores.
+ 11. Diseño de interfaz.
+ 12. Flujos de entrada/salida.
+ 13. Memoria dinámica básica.
+ 14. Herencia de interfaz y herencia de implementación.
+ 15. Punteros elegantes.
 
