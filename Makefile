@@ -20,6 +20,7 @@ include 03-valores/Makefile.def
 include 04-vector/Makefile.def
 include 05-errores/Makefile.def
 include 06-alcance/Makefile.def
+include 07-funciones/Makefile.def
 include 08-clases/Makefile.def
 include 11-iostream/Makefile.def
 include 12-memdin/Makefile.def
@@ -31,6 +32,7 @@ $(HOLA_PARTS) \
 $(VALORES_PARTS) \
 $(VECTOR_PARTS) \
 $(ERRORES_PARTS) \
+$(FUNCIONES_PARTS) \
 $(ALCANCE_PARTS) \
 $(DEFTIPOS_PARTS) \
 $(IOSTREAM_PARTS) \
@@ -42,6 +44,7 @@ $(FINAL_DIR)/$(HOLA_PDF) \
 $(FINAL_DIR)/$(VALORES_PDF) \
 $(FINAL_DIR)/$(VECTOR_PDF) \
 $(FINAL_DIR)/$(ERRORES_PDF) \
+$(FINAL_DIR)/$(FUNCIONES_PDF) \
 $(FINAL_DIR)/$(ALCANCE_PDF) \
 $(FINAL_DIR)/$(DEFTIPOS_PDF) \
 $(FINAL_DIR)/$(IOSTREAM_PDF) \
@@ -74,6 +77,7 @@ include 03-valores/Makefile.mk
 include 04-vector/Makefile.mk
 include 05-errores/Makefile.mk
 include 06-alcance/Makefile.mk
+include 07-funciones/Makefile.mk
 include 08-clases/Makefile.mk
 include 11-iostream/Makefile.mk
 include 12-memdin/Makefile.mk
