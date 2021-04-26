@@ -5,7 +5,7 @@
 
 \column{ .5\textwidth}
 \begin{block}{hola.cpp}
-\lstinputlisting{02-hola/hola/hola.cpp}
+\lstinputlisting{ejemplos/hola/hola.cpp}
 \end{block}
 
 \column{.5\textwidth}
@@ -16,13 +16,6 @@
           \item Se sigue el paradigma de sustitución de texto.
         \end{itemize}
       }
-    \item Importación de espacio de nombres: \mode<presentation>{\cppid{std}.}
-      \mode<article>{
-        \begin{itemize}
-          \item Alcance que contiene elementos de una biblioteca para evitar conflictos de nombrado.
-          \item Es distinto de los modelos de \emph{paquetes} de otros lenguajes.
-        \end{itemize}
-      }
     \item Programa principal: \mode<presentation>{\cppid{main}.}
       \mode<article>{
         \begin{itemize}
@@ -31,12 +24,21 @@
           \item Hay cosas que ocurren después.
         \end{itemize}
       }
+    \item Importación de espacio de nombres: \mode<presentation>{\cppid{std}.}
+      \mode<article>{
+        \begin{itemize}
+          \item Alcance que contiene elementos de una biblioteca para evitar conflictos de nombrado.
+          \item Es distinto de los modelos de \emph{paquetes} de otros lenguajes.
+        \end{itemize}
+      }
     \item Flujo de salida estándar: \mode<presentation>{\cppid{cout}.}
       \mode<article>{
         \begin{itemize}
           \item Es una variable global.
         \end{itemize}
       }
+
+    \mode<article>{\clearpage}
     \item Operador de salida: \mode<presentation>{\cppkey{<{}<}.}
       \mode<article>{
         \begin{itemize}
@@ -47,7 +49,7 @@
     \item Salto de línea: \mode<presentation>{\cppid{endl}.}
       \mode<article>{
         \begin{itemize}
-          \item Equivalente a \cppid{"\\endl"}.
+          \item Equivalente a \cppid{"\textbackslash{}n"}.
         \end{itemize}
       }
     \item Código de salida: \mode<presentation>{\cppid{0}.}
@@ -65,25 +67,28 @@
 
 \begin{frame}[t]{Fases de la traducción}
 \begin{itemize}
-  \item Preprocesado:
+  \item \textgood{Preprocesado}:
     \begin{itemize}
-      \item Procesa las directivas del compilador de una unidad de traducción.
+      \item Procesa las \textmark{directivas del compilador} de una unidad de traducción.
     \end{itemize}
-  \vfill
-  \item Compilación:
+
+  \mode<presentation>{\vfill}
+  \item \textgood{Compilación}:
     \begin{itemize}
-      \item Traduce el código fuente a código ensamblador.
+      \item \textmark{Traduce} el código fuente a código ensamblador.
     \end{itemize}
-  \vfill
-  \item Ensamblado:
+
+  \mode<presentation>{\vfill}
+  \item \textgood{Ensamblado}:
     \begin{itemize}
-      \item Ensambla a código objeto.
+      \item Ensambla a \textmark{código objeto}.
       \item Normalmente integrada con compilación.
     \end{itemize}
-  \vfill
-  \item Enlazado:
+
+  \mode<presentation>{\vfill}
+  \item \textgood{Enlazado}:
     \begin{itemize}
-      \item Resuelve referencias externas entre módulos objeto.
+      \item Resuelve \textmark{referencias externas} entre módulos objeto.
     \end{itemize}
 \end{itemize}
 \end{frame}
@@ -127,21 +132,21 @@
 g++ hola.cpp -E -o hola.ii
 \end{lstlisting}
 \begin{itemize}
-  \item 17524 líneas.
+  \item 30,015 líneas (g++ 10.2).
 \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{Compilación y ensamblado}
 \begin{itemize}
-\item \alert{Ensamblado}: Genera código ensamblador de una unidad de traducción.
+\item \textgood{Ensamblado}: Genera código ensamblador de una unidad de traducción.
   \begin{itemize}
     \item Es necesario ensamblar el código para llegar a código objeto
 \begin{lstlisting}[style=terminal]
 g++ hola.cpp -S -o hola.s
 \end{lstlisting}
-    \item 83 líneas.
+    \item 116 líneas de ensamblador (g++ 10.2).
   \end{itemize}
-\item \pause \alert{Compilación}:Traduce a código objeto.
+\item \pause \textgood{Compilación}:Traduce a código objeto.
   \begin{itemize}
     \item Genera ensamblador.
     \item Ensambla a código ejecutable binario.
@@ -157,10 +162,10 @@ g++ hola.cpp -c -o hola.o
 \begin{block}{hola.s}
 \ldots
 \mode<presentation>{
-\lstinputlisting[language={[x86masm]Assembler},basicstyle=\tiny\ttfamily,firstline=10,lastline=28]{02-hola/hola/hola.s}
+\lstinputlisting[language={[x86masm]Assembler},basicstyle=\tiny\ttfamily,firstline=10,lastline=28]{ejemplos/hola/hola.s}
 }
 \mode<article>{
-\lstinputlisting[language={[x86masm]Assembler},basicstyle=\ttfamily,firstline=10,lastline=28]{02-hola/hola/hola.s}
+\lstinputlisting[language={[x86masm]Assembler},basicstyle=\ttfamily,firstline=10,lastline=28]{ejemplos/hola/hola.s}
 }
 \ldots
 \end{block}
@@ -192,13 +197,13 @@ nm hola.o | c++filt
 
 \begin{frame}{Símbolos}
 \begin{block}{nm hola.o}
-\lstinputlisting[style=terminal,basicstyle=\tiny\ttfamily]{02-hola/hola/hola.nm}
+\lstinputlisting[style=terminal,basicstyle=\tiny\ttfamily]{ejemplos/hola/hola.nm}
 \end{block}
 \end{frame}
 
 \begin{frame}{Símbolos con nombres descrifrados}
 \begin{block}{nm hola.o | c++filt}
-\lstinputlisting[style=terminal,basicstyle=\tiny\ttfamily]{02-hola/hola/hola.nm.cpp}
+\lstinputlisting[style=terminal,basicstyle=\tiny\ttfamily]{ejemplos/hola/hola.nm.cpp}
 \end{block}
 \end{frame}
 
@@ -240,23 +245,38 @@ nm hola.o | c++filt
 
 \subsection{Entornos de programación}
 
-\begin{frame}[t]{Línea de comandos versus entornos integrados}
-\begin{itemize}
-  \item Línea de comandos:
+\begin{frame}[t]{Compiladores}
+  \begin{itemize}
+    \item \textgood{Compilador}: Conjunto de herramientas para la traducción
+          de código fuente.
+      \begin{itemize}
+        \item Integran compilación, enlace y herramientas auxiliares.
+        \item Típicamente línea de comandos
+      \end{itemize}
+
+  \mode<presentation>{\vfill}
+  \item Algunos \textgood{compiladores}:
     \begin{itemize}
-      \item Editor para la edición de archivos fuentes (\emph{vim/gvim}, \emph{gedit}, \emph{emacs}, \ldots).
-      \item Compilador (\textmark{\emph{g++}}, \emph{clang}, \ldots).
-      \item Depurador.
-      \item \ldots
+      \item \textmark{Open source}: \textemph{g++}, clang++.
+      \item \textmark{Fabricantes hardware}: AMD, ARM, Cray, HP, Intel, NVidia, Oracle, IBM.
+      \item \textmark{Solo Windows}: MSVC (Microsoft).
+      \item \textmark{Otros}: IAR, C++ Builder, \ldots
     \end{itemize}
-  \vfill
-  \item Entornos integrados:
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Entornos de desarrollo}
+\begin{itemize}
+  \item \textgood{Entornos integrados}: Integran edición, compilación, depuración
+        y muchas más herramientas.
+
+  \mode<presentation>{\vfill}
+  \item Algunos \textgood{IDE}.
     \begin{itemize}
-      \item Eclipse/CDT.
-      \item Code::Blocks.
-      \item KDevelop.
-      \item Visual Studio.
-      \item \textmark{CLion}.
+      \item \textmark{Open Source}: Code::Blocks, Dev-C++, Eclipse/CDT, KDevelop.
+      \item \textmark{Microsoft}: Visual Studio, Visual Studio Code (varias plataformas).
+      \item \textmark{MacOS}: XCode.
+      \item \textmark{Otros}: QtCreator, \textemph{CLion}, \ldots
     \end{itemize}
 \end{itemize}
 \end{frame}
