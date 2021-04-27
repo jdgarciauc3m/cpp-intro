@@ -1,0 +1,66 @@
+\section{Ejercicios}
+
+\begin{enumerate}
+
+\item Si no tienes acceso a un sistema Linux, instala una versión reciente de Linux.
+Se recomienda utilizar, por ejemplo, Ubuntu Linux. Sigue los pasos en el tutorial
+suministrado por Ubuntu en la siguiente URL:
+
+  \begin{itemize}
+    \item \url{https://ubuntu.com/tutorials/install-ubuntu-desktop#1-overview}.
+  \end{itemize}
+
+\item Asegúrate de instalar la versión 10 de \cppid{g++}:
+
+\begin{lstlisting}[style=terminal]
+sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+sudo apt-get update
+sudo apt install gcc-10
+sudo apt install g++-10
+\end{lstlisting}
+
+\item Edita el programa en un archivo con el nombre \cppid{hola.cpp}. Desde la 
+línea de comandos ejecute la siguiente lína para compilar el programa:
+
+\begin{lstlisting}[style=terminal]
+g++ hola.cpp -o hola
+\end{lstlisting}
+
+Ejecuta el programa resultante.
+
+\item Obten una licencia para estudiantes del entorno de desarrollo \textmark{CLion}
+en la siguiente URL:
+\begin{itemize}
+  \item \url{https://www.jetbrains.com/es-es/community/education/#students}
+\end{itemize}
+
+\item Ejecuta el entorno de desarrollo \textmark{CLion} y sigue los siguiente pasos:
+
+\begin{enumerate}
+\item Crea un proyecto con las siguientes características:
+\begin{itemize}
+  \item \textmark{Project type}: C++ Executable.
+  \item \textmark{Language standard}: C++20.
+\end{itemize}
+
+\item Comprueba que se generan los siguientes archivos:
+\begin{itemize}
+  \item \cppid{main.cpp}.
+  \item \cppid{CMakeLists.txt}
+\end{itemize}
+
+\item Construye el programa mediante la opción \textmark{Build | Build Project}. 
+Comprueba que el programa se construye correctamente.
+
+\item Ejecuta el programa (\textmark{Run | Run 'hola'}).
+Comprueba que el programa se ejecuta correctmente. La salida debería ser:
+
+\begin{lstlisting}[style=terminal]
+Hello, World!
+
+Process finished with exit code 0
+\end{lstlisting}
+
+\end{enumerate}
+
+\end{enumerate}
