@@ -3,18 +3,18 @@
 \begin{frame}{Conversiones de tipo}
 \begin{itemize}
   \item C++ es más estricto con la seguridad de tipos que C.
-  \item Conversiones:
+  \item \textgood{Conversiones}:
     \begin{itemize}
-      \item \alert{Conversiones seguras}: Se pueden realizar siempre.
+      \item \textmark{Conversiones seguras}: Se pueden realizar siempre.
         \begin{itemize}
           \item \cppkey{int} $\rightarrow$ \cppkey{long}.
         \end{itemize}
-      \item \alert{Conversiones no seguras}: Problemas en algunos casos.
+      \item \textmark{Conversiones no seguras}: Problemas en algunos casos.
         \begin{itemize}
           \item \cppkey{long} $\rightarrow$ \cppkey{int}.
         \end{itemize}
     \end{itemize}
-  \item Conversiones implícitas:
+  \item \textgood{Conversiones implícitas}:
     \begin{itemize}
       \item Promociones integrales. Ej.: \cppkey{char} $\rightarrow$ \cppkey{int}.
       \item Promoociones de coma flotante. Ej.: \cppkey{float} $\rightarrow$ \cppkey{double}.
@@ -26,16 +26,19 @@
 \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Conversiones no seguras}
+\begin{frame}[t,fragile]{Conversiones no seguras}
 \vspace{-0.5em}
 \begin{itemize}
-  \item Son conversiones en las que se puede llegar a obtener un valor incorrecto.
+  \item Son conversiones en las que se puede llegar a 
+        \textbad{obtener un valor incorrecto}.
 \lstinputlisting[firstline=5,lastline=9]{03-valores/casts/main1.cpp}
-  \item Posible salida:
+
+  \item \textmark{Posible salida}:
 \begin{lstlisting}[language=bash,basicstyle=\footnotesize\ttfamily]
 f1(): 1000000 , 16960
 \end{lstlisting}
-  \item Conversiones estrechadoras.
+
+  \item Conversiones \textgood{estrechadoras}.
     \begin{itemize}
       \item Tipo de coma flotante $\rightarrow$ Tipo entero.
       \item \cppkey{long double} $\rightarrow$ \cppkey{double} o \cppkey{float}.
@@ -53,11 +56,15 @@ f1(): 1000000 , 16960
       \item Herencia de C.
       \item Hay muchos usos válidos (p. ej. si se ha validado el valor).
     \end{itemize}
+
+  \mode<presentation>{\vfill}
   \item ¿Por qué no se diagnostican los casos problemáticos?
     \begin{itemize}
       \item No se puede de forma general (p. ej. valor leído de un archivo).
     \end{itemize}
-  \item Sintaxis de iniciación uniforme.
+
+  \mode<presentation>{\vfill}
+  \item Sintaxis de \textgood{iniciación uniforme}.
 \begin{lstlisting}
   int x1 { 1000000 };
   short x2 { 1000 };
