@@ -45,7 +45,7 @@ std::cin >> x;
 
 \begin{frame}[t,fragile]{Ejemplo}
 \begin{block}{main1.cpp}
-\lstinputlisting{03-valores/hola-nombre/main1.cpp}
+\lstinputlisting{ejemplos/hola-nombre/main1.cpp}
 \end{block}
 \begin{itemize}
   \item Declaraciones en espacio de nombres \cppid{std}.
@@ -79,9 +79,15 @@ std::cin >> x;
 
 \begin{frame}[t,fragile]{Ejemplo}
 \begin{block}{main2.cpp}
-\lstinputlisting{03-valores/hola-nombre/main2.cpp}
+\lstinputlisting{ejemplos/hola-nombre/main2.cpp}
 \end{block}
 \begin{itemize}
   \item \cppkey{using namespace} evita repetición de cualificación de nombres.
+  \item \textbad{Cuidado}: No uses \cppkey{using namespace} fuera de una función.
+  \mode<article>{
+    \begin{itemize}
+      \item Puede dar lugar a situaciones difíciles de resolver.
+    \end{itemize}
+  }
 \end{itemize}
 \end{frame}
