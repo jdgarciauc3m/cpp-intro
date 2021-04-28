@@ -31,7 +31,13 @@
 \begin{itemize}
   \item Son conversiones en las que se puede llegar a 
         \textbad{obtener un valor incorrecto}.
-\lstinputlisting[firstline=5,lastline=9]{03-valores/casts/main1.cpp}
+\begin{lstlisting}
+void f1() {
+  int x = 1000000;
+  short y = x;
+  cout << "f1(): " << x << " , " << y << endl;
+}
+\end{lstlisting}
 
   \item \textmark{Posible salida}:
 \begin{lstlisting}[language=bash,basicstyle=\footnotesize\ttfamily]

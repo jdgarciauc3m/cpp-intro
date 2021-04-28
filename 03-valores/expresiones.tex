@@ -43,7 +43,7 @@ x1 = x2 = g(z,t);
 \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Declaraciones de variable}
+\begin{frame}[t,fragile]{Declaraciones de variable}
 \begin{itemize}
   \item Una declaración de variable introduce una variable en un bloque.
 \begin{lstlisting}
@@ -63,29 +63,34 @@ void f() {
   \item ¿Qué pasa con variables sin valor inicial?
     \begin{itemize}
       \item Se quedan sin iniciar (valor no definido).
-      \item Es una fuente común de errores.
+      \item Es una \textbad{fuente común de errores}.
     \end{itemize}
 \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Inferencia de tipo}
+\begin{frame}[t,fragile]{Inferencia de tipo}
 \begin{itemize}
-  \item Una declaración de variable con iniciador puede deducir automáticamente
+  \item Una declaración de variable con iniciador puede \textmark{deducir automáticamente}
         el tipo de datos de la declaración.
 \begin{lstlisting}
 auto x = 10; // int x = 10;
 auto y = 2.5; // double y = 2.5;
 auto z = 1.0f; // float z = 1.0f;
 \end{lstlisting}
-  \item La deducción de tipos no funciona con cadenas.
+
+  \mode<presentation>{\vfill}
+  \item La deducción de tipos \textbad{no funciona con cadenas}.
     \begin{itemize}
-      \item El literal \cppid{"Hola"} no es de tipo \cppid{string}.
+      \item El literal \cppstr{"Hola"} no es de tipo \cppid{string}.
     \end{itemize}
 \begin{lstlisting}
 auto c1 = "Hola"; // c1 no es de tipo string
 auto c2 = string{"Hola"}; // c2 si es de tipo string
-auto c3 = "Hola"s; // c3 es de tipo string (propuesto para C++14)
+using namespace std::literals;
+auto c3 = "Hola"s; // c3 es de tipo string
 \end{lstlisting}
+
+  \mode<presentation>{\vfill}
   \item También deduce automáticamente el tipo de expresiones.
 \begin{lstlisting}
 auto t1 = x + y;
@@ -94,11 +99,12 @@ auto t2 = f();
 \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Constantes}
+\begin{frame}[t,fragile]{Constantes}
 \begin{itemize}
-\item Dos alternativas:
+\item Dos \textgood{alternativas}:
   \begin{itemize}
-    \item Variable inmutables:
+
+    \item Variable \textmark{inmutables}:
 \begin{lstlisting}
 const int max_nodos = 1024;
 \end{lstlisting}
@@ -106,7 +112,9 @@ const int max_nodos = 1024;
         \item Es una variable que no puede modificarse.
         \item Su valor no se conoce hasta que no comienza a ejecutarse el programa.
       \end{itemize}
-    \item Expresiones constantes:
+
+    \mode<presentation>{\vfill}
+    \item \textmark{Expresiones constantes}:
 \begin{lstlisting}
 constexpr int max_nodos = 1024;
 \end{lstlisting}
@@ -116,7 +124,12 @@ constexpr int max_nodos = 1024;
         \item Más apropiado para la mayoría de constantes.
       \end{itemize}
   \end{itemize}
-\item Rara vez es necesario usar \cppkey{\#define}.
+
+  \mode<presentation>{\vfill}
+  \item Rara vez es necesario usar \cppkey{\#define}.
+    \begin{itemize}
+      \item Sustitución de texto heredada de C.
+    \end{itemize}
 \end{itemize}
 \end{frame}
 
