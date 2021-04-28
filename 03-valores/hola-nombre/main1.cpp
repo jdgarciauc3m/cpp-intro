@@ -7,5 +7,5 @@ int main() {
   std::string nombre;
   std::cin >> nombre;
 
-  std::cout << "Hola, " << nombre << "." << std::endl;
+  std::cout << "Hola, " << nombre << ".\n";
 }

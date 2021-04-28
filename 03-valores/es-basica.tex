@@ -34,7 +34,7 @@
 \begin{lstlisting}
 std::cout << x;
 \end{lstlisting}
-          \item Operador \cppid{>>} vuelca un dato en un flujo de entrada.
+          \item Operador \cppid{>{}>} obtiene un dato de un flujo de entrada.
 \begin{lstlisting}
 std::cin >> x;
 \end{lstlisting}
@@ -43,7 +43,7 @@ std::cin >> x;
 \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Ejemplo}
+\begin{frame}[t,fragile]{Ejemplo}
 \begin{block}{main1.cpp}
 \lstinputlisting{03-valores/hola-nombre/main1.cpp}
 \end{block}
@@ -54,7 +54,7 @@ std::cin >> x;
         \item Todos los símbolos de la biblioteca estándar están en este espacio de nombres.
       \end{itemize}
     }
-  \item Cadena: Tipo de biblioteca \cppid{string}.
+  \item Cadena: Tipo de biblioteca $\rightarrow$ \cppid{string}.
     \mode<article>{
       \begin{itemize}
         \item Es una \emph{clase} definida en la biblioteca estándar.
@@ -62,21 +62,22 @@ std::cin >> x;
           ofrece una interfaz más simple que se prefiere.
       \end{itemize}
     }
-  \item \cppid{endl}: Valor para fin de línea.
+  \item \cppid{endl}/\cppstr{"\textbackslash{}n"}: Valor para fin de línea.
     \mode<article>{
       \begin{itemize}
         \item \cppid{endl} está definido en la biblioteca estándar como un valor
           que se traduce en un salto de línea.
         \item Además fuerza a vaciar el contenido del búfer asociado (\emph{flushing}).
           \begin{itemize}
-            \item También se puede usar \cppid{"\textbackslash{}n"}, pero entonces no se vacía el búfer asociado.
+            \item También se puede usar \cppid{"\textbackslash{}n"}, 
+                  pero entonces no se vacía el búfer asociado.
           \end{itemize}
       \end{itemize}
     }
 \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Ejemplo}
+\begin{frame}[t,fragile]{Ejemplo}
 \begin{block}{main2.cpp}
 \lstinputlisting{03-valores/hola-nombre/main2.cpp}
 \end{block}

@@ -8,5 +8,5 @@ int main() {
   string nombre;
   cin >> nombre;
 
-  cout << "Hola, " << nombre << "." << endl;
+  cout << "Hola, " << nombre << ".\n";
 }
