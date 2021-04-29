@@ -60,9 +60,7 @@
       \item Todos del mismo tipo.
     \end{itemize}
   \item Parámetro del constructor:
-    \mode<presentation>{
-      \alert{Tamaño inicial}.
-    }
+      \textmark{Tamaño inicial}.
   \item No se puede acceder a indices más allá del tamaño.
 \end{itemize}
 \end{columns}
@@ -86,8 +84,8 @@
 \begin{itemize}
   \item Un vector con tamaño inicia todos sus valores al valor por defecto del tipo.
     \begin{itemize}
-      \item Valores numéricos: \mode<presentation>{\cppid{0}}
-      \item Valores de cadena: \mode<presentation>{\cppid{``''}}
+      \item Valores numéricos: \mode<presentation>{\cppid{0}}.
+      \item Valores de cadena: \mode<presentation>{\cppstr{''''}} (cadena vacía).
     \end{itemize}
   \item Si no se indica tamaño inicial, el vector tiene tamaño \cppid{0}.
 \begin{lstlisting}
@@ -95,7 +93,7 @@ vector<double> v; // Vector con 0 elementos
 \end{lstlisting}
   \item Se puede suministrar un valor inicial distinto.
 \begin{lstlisting}
-vector<double> v{100, 0.5}; // 100 posiciones iniciadas a 0.5
+vector<double> v(100, 0.5); // 100 elementos iniciados a 0.5
 \end{lstlisting}
 \end{itemize}
 \end{frame}
