@@ -1,0 +1,47 @@
+\section{Entrada/salida definida por el usuario}
+
+\begin{frame}[fragile]{Operadores}
+\begin{itemize}
+  \item Para definir la operación de salida:
+\begin{lstlisting}
+ostream & operator<<(ostream & fs,tipo x);
+ostream & operator<<(ostream & fs,const tipo & x);
+\end{lstlisting}
+    \begin{itemize}
+      \item Acepta tanto \cppid{ostream} como \cppid{ofstream}.
+    \end{itemize}
+  \item Para definir la operación de entrada:
+\begin{lstlisting}
+istream & operator<<(istream & fs,tipo & x);
+\end{lstlisting}
+    \begin{itemize}
+      \item Acepta tanto \cppid{ostream} como \cppid{ofstream}.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Operadores para mes}
+\begin{block}{Declaración -- mes.h}
+\lstinputlisting[firstline=33,lastline=34]{13-iostream/fecha/mes.h}
+\end{block}
+\begin{block}{Tablas de nombres -- mes.cpp}
+\lstinputlisting[firstline=15,lastline=23]{13-iostream/fecha/mes.cpp}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\begin{block}{Operadores -- mes.cpp}
+\mode<presentation>{
+\lstinputlisting[firstline=25,lastline=51,basicstyle=\tiny\ttfamily]{13-iostream/fecha/mes.cpp}
+}
+\mode<article>{
+\lstinputlisting[firstline=25,lastline=51]{13-iostream/fecha/mes.cpp}
+}
+\end{block}
+\end{frame}
+
+\begin{frame}{Operadores para fecha}
+\begin{block}{fecha.cpp}
+\lstinputlisting[firstline=44,lastline=62,basicstyle=\tiny\ttfamily]{13-iostream/fecha/fecha.cpp}
+\end{block}
+\end{frame}

@@ -1,0 +1,106 @@
+\section{Errores y excepciones}
+
+\begin{frame}{Errores}
+\begin{quote}
+Cuiusvis hominis est errare, nullius nisi insipientis in errore perseverare.
+
+\textbf{Marco Tulio Cicerón}
+\end{quote}
+
+\pause
+
+\begin{quote}
+Beware of bugs in the above code; I have only proved it correct, not tried it.
+
+\textbf{Donald Knuth}
+\end{quote}
+\end{frame}
+
+
+\begin{frame}{Tipos de errores}
+\begin{itemize}
+  \item En tiempo de desarrollo.
+    \begin{itemize}
+      \item Detectados durante la fase de desarrollo de software.
+      \item \alert{Errores de compilación}: Violación de las reglas del lenguaje que
+      se puede detectar dentro de una unidad de traducción.
+      \item \alert{Errores de enlace}: Incosistencias entre distintas unidades de 
+      traducción compiladas detectadas durante la fase de enlace.
+    \end{itemize}
+
+  \item En tiempo de ejecución.
+    \begin{itemize}
+      \item Detectados durante la ejecución del software.
+      \item \alert{Externos}: Detectados por hardware, sistema operativo, software externo, \ldots
+      \item \alert{Biblioteca}: Detectados por comprobaciones realizadas por la biblioteca.
+      \item \alert{Internos}: Detectados (o no) por código desarrollado.
+    \end{itemize}
+
+  \item{Objetivo final}: Poder traducir el código a un programa que produzca los resultados deseados.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Lenguajes estáticos versus dinámicos}
+\begin{itemize}
+  \item Alternativas:
+    \begin{itemize}
+      \item \alert{Lenguajes estáticos}: Comprobaciones realizadas en tiempo de traducción.
+        \begin{itemize}
+          \item Se pueden detectar más errores antes de comenzar la ejecución.
+          \item Pueden generar código con mejor rendimiento.
+          \item Las comprobaciones presentan límites teóricos y prácticos.
+        \end{itemize}
+      \item \alert{Lenguajes dinámicos}: Comprobaciones realizadas en tiempo de ejecución.
+        \begin{itemize}
+          \item Los errores se detectan al ejecutar programa.
+          \item Mayor peligro de errores no detectados en producto final.
+          \item Menor rendimiento derivado de más comprobaciones en tiempo de ejecución.
+        \end{itemize}
+    \end{itemize}
+  \item La mayoría de los lenguajes presentan una combinación de las dos aproximaciones.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Errores de compilación}
+\begin{lstlisting}
+double cuadrado(double x);
+\end{lstlisting}
+\begin{itemize}
+  \item Errores de compilación.
+\begin{lstlisting}
+double a = cuadrado(2,0); // Error: 2.0
+double b = cuadrado(3) // Falta punto y coma
+\end{lstlisting}
+  \item Errores de tipo.
+\begin{lstlisting}
+double c = cuadrado("hola"); // No se pude convertir a double
+\end{lstlisting}
+  \item Hay otros errores que el compilador no está obligado a detectar.
+    \begin{itemize}
+      \item Activar advertencias del compilador.
+        \begin{itemize}
+          \item \verb|-Wall -Weffc++ -Werror -Wpedantic -Wextra|
+        \end{itemize}
+      \item Usar herramientas de análisis estático de código.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Errores de enlace}
+\begin{itemize}
+  \item Cuando el enlazador (\emph{linker}) no encuentra algo.
+\lstinputlisting{06-errores/enlace/main.cpp}
+  \item Salida del compilador.
+\begin{lstlisting}[language=bash,basicstyle=\scriptsize\ttfamily]
+/tmp/ccGYMTH0.o: In function `main':
+main.cpp:(.text+0x31): undefined reference to `cuadrado(int)'
+collect2: error: ld devolvio el estado de salida 1
+make: *** [test] Error 1
+\end{lstlisting}
+  \mode<article>{
+  \item Hay más variedad de errores de enlace en C++ de los que se puede encontrar
+  en otros lenguajes como C. Esto se debe, entre otras razones, a que se suele
+  construir software bastante más complejo usando C++.
+  }
+\end{itemize}
+\end{frame}

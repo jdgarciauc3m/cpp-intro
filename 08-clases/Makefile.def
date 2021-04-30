@@ -1,9 +1,0 @@
-CLASES_BASE= 08-clases
-CLASES_PARTS= \
-$(CLASES_BASE)/*.tex  \
-metadata.tex
-
-CLASES_OUT=08-clases
-CLASES_PDF=$(CLASES_OUT).pdf
-
-FINAL_CLASES_PDF=$(FINAL_DIR)/$(CLASES_PDF)

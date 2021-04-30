@@ -1,9 +1,0 @@
-ENUM_BASE= 09-enum
-ENUM_PARTS= \
-$(ENUM_BASE)/*.tex  \
-metadata.tex
-
-ENUM_OUT=09-enum
-ENUM_PDF=$(ENUM_OUT).pdf
-
-FINAL_ENUM_PDF=$(FINAL_DIR)/$(ENUM_PDF)
