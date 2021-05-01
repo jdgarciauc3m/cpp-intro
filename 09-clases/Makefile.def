@@ -1,4 +1,4 @@
-CLASES_BASE= 09-clases
+CLASES_BASE=09-clases
 CLASES_PARTS= \
 $(CLASES_BASE)/*.tex  \
 metadata.tex
