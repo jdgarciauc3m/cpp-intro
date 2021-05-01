@@ -1,2 +1,2 @@
 $(FINAL_ALCANCE_PDF): $(ALCANCE_PARTS) $(CONFIG_INPUT) $(IMG_INPUT)
-	$(LATEXMK) -jobname=$(ALCANCE_OUT) $(ALCANCE_BASE)/slides.tex
+	$(LATEXMK) -jobname=$(ALCANCE_BASE) $(ALCANCE_BASE)/slides.tex

@@ -1,2 +1,2 @@
 $(FINAL_VECTOR_PDF): $(VECTOR_PARTS) $(CONFIG_INPUT) $(IMG_INPUT)
-	$(LATEXMK) -jobname=$(VECTOR_OUT) $(VECTOR_BASE)/slides.tex
+	$(LATEXMK) -jobname=$(VECTOR_BASE) $(VECTOR_BASE)/slides.tex

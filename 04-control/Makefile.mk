@@ -1,2 +1,2 @@
 $(FINAL_CONTROL_PDF): $(CONTROL_PARTS) $(CONFIG_INPUT) $(IMG_INPUT)
-	$(LATEXMK) -jobname=$(CONTROL_OUT) $(CONTROL_BASE)/slides.tex
+	$(LATEXMK) -jobname=$(CONTROL_BASE) $(CONTROL_BASE)/slides.tex

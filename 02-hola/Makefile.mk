@@ -1,2 +1,2 @@
 $(FINAL_HOLA_PDF): $(HOLA_PARTS) $(CONFIG_INPUT) $(IMG_INPUT)
-	$(LATEXMK) -jobname=$(HOLA_OUT) $(HOLA_BASE)/slides.tex
+	$(LATEXMK) -jobname=$(HOLA_BASE) $(HOLA_BASE)/slides.tex

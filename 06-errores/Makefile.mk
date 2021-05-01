@@ -1,2 +1,2 @@
 $(FINAL_ERRORES_PDF): $(ERRORES_PARTS) $(CONFIG_INPUT) $(IMG_INPUT)
-	$(LATEXMK) -jobname=$(ERRORES_OUT) $(ERRORES_BASE)/slides.tex
+	$(LATEXMK) -jobname=$(ERRORES_BASE) $(ERRORES_BASE)/slides.tex

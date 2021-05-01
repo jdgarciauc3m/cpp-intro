@@ -1,2 +1,2 @@
 $(FINAL_MEMDIN_PDF): $(MEMDIN_PARTS) $(CONFIG_INPUT) $(IMG_INPUT)
-	$(LATEXMK) -jobname=$(MEMDIN_OUT) $(MEMDIN_BASE)/slides.tex
+	$(LATEXMK) -jobname=$(MEMDIN_BASE) $(MEMDIN_BASE)/slides.tex

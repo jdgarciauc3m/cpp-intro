@@ -1,2 +1,2 @@
 $(FINAL_CLASES_PDF): $(CLASES_PARTS) $(CONFIG_INPUT) $(IMG_INPUT)
-	$(LATEXMK) -jobname=$(CLASES_OUT) $(CLASES_BASE)/slides.tex
+	$(LATEXMK) -jobname=$(CLASES_BASE) $(CLASES_BASE)/slides.tex
