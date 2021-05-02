@@ -1,37 +1,103 @@
-\section{Expresiones, sentencias y operadores}
+\section{Iteración}
 
-\begin{frame}[t,fragile]{Sentencias de control}
+\subsection{Bucles \textbf{while}}
+
+\begin{frame}[t,fragile]{Mientras se cumple una condición}
 \begin{itemize}
-  \item Heredadas del lenguaje C:
-    \begin{itemize}
-      \item Sentencia \cppkey{if}.
-      \item Sentencia \cppkey{switch}.
-      \item Sentencia \cppkey{while}.
-      \item Sentencia \cppkey{do}.
-      \item Sentencia \cppkey{for}.
-    \end{itemize}
-  \item Introducción de variable de control en \emph{bucles-for}.
+  \item Un bucle \cppkey{while} repite una sentencia mientras
+        se cumple una condición.
 \begin{lstlisting}
-for (int i=0; i<100; ++i) {
-  cout << i << endl;
+int opcion;
+std::cin >> opcion;
+while (opcion <0 || opcion >4)
+  std::cin >> opcion;
+std::cout << "Opción seleccionada: " << opcion << "\n";
+\end{lstlisting}
+
+\mode<presentation>{\vfill\pause}
+  \item La sentencia puede ser un bloque compuesto.
+\begin{lstlisting}
+int opcion;
+std::cin >> opcion;
+while (opcion <0 || opcion >4) {
+  std::cout << "No válida.\nOpción:";
+  std::cin >> opcion;
 }
-cout << i << endl; // Error: i no está definido
+std::cout << "Opción seleccionada: " << opcion << "\n";
 \end{lstlisting}
 \end{itemize}
 \end{frame}
 
-\begin{frame}[t,fragile]{Sentencias for basadas en rango}
+\begin{frame}[t,fragile]{Repetición con contador}
+\begin{itemize}
+  \item Imprime la lista de los cuadrados de los números naturales
+        menores de 10.
+\end{itemize}
+\begin{block}{Lista de cuadrados}
+\begin{lstlisting}
+#include <iostream>
+
+int main() {
+  int i=0;
+  while (i<10) {
+    std::cout << i << "^2 = " << i*i << "\n";
+    ++i;
+  }
+}
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\subsection{Bucles \textbf{do-while}}
+
+\begin{frame}[t,fragile]{Evaluando la condición al final}
+\begin{itemize}
+  \item Similar a los bucles \cppkey{while} pero evaluando la
+        condición de terminación al final de cada iteración.
+\end{itemize}
+\begin{lstlisting}
+int opcion;
+do {
+  std::cout << "Opción:";
+  std::cin >> opcion;
+} 
+while (opcion <0 || opcion >4);
+std::cout << "Opción seleccionada: " << opcion << "\n";
+\end{lstlisting}
+\end{frame}
+
+\subsection{Bucles \textbf{for}}
+
+\begin{frame}[t,fragile]{Bucles \textbf{for}}
+\begin{itemize}
+  \item Especialmente útiles para repetir un número de veces.
+\end{itemize}
+\begin{block}{Lista de cuadrados}
+\begin{lstlisting}
+#include <iostream>
+
+int main() {
+  int i=0;
+  for (int i=0; i<10; ++i) {
+    std::cout << i << "^2 = " << i*i << "\n";
+  }
+}
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[t,fragile]{Bucles \textbf{for} basadas en rango}
 \begin{itemize}
   \item Permiten recorrer una lista de valores.
 \begin{lstlisting}
 for (int x : {1, 2, 3, 4}) {
-  cout << i << endl;
+  cout << i << '\n';
 }
 \end{lstlisting}
   \item Se pueden combinar con \cppkey{auto}.
 \begin{lstlisting}
 for (auto x : {1, 2, 3, 4}) {
-  cout << i << endl;
+  cout << i << '\n';
 }
 \end{lstlisting}
 

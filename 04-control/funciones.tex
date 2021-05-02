@@ -1,1 +1,54 @@
 \section{Funciones}
+
+\begin{frame}[t,fragile]{Funciones}
+\begin{itemize}
+  \item Una \textgood{función} es un subprograma que se puede invocar
+        desde distintos lugares de un programa.
+\end{itemize}
+\begin{lstlisting}
+#include <iostream>
+
+void imprime_cuadrado(int i) {
+  std::cout << i << "^2 = ";
+  std::cout << i*i << "\n";
+}
+
+int main() {
+  imprime_cuadrado(2);
+  imprime_cuadrado(5);
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[t,fragile]{Anatomía de una función}
+\begin{itemize}
+  \item \textgood{Tipo de retorno}: Tipo del resultado de la función.
+    \begin{itemize}
+      \item Si no hay resultado $\rightarrow$ \cppkey{void}.
+    \end{itemize}
+\begin{lstlisting}[escapechar=@]
+@\color{red}\textbf{void}@ imprime_cuadrado(int i) {
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item \textgood{Nombre de la función}
+\begin{lstlisting}[escapechar=@]
+void @\color{red}\textbf{imprime\_cuadrado}@(int i) {
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item \textgood{Parámetros de la función}
+\begin{lstlisting}[escapechar=@]
+void imprime_cuadrado@\color{red}\textbf{(int i)}@ {
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item \textgood{Cuerpo de la función}
+\begin{lstlisting}[escapechar=@]
+void imprime_cuadrado(int i) @\color{red}\textbf{\{}@
+  std::cout << i << "^2 = ";
+  std::cout << i*i << "\n";
+@\color{red}\textbf{\}}@
+\end{lstlisting}
+\end{itemize}
+\end{frame}

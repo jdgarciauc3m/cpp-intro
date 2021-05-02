@@ -1,1 +1,328 @@
 \section{Selección}
+
+\subsection{Sentencia \textbf{if}}
+
+\begin{frame}[t,fragile]{Ejecución condicional}
+\begin{itemize}
+  \item Sentencia \cppkey{if}: Ejecuta dependiendo de una condición.
+    \begin{itemize}
+      \item La condición debe ser una expresión convertible a
+            \textmark{boolean} entre paréntesis
+    \end{itemize}
+\begin{lstlisting}
+if (edad>18) 
+  std::cerr << "Mayor de edad\n";
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item Alternativa \cppkey{else}: Acción a ejecutar cuando no se cumple 
+        la condición.
+\begin{lstlisting}
+if (edad>18) 
+  std::cerr << "Mayor de edad\n";
+else
+  std::cerr << "Menor de edad\n";
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Sentencias compuestas}
+\begin{itemize}
+  \item Tanto la sentencia asociada al \cppkey{if} (\textmark{sentencia then})
+        como la sentencia asociada a la parte \cppkey{else} (\textmark{sentencia else})
+        pueden ser un bloque de sentencias.
+    \begin{itemize}
+      \item Una secuencia de sentencias entre llaves.
+    \end{itemize}
+\begin{lstlisting}
+if (a>b) {
+  maximo = a;
+  minimo = b;
+}
+else {
+  maximo = b;
+  minimo = a;
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Selección encadenada}
+\begin{itemize}
+  \item Tanto la \textmark{parte then} como la \textmark{parte else} pueden
+        ser a su vez una sentencia de selección.
+    \begin{itemize}
+      \item Permite encadenar selecciones.
+    \end{itemize}
+\begin{lstlisting}
+if (talla=='S') {
+  std::cout << "pequeña\n";
+}
+else if (talla=='M') {
+  std::cout << "mediana\n";
+}
+else if (talla=='L') {
+  std::cout << "grande\n";
+}
+else {
+  std::cout << "desconocida\n";
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\subsection{Sentencia \textbf{switch}}
+
+\begin{frame}[t,fragile]{Alternativa múltiple}
+\begin{itemize}
+  \item Permite elegir entre varias alternativas dependiendo del valor
+        de una expresión.
+\begin{lstlisting}
+switch (talla) {
+  case 'S':
+    std::cout << "pequeña\n";
+    break;
+  case 'M':
+    std::cout << "mediana\n";
+    break;
+  case 'L':
+    std::cout << "grande\n";
+    break;
+  default:
+    std::cout << "desconocida\n";
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Tipo de expresión}
+\begin{itemize}
+  \item El tipo de la expresión de selección debe ser un tipo entero,
+        carácter o 
+        \mode<presentation>{enumerado.}
+        \mode<article>{enumerado~\footnote{Los enumerados se presentarán en el tema~\ref{cap:enum}}.}
+\end{itemize}
+
+\begin{columns}[T]
+
+\column[t]{.5\textwidth}
+\begin{block}{OK}
+\begin{lstlisting}
+int x;
+std::cin >> x;
+switch (x) {
+  case 0:
+    std::cout << "cero\n";
+    break;
+  case 1:
+    std::cout << "uno\n";
+    break;
+  default:
+    std::cout << "otro\n";
+}
+\end{lstlisting}
+\end{block}
+
+\mode<presentation>{\pause}
+\column[t]{.5\textwidth}
+\begin{itemize}
+  \item No puede ser un tipo cadena como \cppid{std::string}.
+\end{itemize}
+\begin{block}{Error}
+\begin{lstlisting}
+std::string s;
+std::cin >> s;
+switch (s) { // Error. s es cadena
+  //...
+}
+\end{lstlisting}
+\end{block}
+\end{columns}
+\end{frame}
+
+\begin{frame}[t,fragile]{Etiquetas}
+\begin{itemize}
+  \item Las etiquetas en los \cppkey{case} deben ser expresiones constantes.
+    \begin{itemize}
+      \item No se puede poner una variable en un \cppkey{case}.
+    \end{itemize}
+\end{itemize}
+
+\begin{columns}[T]
+
+\column{.5\textwidth}
+\begin{block}{OK}
+\begin{lstlisting}
+char c;
+std::cin >> c;
+switch (c) {
+  case 'M':
+    std::cout << "mediana\n";
+    break;
+  //...
+}
+\end{lstlisting}
+\end{block}
+
+\column{.5\textwidth}
+\begin{block}{Error}
+\begin{lstlisting}
+char c;
+std::cint >> c;
+const char med1 = 'M';
+constexpr char med2 = 'M';
+
+switch (c) {
+  case med1: // Error
+    std::cout << "mediana\n";
+    break;
+  case med2: // OK
+    std::cout << "mediana\n";
+    break;
+  //...
+}
+\end{lstlisting}
+\end{block}
+
+\end{columns}
+\end{frame}
+
+\begin{frame}[t,fragile]{Repetición}
+\mode<presentation>{\vspace{-1em}}
+\begin{columns}[T]
+
+\column{.5\textwidth}
+\begin{itemize}
+  \item Una etiqueta puede aparecer una única vez.
+\end{itemize}
+
+\begin{block}{Etiquetas repetidas}
+\begin{lstlisting}
+char c;
+std::cin >> c;
+switch (c) {
+  case 'l':
+    std::cout << "lunes\n";
+    break;
+  case 'm':
+    std::cout << "martes\n";
+    break;
+  case 'm': // Error: etiqueta repetida
+    std::cout << "miércoles\n";
+    break;
+  //...  
+}
+\end{lstlisting}
+\end{block}
+
+\mode<presentation>{\pause}
+\column{.5\textwidth}
+\begin{itemize}
+  \item Se pueden usar varias etiquetas para una rama.
+\end{itemize}
+\begin{block}{Rama múltiple}
+\begin{lstlisting}
+char c;
+std::cin >> c;
+switch (c) {
+  case 'a':
+  case 'e':
+  case 'i':
+  case 'o':
+  case 'u':
+    std::cout << "vocal\n";
+    break;
+  default:
+    std::cout << "consonante\n"
+}
+\end{lstlisting}
+\end{block}
+
+\end{columns}
+\end{frame}
+
+\begin{frame}[t,fragile]{Terminación de ramas}
+\begin{itemize}
+  \item La última sentencia de una rama debe ser \cppkey{break}.
+    \begin{itemize}
+      \item En otro caso se continúa con la siguiente rama.
+    \end{itemize}
+\end{itemize}
+
+\mode<presentation>{\vfill}
+\begin{columns}[T]
+
+\column{.5\textwidth}
+\begin{block}{Ramas en cascada}
+\begin{lstlisting}
+switch (nota) {
+  case 'S':
+    std::cout << "Excelente\n";
+  case 'N':
+    std::cout << "Buen trabajo\n";
+    break;
+  case 'A':
+    std::cout << "Aprobado\n";
+    break;
+  default:
+    std::cout << "Sigue trabajando\n";
+}
+\end{lstlisting}
+\end{block}
+
+\column{.5\textwidth}
+{\scriptsize
+\begin{itemize}
+  \item \textmark{'S'}:
+\begin{lstlisting}[style=terminal,basicstyle=\tiny]
+Excelente
+Buen trabajo
+\end{lstlisting}
+  \item \textmark{'N'}:
+\begin{lstlisting}[style=terminal,basicstyle=\tiny]
+Excelente
+Buen trabajo
+\end{lstlisting}
+  \item \textmark{'A'}:
+\begin{lstlisting}[style=terminal,basicstyle=\tiny]
+Aprobado
+\end{lstlisting}
+  \item Otra letra:
+\begin{lstlisting}[style=terminal,basicstyle=\tiny]
+Sigue trabajando
+\end{lstlisting}
+\end{itemize}
+}
+\end{columns}
+\end{frame}
+
+\begin{frame}[t,fragile]{Ramas en cascada}
+\begin{itemize}
+  \item Cuando una rama no termina en \cppkey{break} es probable que se
+        obtenga una advertencia al compilar.
+    \begin{itemize}
+      \item Se puede usar el atributo \cppkey{[[fallthrough]]}.
+      \mode<article>{
+        \item Indica intención de pasar a la siguiente rama.
+       }
+    \end{itemize}
+\end{itemize}
+
+\begin{block}{Ramas en cascada y [[fallthrough]]}
+\begin{lstlisting}
+switch (nota) {
+  case 'S':
+    std::cout << "Excelente\n";
+    [[fallthrough]];
+  case 'N':
+    std::cout << "Buen trabajo\n";
+    break;
+  case 'A':
+    std::cout << "Aprobado\n";
+    break;
+  default:
+    std::cout << "Sigue trabajando\n";
+}
+\end{lstlisting}
+\end{block}
+\end{frame}
