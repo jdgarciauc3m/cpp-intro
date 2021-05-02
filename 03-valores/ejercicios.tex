@@ -14,6 +14,47 @@ auto sz2 = sizeof(int);
 Escribe un programa que imprima por pantalla el tamaño en bytes para cada uno de los
 tipos fundamentales del lenguaje C++.
 
-\item \todo[inline]{Ejercicio para presentar warnings}
+\item Todos los compiladores tienen un conjunto de advertencias (\emph{warnings})
+      que se pueden activar, para realizar comprobaciones adicionales sobre el
+      código. 
+
+      Investiga el significado de los siguientes \emph{flags} en el
+      compilador \textmark{gcc}:
+\begin{itemize}
+  \item \cppkey{-Wall}
+  \item \cppkey{-Wextra}
+  \item \cppkey{-Werror}
+  \item \cppkey{-Wpedantic}
+  \item \cppkey{-pedantic-errors}
+  \item \cppkey{-Wconversion}
+\end{itemize}
+
+\item La herramienta \textmark{CMake} permite añadir opciones de compilación mediante
+      \cppkey{add\_compile\_options}
+      (consulta \url{https://cmake.org/cmake/help/latest/command/add_compile_options.html}).
+
+      Crea un proyecto con un programa que lea de la entrada estándar un número
+      real en doble precisión. Asigna los valores enteros inferiores y superiores
+      a dos variables enteras (\cppid{alto} y \cppid{bajo}). Finalmente imprime
+      los valores de dichas variables.
+
+      \textmark{Nota}: El proyecto debe incluir las opciones de compilación mencionadas
+      en el ejercicio anterior.
+
+      Las siguientes funciones pueden ser útiles:
+      \begin{itemize}
+        \item \cppid{ceil()} 
+              (consulta \url{https://en.cppreference.com/w/cpp/numeric/math/ceil}).
+        \item \cppid{floor()} 
+              (consulta \url{https://en.cppreference.com/w/cpp/numeric/math/floor}).
+      \end{itemize}
+
+      Resuelve los problemas ocasionados por advertencias del compilador.
+
+\item Considera la siguiente cuestión:
+
+      ¿Cómo se puede prevenir en la conversión de reales a enteros los casos que
+      no son representables por el correspondiente tipo entero?
+     
 
 \end{enumerate}
