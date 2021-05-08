@@ -51,28 +51,33 @@ double sqrt(double x);
 \end{lstlisting}
 \end{frame}
 
-\begin{frame}{Ausencia de comprobación}
-\begin{block}{nocheck.cpp}
 \mode<presentation>{
+
+\begin{frame}[t]{Ausencia de comprobación}
+\begin{block}{nocheck.cpp}
 \lstinputlisting[firstline=1,lastline=14]{ejemplos/06-errores/prepost/nocheck.cpp}
 \ldots
-}
-\mode<article>{
-\lstinputlisting{ejemplos/06-errores/prepost/nocheck.cpp}
-}
 \end{block}
 \end{frame}
 
-\mode<presentation>{
-\begin{frame}
+\begin{frame}[t]{Ausencia de comprobación}
 \begin{block}{nocheck.cpp}
 \ldots
 \lstinputlisting[firstline=15]{ejemplos/06-errores/prepost/nocheck.cpp}
 \end{block}
 \end{frame}
+
 }
 
-\begin{frame}[fragile]{Salida}
+\mode<article>{
+\begin{frame}[t]{Ausencia de comprobración}
+\begin{block}{nocheck.cpp}
+\lstinputlisting{ejemplos/06-errores/prepost/nocheck.cpp}
+\end{block}
+\end{frame}
+}
+
+\begin{frame}[t,fragile]{Salida}
 \begin{lstlisting}[style=terminal]
 Carlos -> 10
 Daniel -> 43
@@ -114,14 +119,15 @@ std::string find_name(int i);
 
 \mode<presentation>{
 
-\begin{frame}
+\begin{frame}[t]{Comprobración defensiva}
+\mode<presentation>{\vspace{-1em}}
 \begin{block}{check.cpp}
 \lstinputlisting[lastline=17]{ejemplos/06-errores/prepost/check.cpp}
 \ldots
 \end{block}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[t]{Comprobación defensiva}
 \begin{block}{check.cpp}
 \ldots
 \lstinputlisting[firstline=19,lastline=31]{ejemplos/06-errores/prepost/check.cpp}
@@ -129,7 +135,7 @@ std::string find_name(int i);
 \end{block}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[t]{Comprobación defensiva}
 \begin{block}{check.cpp}
 \ldots
 \lstinputlisting[firstline=33]{ejemplos/06-errores/prepost/check.cpp}
@@ -139,7 +145,7 @@ std::string find_name(int i);
 }
 
 \mode<article>{
-\begin{frame}{Comprobación de precondiciones}
+\begin{frame}[t]{Comprobación defensiva}
 \begin{block}{check.cpp}
 \lstinputlisting{ejemplos/06-errores/prepost/check.cpp}
 \end{block}
