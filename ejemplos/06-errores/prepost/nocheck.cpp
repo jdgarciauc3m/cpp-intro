@@ -7,8 +7,8 @@ using namespace std;
 void imprime(vector<string> personas, vector<int> edades) 
 // Pre: personas.size() == edades.size()
 {
-  const int len = personas.size();
-  for (int i=0; i<len; ++i) {
+  const auto len = personas.size();
+  for (std::size_t i=0; i<len; ++i) {
     cout << personas[i] << " -> " << edades[i] << endl;
   }
 }

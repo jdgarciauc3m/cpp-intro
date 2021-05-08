@@ -53,13 +53,14 @@ double c = cuadrado("hola"); // No se pude convertir a double
 \begin{frame}[fragile]{Errores de enlace}
 \begin{itemize}
   \item Cuando el enlazador (\emph{linker}) no encuentra algo.
-\lstinputlisting{06-errores/enlace/main.cpp}
+\lstinputlisting{ejemplos/06-errores/enlace/main.cpp}
   \item Salida del compilador.
-\begin{lstlisting}[language=bash,basicstyle=\scriptsize\ttfamily]
-/tmp/ccGYMTH0.o: In function `main':
-main.cpp:(.text+0x31): undefined reference to `cuadrado(int)'
-collect2: error: ld devolvio el estado de salida 1
-make: *** [test] Error 1
+\begin{lstlisting}[language=bash,basicstyle=\tiny\ttfamily]
+[ 50%] Building CXX object CMakeFiles/enlace.dir/main.cpp.o
+[100%] Linking CXX executable enlace
+/usr/bin/ld: CMakeFiles/enlace.dir/main.cpp.o: en la función `main':
+[...]/enlace/main.cpp:9: referencia a `cuadrado(int)' sin definir
+collect2: error: ld returned 1 exit status
 \end{lstlisting}
   \mode<article>{
   \item Hay más variedad de errores de enlace en C++ de los que se puede encontrar

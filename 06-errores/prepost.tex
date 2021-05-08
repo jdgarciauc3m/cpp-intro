@@ -51,6 +51,47 @@ double sqrt(double x);
 \end{lstlisting}
 \end{frame}
 
+\begin{frame}{Ausencia de comprobación}
+\begin{block}{nocheck.cpp}
+\mode<presentation>{
+\lstinputlisting[firstline=1,lastline=14]{ejemplos/06-errores/prepost/nocheck.cpp}
+\ldots
+}
+\mode<article>{
+\lstinputlisting{ejemplos/06-errores/prepost/nocheck.cpp}
+}
+\end{block}
+\end{frame}
+
+\mode<presentation>{
+\begin{frame}
+\begin{block}{nocheck.cpp}
+\ldots
+\lstinputlisting[firstline=15]{ejemplos/06-errores/prepost/nocheck.cpp}
+\end{block}
+\end{frame}
+}
+
+\begin{frame}[fragile]{Salida}
+\begin{lstlisting}[style=terminal]
+Carlos -> 10
+Daniel -> 43
+José -> 67
+Manuel -> 98
+Maria -> 0
+Carlos -> 10
+Daniel -> 43
+José -> 67
+Manuel -> 98
+Maria -> 8
+\end{lstlisting}
+\begin{itemize}
+  \item \textbad{Peligro}: El primer valor para María no está garantizado.
+  \item Otras implementaciones podrían causar errores
+\end{itemize}
+\end{frame}
+
+
 \begin{frame}[t,fragile]{Comprobación defensiva}
 \begin{itemize}
   \item La precondición se comprueba al entrar en la función.
@@ -75,7 +116,7 @@ std::string find_name(int i);
 
 \begin{frame}
 \begin{block}{check.cpp}
-\lstinputlisting[lastline=17]{06-errores/prepost/check.cpp}
+\lstinputlisting[lastline=17]{ejemplos/06-errores/prepost/check.cpp}
 \ldots
 \end{block}
 \end{frame}
@@ -83,7 +124,7 @@ std::string find_name(int i);
 \begin{frame}
 \begin{block}{check.cpp}
 \ldots
-\lstinputlisting[firstline=19,lastline=31]{06-errores/prepost/check.cpp}
+\lstinputlisting[firstline=19,lastline=31]{ejemplos/06-errores/prepost/check.cpp}
 \ldots
 \end{block}
 \end{frame}
@@ -91,7 +132,7 @@ std::string find_name(int i);
 \begin{frame}
 \begin{block}{check.cpp}
 \ldots
-\lstinputlisting[firstline=33]{06-errores/prepost/check.cpp}
+\lstinputlisting[firstline=33]{ejemplos/06-errores/prepost/check.cpp}
 \end{block}
 \end{frame}
 
@@ -100,7 +141,7 @@ std::string find_name(int i);
 \mode<article>{
 \begin{frame}{Comprobación de precondiciones}
 \begin{block}{check.cpp}
-\lstinputlisting{06-errores/prepost/check.cpp}
+\lstinputlisting{ejemplos/06-errores/prepost/check.cpp}
 \end{block}
 \end{frame}
 }
@@ -122,72 +163,56 @@ Maria -> 8
 \end{frame}
 
 
-\begin{frame}{Ausencia de comprobación}
-\begin{itemize}
-  \item La precondición no se comprueba.
-  \mode<article>{
-    \begin{itemize}
-      \item Es responsabilidad del llamante cumplirla.
-    \end{itemize}
-  }
-\end{itemize}
-\pause
-\begin{block}{nocheck.cpp}
-\mode<presentation>{
-\lstinputlisting[firstline=1,lastline=14]{06-errores/prepost/nocheck.cpp}
-\ldots
-}
-\mode<article>{
-\lstinputlisting{06-errores/prepost/nocheck.cpp}
-}
-\end{block}
-\end{frame}
-
-\mode<presentation>{
-\begin{frame}
-\begin{block}{nocheck.cpp}
-\ldots
-\lstinputlisting[firstline=15]{06-errores/prepost/nocheck.cpp}
-\end{block}
-\end{frame}
-}
-
-\begin{frame}[fragile]{Salida}
-\begin{lstlisting}[style=terminal]
-Carlos -> 10
-Daniel -> 43
-José -> 67
-Manuel -> 98
-Maria -> 0
-Carlos -> 10
-Daniel -> 43
-José -> 67
-Manuel -> 98
-Maria -> 8
-\end{lstlisting}
-\begin{itemize}
-  \item \alert{Peligro}: El primer valor para María no está garantizado.
-  \item Otras implementaciones podrían causar errores
-\end{itemize}
-\end{frame}
-
 \subsection{Postcondiciones}
 
-\begin{frame}[fragile]{Postcondiciones}
+\begin{frame}[t,fragile]{Postcondiciones}
 \begin{itemize}
-  \item Una \alert{postcondición} es una condición que debe cumplirse tras
+  \item Una \textmark{postcondición} es una condición que debe cumplirse tras
         la ejecución de una función.
+
+  \mode<presentation>{\pause\vfill}
   \item Pueden ser más complejas y costosas de comprobar.
 \begin{lstlisting}
 vector<int> copia_ordenado(vector<int> v);
 // Post: Resultado es copia ordenada de v.
 \end{lstlisting}
+
+  \mode<presentation>{\pause\vfill}
   \item Es una buena práctica documentarlas.
-  \item El incumplimiento de una postcondición puede venir dado por:
+
+  \mode<presentation>{\pause\vfill}
+  \item El incumplimiento de una postcondición dado por:
     \begin{itemize}
       \item Incumplimiento de una precondición.
+        \begin{itemize}
+          \item No es necesario comprobarla.
+        \end{itemize}
       \item Error de programación.
+        \begin{itemize}
+          \item Recomendable comprobarlas.
+        \end{itemize}
     \end{itemize}
-  \item No se suelen comprobar.
+\end{itemize}
+\end{frame}
+
+\subsection{Aserciones}
+
+\begin{frame}[t,fragile]{Aserciones}
+\begin{itemize}
+  \item Una \textmark{aserción} es un predicado que debe cumplirse
+        en un punto determinado del código.
+
+  \mode<presentation>{\vfill\pause}
+  \item Razones para utilizar \textmark{aserciones}:
+    \begin{itemize}
+      \item Puntos de control en algoritmos.
+      \item Mayor eficiencia en postcondiciones complejas.
+    \end{itemize}
+
+  \mode<presentation>{\vfill\pause}
+  \item Se puede usar la macro \cppid{assert()}.
+    \begin{lstlisting}
+    #include <cassert>
+    \end{lstlisting}
 \end{itemize}
 \end{frame}
