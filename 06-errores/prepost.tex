@@ -7,27 +7,68 @@
   \item Una \textmark{precondición} es una condición que debe cumplirse
         antes de ejecutar una función.
 \begin{lstlisting}
+// pre: personas.size() == edades.size()
 void imprime(vector<string> personas, vector<int> edades);
-// Pre: personas.size() == edades.size()
 \end{lstlisting}
 
   \mode<presentation>{\vfill\pause}
   \item \textmark{Alternativas}:
     \begin{itemize}
-      \item Comprobar todas las precondiciones.
-        \begin{itemize}
-          \item Requiere una acción si se incumple (¿excepción?).
-          \item No siempre es factible.
-          \item Computacinalmente más costoso.
-        \end{itemize}
+
       \item No realizar las comprobaciones.
         \begin{itemize}
           \item El llamante es responsable de cumplir la precondición.
-          \item Computacionalmente menos costoso.
-          \item Puede dar lugar a errores.
+        \end{itemize}
+
+      \item Comprobar todas las precondiciones.
+        \begin{itemize}
+          \item La precondición se comprueba al entrar en la función.
         \end{itemize}
     \end{itemize}
 \end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Sin comprobación}
+\begin{itemize}
+  \item El llamante es responsable de cumplir la precondición.
+
+
+  \mode<presentation>{\vfill}
+  \item \textmark{Aspectos a considerar}:
+    \begin{itemize}
+      \item Puede dar lugar a errores si se invoca incumpliendo
+            una precondición.
+      \item No tiene coste computacional.
+      \item Debe documentarse.
+    \end{itemize}
+\end{itemize}
+
+
+\mode<presentation>{\vfill}
+\begin{lstlisting}
+// pre: x>=0
+double sqrt(double x);
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[t,fragile]{Comprobación defensiva}
+\begin{itemize}
+  \item La precondición se comprueba al entrar en la función.
+
+  \mode<presentation>{\vfill}
+  \item \textmark{Aspectos a considerar}:
+    \begin{itemize}
+      \item Coste computacional asociado a las comprobaciones.
+      \item No siempre es factible.
+      \item Requiere una acción en respuesta al incumplimiento.
+    \end{itemize}
+\end{itemize}
+
+\mode<presentation>{\vfill}
+\begin{lstlisting}
+// throws: invalid_index if i>=max_index
+std::string find_name(int i);
+\end{lstlisting}
 \end{frame}
 
 \mode<presentation>{
