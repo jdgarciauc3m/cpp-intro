@@ -7,7 +7,7 @@ Cuiusvis hominis est errare, nullius nisi insipientis in errore perseverare.
 \textbf{Marco Tulio Cicerón}
 \end{quote}
 
-\pause
+\mode<presentation>{\vfill\pause}
 
 \begin{quote}
 Beware of bugs in the above code; I have only proved it correct, not tried it.
@@ -16,91 +16,129 @@ Beware of bugs in the above code; I have only proved it correct, not tried it.
 \end{quote}
 \end{frame}
 
-
-\begin{frame}{Tipos de errores}
+\begin{frame}[t]{Tipos de errores}
 \begin{itemize}
-  \item En tiempo de desarrollo.
+  \item En \textmark{tiempo de desarrollo}.
     \begin{itemize}
       \item Detectados durante la fase de desarrollo de software.
-      \item \alert{Errores de compilación}: Violación de las reglas del lenguaje que
-      se puede detectar dentro de una unidad de traducción.
-      \item \alert{Errores de enlace}: Incosistencias entre distintas unidades de 
-      traducción compiladas detectadas durante la fase de enlace.
+      \item Más baratos de corregir.
+      \item Soporte de herramientas para la detección.
     \end{itemize}
 
-  \item En tiempo de ejecución.
+  \mode<presentation>{\vfill\pause}
+  \item En \textmark{tiempo de ejecución}.
     \begin{itemize}
       \item Detectados durante la ejecución del software.
-      \item \alert{Externos}: Detectados por hardware, sistema operativo, software externo, \ldots
-      \item \alert{Biblioteca}: Detectados por comprobaciones realizadas por la biblioteca.
-      \item \alert{Internos}: Detectados (o no) por código desarrollado.
+      \item Más caros de corregir.
+      \item Necesidad de poder reproducirlos.
     \end{itemize}
 
-  \item{Objetivo final}: Poder traducir el código a un programa que produzca los resultados deseados.
+  \mode<presentation>{\vfill\pause}
+  \item \textgood{Objetivo final}: 
+        Poder traducir el código a un programa que produzca los resultados deseados.
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Lenguajes estáticos versus dinámicos}
+\begin{frame}[t]{Errores en tiempo de desarrollo}
 \begin{itemize}
-  \item Alternativas:
+  \item \textbad{Errores de compilación}: 
+        Violación de las reglas del lenguaje que
+        se puede detectar dentro de una unidad de traducción.
+
+  \mode<presentation>{\vfill\pause}
+  \item \textbad{Errores de enlace}: 
+        Incosistencias entre distintas unidades de 
+        traducción compiladas detectadas durante la fase de enlace.
+
+  \mode<presentation>{\vfill\pause}
+  \item \textbad{Otros errores detectables}:
+        Errores y/o violaciones de reglas detectados por herramientas
+        como \textmark{analizadores estáticos de código} y
+        \textmark{analizadores dinámicos de código}.
+
+  \mode<presentation>{\vfill\pause}
+  \item \textbad{Errores durante el proceso de pruebas}:
+        Errores detectados durante pruebas unitarias, de integración
+        o de sistema.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Errores en tiempo de ejecución}
+\begin{itemize}
+  \item \textbad{Externos}: 
+        Detectados por hardware, sistema operativo, software externo, \ldots
     \begin{itemize}
-      \item \alert{Lenguajes estáticos}: Comprobaciones realizadas en tiempo de traducción.
-        \begin{itemize}
-          \item Se pueden detectar más errores antes de comenzar la ejecución.
-          \item Pueden generar código con mejor rendimiento.
-          \item Las comprobaciones presentan límites teóricos y prácticos.
-        \end{itemize}
-      \item \alert{Lenguajes dinámicos}: Comprobaciones realizadas en tiempo de ejecución.
-        \begin{itemize}
-          \item Los errores se detectan al ejecutar programa.
-          \item Mayor peligro de errores no detectados en producto final.
-          \item Menor rendimiento derivado de más comprobaciones en tiempo de ejecución.
-        \end{itemize}
+      \item División por cero.
+      \item Acceso ilegal a memoria.
     \end{itemize}
-  \item La mayoría de los lenguajes presentan una combinación de las dos aproximaciones.
-\end{itemize}
-\end{frame}
 
-\begin{frame}[fragile]{Errores de compilación}
-\begin{lstlisting}
-double cuadrado(double x);
-\end{lstlisting}
-\begin{itemize}
-  \item Errores de compilación.
-\begin{lstlisting}
-double a = cuadrado(2,0); // Error: 2.0
-double b = cuadrado(3) // Falta punto y coma
-\end{lstlisting}
-  \item Errores de tipo.
-\begin{lstlisting}
-double c = cuadrado("hola"); // No se pude convertir a double
-\end{lstlisting}
-  \item Hay otros errores que el compilador no está obligado a detectar.
+  \mode<presentation>{\vfill\pause}
+  \item \textbad{Biblioteca}: 
+        Detectados por comprobaciones realizadas por la biblioteca.
     \begin{itemize}
-      \item Activar advertencias del compilador.
-        \begin{itemize}
-          \item \verb|-Wall -Weffc++ -Werror -Wpedantic -Wextra|
-        \end{itemize}
-      \item Usar herramientas de análisis estático de código.
+      \item Error en reserva de memoria.
+    \end{itemize}
+
+  \mode<presentation>{\vfill\pause}
+  \item \textbad{Internos}: 
+        Detectados (o no) por código desarrollado.
+    \begin{itemize}
+      \item Acceso indebido a un dato.
     \end{itemize}
 \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Errores de enlace}
+\begin{frame}[t]{Tipos de errores}
 \begin{itemize}
-  \item Cuando el enlazador (\emph{linker}) no encuentra algo.
-\lstinputlisting{06-errores/enlace/main.cpp}
-  \item Salida del compilador.
-\begin{lstlisting}[language=bash,basicstyle=\scriptsize\ttfamily]
-/tmp/ccGYMTH0.o: In function `main':
-main.cpp:(.text+0x31): undefined reference to `cuadrado(int)'
-collect2: error: ld devolvio el estado de salida 1
-make: *** [test] Error 1
-\end{lstlisting}
-  \mode<article>{
-  \item Hay más variedad de errores de enlace en C++ de los que se puede encontrar
-  en otros lenguajes como C. Esto se debe, entre otras razones, a que se suele
-  construir software bastante más complejo usando C++.
-  }
+  \item \textmark{Especificaciones de baja calidad}:
+        No está claro qué hacer en determinados casos.
+
+  \mode<presentation>{\vfill\pause}
+  \item \textmark{Programas incompletos}:
+        Faltan casos por tener en cuenta.
+
+  \mode<presentation>{\vfill\pause}
+  \item \textmark{Argumentos no esperados}:
+        Una función recibe un valor para el que no está preparada.
+
+  \mode<presentation>{\vfill\pause}
+  \item \textmark{Entradas no esperadas}:
+        Se recibe un valor no esperado de un archivo o
+        la interfaz de usuario.
+
+  \mode<presentation>{\vfill\pause}
+  \item \textmark{Estado inesperado}:
+        El programa se encuentra en un estado en el que no puede 
+        realizar una operación.
+
+  \mode<presentation>{\vfill\pause}
+  \item \textmark{Errores lógicos}:
+        El programa no hace lo que se espera.
 \end{itemize}
 \end{frame}
+
+\begin{frame}[t]{Lenguajes estáticos versus dinámicos}
+\begin{itemize}
+  \item \textgood{Lenguajes estáticos}: Comprobaciones realizadas en 
+        \textmark{tiempo de traducción}.
+    \begin{itemize}
+      \item Se pueden detectar más errores antes de comenzar la ejecución.
+      \item Pueden generar código con mejor rendimiento.
+      \item Las comprobaciones presentan límites teóricos y prácticos.
+    \end{itemize}
+
+  \mode<presentation>{\vfill\pause}
+  \item \textgood{Lenguajes dinámicos}: Comprobaciones realizadas en 
+        \textmark{tiempo de ejecución}.
+    \begin{itemize}
+      \item Los errores se detectan al ejecutar programa.
+      \item Mayor peligro de errores no detectados en producto final.
+      \item Menor rendimiento derivado de más comprobaciones en tiempo de ejecución.
+    \end{itemize}
+
+  \mode<presentation>{\vfill\pause}
+  \item La mayoría de los lenguajes presentan una 
+        \textmark{combinación de las dos aproximaciones}.
+\end{itemize}
+\end{frame}
+

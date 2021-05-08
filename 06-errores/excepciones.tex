@@ -1,83 +1,8 @@
 \section{Excepciones}
 
-\begin{frame}[fragile]{Detección de errores}
-\begin{itemize}
-  \item Una función no puede siempre realizar su tarea.
-  \item Alternativas:
-    \begin{itemize}
-      \item Comprobar antes de llamar.
-      \item Comprobar dentro de la función.
-        \begin{itemize}
-          \item Realizar acción apropiada en caso de error.
-          \item Devolver código de error.
-          \item Usar excepciones.
-        \end{itemize}
-    \end{itemize}
-\end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Comprobar antes de llamar}
-\begin{lstlisting}
-void imprime_velocidad(double s, double t) {
-  cout << s/t << endl;
-}
-
-void f() {
-  double s = lee_espacio();
-  double t = lee_tiempo();
-  if (t > 0.0) {
-    imprime_velocidad(s,t);
-  }
-  else {
-    cerr << "Error: Tiempo negativo" << endl;
-  }
-}
-\end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]{Comprobar y realizar acción}
-\begin{lstlisting}
-void imprime_velocidad(double s, double t) {
-  if (t > 0.0) {
-    cout << s/t << endl;
-  }
-  else {
-    cerr << "Error: Tiempo negativo" << endl;
-  }
-}
-
-void f() {
-  double s = lee_espacio();
-  double t = lee_tiempo();
-  imprime_velocidad(s,t);
-}
-\end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]{Comprobar y devolver código de error}
-\begin{lstlisting}
-int imprime_velocidad(double s, double t) {
-  if (t > 0.0) {
-    cout << s/t << endl;
-    return 0;
-  }
-  return -1;
-}
-
-void f() {
-  double s = lee_espacio();
-  double t = lee_tiempo();
-  int r = imprime_velocidad(s,t);
-  if (r<0) {
-    cerr << "Error: Tiempo negativo" << endl;
-  }
-}
-\end{lstlisting}
-\end{frame}
-
 \begin{frame}[fragile]{Excepciones}
 \begin{itemize}
-  \item \alert{IMPORTANTE}: El modelo de excepciones de C++ tiene diferencias con otros lenguajes.
+  \item \textbad{IMPORTANTE}: El modelo de excepciones de C++ tiene diferencias con otros lenguajes.
   \item Resumen básico:
     \begin{itemize}
       \item Una excepción puede ser de cualquier tipo definido por el usuario.

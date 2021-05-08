@@ -1,0 +1,71 @@
+\section{Errores en tiempo de desarrollo}
+
+\begin{frame}[t,fragile]{Errores de compilación}
+\begin{lstlisting}
+double cuadrado(double x);
+\end{lstlisting}
+
+\begin{itemize}
+  \mode<presentation>{\vfill\pause}
+  \item Errores de compilación.
+\begin{lstlisting}
+double a = cuadrado(2,0); // Error: 2.0
+double b = cuadrado(3) // Falta punto y coma
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item Errores de tipo.
+\begin{lstlisting}
+double c = cuadrado("hola"); // No se pude convertir a double
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item Hay otros errores que el compilador no está obligado a detectar.
+    \begin{itemize}
+      \item Activar advertencias del compilador.
+        \begin{itemize}
+          \item \cppkey{-Wall -Weffc++ -Werror -Wpedantic -Wextra -pedantic-errors}.
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Análisis estático de código}
+\begin{itemize}
+  \item Análisis del código fuente para detectar errores en los programas
+        que un compilador convencional no puede encontrar.
+
+  \mode<presentation>{\vfill\pause}
+  \item \textgood{Open source}:
+    \begin{itemize}
+      \item \textmark{cppdepend}, \textmark{Infer}, 
+            \textmark{clang static analyzer}, \textmark{clang-tidy}.
+    \end{itemize}
+
+  \mode<presentation>{\vfill\pause}
+  \item \textgood{Propietarias}:
+    \begin{itemize}
+      \item \textmark{cppdepend}, \textmark{coverity}, \textmark{Helix-QAC}.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Errores de enlace}
+\begin{itemize}
+  \item Cuando el enlazador (\emph{linker}) no encuentra algo.
+\lstinputlisting{06-errores/enlace/main.cpp}
+  \item Salida del compilador.
+\begin{lstlisting}[language=bash,basicstyle=\scriptsize\ttfamily]
+/tmp/ccGYMTH0.o: In function `main':
+main.cpp:(.text+0x31): undefined reference to `cuadrado(int)'
+collect2: error: ld devolvio el estado de salida 1
+make: *** [test] Error 1
+\end{lstlisting}
+  \mode<article>{
+  \item Hay más variedad de errores de enlace en C++ de los que se puede encontrar
+  en otros lenguajes como C. Esto se debe, entre otras razones, a que se suele
+  construir software bastante más complejo usando C++.
+  }
+\end{itemize}
+\end{frame}
+

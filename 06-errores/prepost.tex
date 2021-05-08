@@ -1,14 +1,18 @@
-\section{Precondiciones}
+\section{Precondiciones y postcondiciones}
 
-\begin{frame}[fragile]{Precondiciones}
+\subsection{Precondiciones}
+
+\begin{frame}[t,fragile]{Precondiciones}
 \begin{itemize}
-  \item Una \alert{precondición} es una condición que debe cumplirse
+  \item Una \textmark{precondición} es una condición que debe cumplirse
         antes de ejecutar una función.
 \begin{lstlisting}
 void imprime(vector<string> personas, vector<int> edades);
 // Pre: personas.size() == edades.size()
 \end{lstlisting}
-  \item Alternativas:
+
+  \mode<presentation>{\vfill\pause}
+  \item \textmark{Alternativas}:
     \begin{itemize}
       \item Comprobar todas las precondiciones.
         \begin{itemize}

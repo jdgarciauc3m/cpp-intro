@@ -1,0 +1,137 @@
+\section{Errores en tiempo de ejecución}
+
+\begin{frame}[fragile]{¿Qué pasa si no se comprueba?}
+\begin{lstlisting}
+void imprime_velocidad(double s, double t) {
+  std::cout << s/t << "\n"; // ¿t==0?
+}
+
+void f() {
+  double s = lee_espacio();
+  double t = lee_tiempo();
+  imprime_velocidad(s,t);
+}
+\end{lstlisting}
+\mode<presentation>{\vfill}
+\begin{lstlisting}[style=terminal]
+inf
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[t]{Detección de errores}
+\begin{itemize}
+  \item Una función no puede siempre realizar su tarea.
+    \begin{itemize}
+      \item Ejemplo: Parámetros recibidos no son válidos.
+    \end{itemize}
+
+  \mode<presentation>{\vfill}
+  \item \textgood{Alternativas}:
+    \begin{itemize}
+      \item Lado del llamante: Comprobar antes de invocar.
+      \item Lado del llamado: Comprobar como parte de la función.
+    \end{itemize}
+
+  \mode<presentation>{\vfill}
+  \begin{columns}[T]
+  
+  \column{.5\textwidth}
+  \textgood{Lado del llamante}
+  \begin{itemize}
+    \item Comprobar antes de llamar.
+    \item Si error $\rightarrow$ no llamar.
+  \end{itemize}
+
+  \column{.5\textwidth}
+  \textgood{Lado del llamado}
+  \begin{itemize}
+    \item Realizar acción.
+    \item Abortar la ejecución.
+    \item Devolver código de error.
+    \item Usar excepciones.
+  \end{itemize}
+  \end{columns}
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Llamante: Comprobar antes de llamar}
+\begin{lstlisting}
+void imprime_velocidad(double s, double t) {
+  std::cout << s/t << "\n";
+}
+
+void f() {
+  double s = lee_espacio();
+  double t = lee_tiempo();
+  if (t > 0.0) {
+    imprime_velocidad(s,t);
+  }
+  else {
+    std::cerr << "Error: Tiempo negativo\n";
+  }
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Llamado: Comprobar y realizar acción}
+\begin{lstlisting}
+void imprime_velocidad(double s, double t) {
+  if (t > 0.0) {
+    std::cout << s/t << "\n";
+  }
+  else {
+    std::cerr << "Error: Tiempo negativo" << "\n";
+  }
+}
+
+void f() {
+  double s = lee_espacio();
+  double t = lee_tiempo();
+  imprime_velocidad(s,t);
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Llamado: Comprobar y abortar}
+\begin{lstlisting}
+void imprime_velocidad(double s, double t) {
+  if (t > 0.0) {
+    std::cout << s/t << "\n";
+  }
+  else {
+    std::cerr << "Error: Tiempo negativo\n";
+    std::abort();
+  }
+}
+
+void f() {
+  double s = lee_espacio();
+  double t = lee_tiempo();
+  imprime_velocidad(s,t);
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Llamado: Comprobar y devolver código de error}
+\begin{lstlisting}
+int imprime_velocidad(double s, double t) {
+  if (t > 0.0) {
+    cout << s/t << "\n";
+    return 0;
+  }
+  return -1;
+}
+
+void f() {
+  double s = lee_espacio();
+  double t = lee_tiempo();
+  int r = imprime_velocidad(s,t);
+  if (r<0) {
+    std::cerr << "Error: Tiempo negativo\n";
+  }
+}
+\end{lstlisting}
+\end{frame}
+
+
