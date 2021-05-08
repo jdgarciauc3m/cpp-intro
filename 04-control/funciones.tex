@@ -53,6 +53,23 @@ void imprime_cuadrado(int i) @\color{red}\textbf{\{}@
 \end{itemize}
 \end{frame}
 
-\mode<article>{
-\todo[inline]{Explicar funciones con valor de retorno}
+\begin{frame}[t,fragile]{Resultado de una función}
+\begin{itemize}
+  \item Una función puede devolver un resultado.
+    \begin{itemize}
+      \item Hay que especificar el tipo del valor de retorno.
+      \item Se debe utilizar la sentencia \cppkey{return} para devolver el valor.
+    \end{itemize}
+\end{itemize}
+
+\mode<presentation>{\vfill\pause}
+\begin{lstlisting}
+double cuadrado(double x) {
+  return x * x;
 }
+
+void f() {
+  std::cout << "42^2 = " << cuadrado(42.0) << "\n";
+}
+\end{lstlisting}
+\end{frame}
