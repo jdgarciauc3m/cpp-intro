@@ -1,8 +1,8 @@
 \section{Archivos de cabecera}
 
-\begin{frame}{Cabecera}
+\begin{frame}[t]{Cabecera}
 \begin{itemize}
-  \item Un \alert{archivo de cabecera} contiene declaraciones que pueden usarse desde
+  \item Un \textgood{archivo de cabecera} contiene declaraciones que pueden usarse desde
         varias unidades de traducción.
     \begin{itemize}
       \item No contienen definiciones.
@@ -46,17 +46,27 @@
 \end{tikzpicture}
 \end{frame}
 
-\begin{frame}{Ejemplo}
+\begin{frame}[t]{Ejemplo: \texttt{geom}}
 \begin{block}{geom.h}
-\lstinputlisting{07-alcance/cab/geom.h}
+\lstinputlisting{ejemplos/07-alcance/cabeceras/geom.h}
 \end{block}
 \begin{block}{geom.cpp}
-\lstinputlisting{07-alcance/cab/geom.cpp}
+\lstinputlisting{ejemplos/07-alcance/cabeceras/geom.cpp}
 \end{block}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[t]{Ejemplo: \texttt{main}}
 \begin{block}{main.cpp}
-\lstinputlisting{07-alcance/cab/main.cpp}
+\lstinputlisting{ejemplos/07-alcance/cabeceras/main.cpp}
 \end{block}
+\end{frame}
+
+\begin{frame}[t]{Ejemplo: \textbf{CMake}}
+\begin{block}{CMakeLists.txt}
+\lstinputlisting{ejemplos/07-alcance/cabeceras/CMakeLists.txt}
+\end{block}
+\begin{itemize}
+  \item \textbad{Atención}: Todos los archivos \cppid{.cpp} añadidos
+        al objetivo ejecutable.
+\end{itemize}
 \end{frame}
