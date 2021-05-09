@@ -31,6 +31,30 @@ class fecha {
 \end{itemize}
 \end{frame}
 
+\begin{frame}[t,fragile]{Alcance de clase}
+\begin{itemize}
+  \item Las entidades declaradas dentro de una clase son accesible dentro de la definición de la clase.
+  \item También puede accederse cualificando el acceso.
+\end{itemize}
+\begin{lstlisting}
+class punto {
+public:
+  punto(double cx, double cy);
+  double modulo() { return sqrt(x*x+y*y); }
+  void simetria_x();
+private:
+  double x;
+  double y;
+};
+
+punto::simetria_x() {
+  y = -y;
+}
+
+\end{lstlisting}
+\end{frame}
+
+
 \begin{frame}{Estructura y funciones sobre estructura}
 \vspace{-.8em}
 \begin{block}{fecha.h}
