@@ -1,0 +1,33 @@
+\section{Ejercicios}
+
+\begin{enumerate}
+
+\item Escribe un archivo de cabecera \cppid{cdf.h} y su correspodiente
+      archivo de implementación \cppid{cdf.cpp} e implementa las funciones
+      del \textmark{función error de Gauss} (\cppid{erf()}) y
+      la \textmark{función derror complementaria} (\cppid{erfc()}).
+
+\[
+erf(x) = \frac{2}{\sqrt{\pi}} \int_{0}^{x} e^{-t^2} dt
+\]
+\[
+erfc(x) = 1 -erf(x)
+\]
+
+      Escribe un programa que escriba los valores para ambas funciones para los
+      números entre \cppid{0.0} y \cppid{1.0} en saltos de \cppid{0.1}.
+
+\item Añade a la función \cppid{cdf.h} la función para el cálculo de la función
+      de distribución acumulada \cppid{cdf\_normal()}.
+
+\[
+F(x) = \Phi \Big(\frac{x - \mu}{\sigma}\Big) = 
+\frac{1}{2} \left[ 1 + erf \Big(\frac{x-\mu}{\sigma \sqrt{2}}\Big) \right]
+\]
+
+      Escribe un programa que lea de la entrada estándar la media ($\mu$) y la
+      desviación típica ($\sigma$) e imprima los valores de la función de
+      distribución acumulada normal para valores entre \cppid{-1.0} y \cppid{1.0}
+      en saltos de \cppid{0.1}.
+
+\end{enumerate}
