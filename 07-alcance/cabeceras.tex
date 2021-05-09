@@ -1,0 +1,62 @@
+\section{Archivos de cabecera}
+
+\begin{frame}{Cabecera}
+\begin{itemize}
+  \item Un \alert{archivo de cabecera} contiene declaraciones que pueden usarse desde
+        varias unidades de traducción.
+    \begin{itemize}
+      \item No contienen definiciones.
+      \item Al incluirse se sustituye la inclusión por el contenido del archivo.
+    \end{itemize}
+\end{itemize}
+\begin{tikzpicture}
+\tikzset{
+    archfuente/.style={rectangle,rounded corners,draw=black, top color=white, bottom color=blue!50,very thick, inner sep=0.5em, minimum size=0, text centered, font=\tiny},
+    flecha/.style={->, >=latex', shorten >=1pt, thick},
+    flechainc/.style={->, >=latex', shorten >=1pt, thick, draw=blue},
+    etiqueta/.style={text centered, font=\tiny} 
+}  
+\node[archfuente] (iostream) {\cppid{iostream}};
+\node[archfuente, below=1cm of iostream] (geomh) {\cppid{geom.h}};
+
+\node[archfuente, right=1cm of iostream] (maincpp) {\cppid{main.cpp}};
+\draw[flechainc] (maincpp) -- (iostream);
+\draw[flechainc] (maincpp) -- (geomh);
+
+\node[archfuente, below=1cm of maincpp] (geomcpp) {\cppid{geom.cpp}};
+\draw[flechainc] (geomcpp) -- (geomh);
+
+\node[archfuente,right=1cm of maincpp] (maino) {\cppid{main.o}};
+\draw[flecha] (maincpp) -- (maino);
+
+\node[archfuente,below=1cm of maino] (geomo) {\cppid{geom.o}};
+\draw[flecha] (geomcpp) -- (geomo);
+
+\node[archfuente,right=1cm of maino] (main) {\cppid{main}};
+\draw[flecha] (maino) -- (main);
+\draw[flecha] (geomo) -- (main);
+
+\node[archfuente,above=1cm of main] (stdlib) {\cppid{libstdc++}};
+\draw[flecha] (stdlib) -- (main);
+
+\node[etiqueta,above right=0cm and 0.3cm of iostream] {\emph{include}};
+\node[etiqueta,above right=0cm and 0.3cm of maincpp] {\emph{compilación}};
+\node[etiqueta,above right=0cm and 0.3cm of maino] {\emph{enlace}};
+
+\end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Ejemplo}
+\begin{block}{geom.h}
+\lstinputlisting{07-alcance/cab/geom.h}
+\end{block}
+\begin{block}{geom.cpp}
+\lstinputlisting{07-alcance/cab/geom.cpp}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\begin{block}{main.cpp}
+\lstinputlisting{07-alcance/cab/main.cpp}
+\end{block}
+\end{frame}

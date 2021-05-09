@@ -1,0 +1,48 @@
+\section{Definiciones}
+
+\begin{frame}[fragile]{Definición}
+  \begin{itemize}
+    \item Una \alert{definición} es una \emph{declaración} que especifica completamente una entidad.
+      \begin{itemize}
+        \item Toda definición es siempre una declaración.
+        \item Toda declaración no tiene por qué ser una definición.
+      \end{itemize}
+  \end{itemize}
+\begin{lstlisting}
+double x = 1.5; // Definición
+double y { 0.5 }; // Definición
+double z; // Definición
+extern double t; // Declaración
+
+double area(double l, double a); // Declaración
+double area(double, double); // Declaración
+double area(double l, double a) { return l*a; } // Definición
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Multiplicidad}
+\begin{itemize}
+  \item Una \alert{definición} reserva espacio de memoria para una variable o genera código
+        para una función.
+    \begin{itemize}
+      \item Solamente puede definirse una entidad una vez.
+    \end{itemize}
+  \item Una \alert{declaración} (que no defina) simplemente referencia la existencia de una entidad
+        para permitir su uso.
+    \begin{itemize}
+      \item La entidad debe definirse en alguna otra parte.
+      \item Se puede declarar una entidad múltiples veces si mantiene el tipo.
+    \end{itemize}
+\end{itemize}
+\begin{lstlisting}
+extern double ancho; // Declaración
+extern double ancho; // Declaración
+double ancho; // Definición
+extern int ancho; // Error: Tipo
+
+double area(double, double); // Declaración
+double area(double l, double a): { return l*a; } // Definición
+double area(double, double); // Declaración
+int area(double, double); // Error: Tipo de retorno
+\end{lstlisting}
+\end{frame}

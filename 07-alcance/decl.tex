@@ -1,0 +1,72 @@
+\section{Declaraciones}
+
+\begin{frame}[fragile]{Declaración}
+\begin{itemize}
+  \item Una \alert{declaración} es una sentencia que introduce un nombre
+        para una entidad en un alcance y especifica su tipo.
+\begin{lstlisting}
+int x; // x es una variable entera
+vector<string> v; // v es un vector de cadenas
+double area(double l, double a); // area es una función
+\end{lstlisting}
+  \item Una declaración puede incluir un valor inicial.
+\begin{lstlisting}
+int x = 2.5;
+int y { 3.0 };
+vector<string> v { "Carlos", "Daniel" };
+double area(double l, double a) { return l * a; }
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Declaración y uso}
+\begin{itemize}
+  \item Antes de usar una entidad este debe haber sido declarada.
+\lstinputlisting{07-alcance/decl/main1.cpp}
+    \begin{itemize}
+      \item 5 errores:
+        \begin{itemize}
+          \item \verb+cout no declarado en este ámbito+.
+          \item \verb+x no declarado en este ámbito+.
+          \item \verb+y no declarado en este ámbito+.
+          \item \verb+area no declarado en este ámbito+.
+          \item \verb+endl no declarado en este ámbito+.
+        \end{itemize}
+      \item \cppid{cout} y \cppid{endl} están \alert{declarados} en el archivo de 
+            cabecera \cppid{<iostream>}, dentro del espacio de nombres \cppid{std}.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Inclusión de cabecera estándar}
+\lstinputlisting{07-alcance/decl/main2.cpp}
+\begin{itemize}
+  \item El archivo de cabecera \cppid{<iostream>} contiene todas las declaraciones
+        de biblioteca para entrada/salida estándar.
+    \begin{itemize}
+      \item 3 errores:
+        \begin{itemize}
+          \item \verb+x no declarado en este ámbito+.
+          \item \verb+y no declarado en este ámbito+.
+          \item \verb+area no declarado en este ámbito+.
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Declaraciones}
+\lstinputlisting{07-alcance/decl/main3.cpp}
+\begin{itemize}
+  \item Cambios:
+    \begin{itemize}
+      \item Declaración de variables \cppid{x}, e \cppid{y}.
+      \item Declaración de función \cppid{area()}.
+    \end{itemize}
+  \item 0 errores de compilación.
+  \item 1 error de enlace:
+\begin{lstlisting}[style=terminal]
+undefined reference to `area(double, double)'
+collect2: error: ld devolvió el estado de salida 1
+\end{lstlisting}
+\end{itemize}
+\end{frame}
