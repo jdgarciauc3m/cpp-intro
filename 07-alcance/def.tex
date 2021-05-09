@@ -1,8 +1,9 @@
 \section{Definiciones}
 
-\begin{frame}[fragile]{Definición}
+\begin{frame}[t,fragile]{Definición}
   \begin{itemize}
-    \item Una \alert{definición} es una \emph{declaración} que especifica completamente una entidad.
+    \item Una \textgood{definición} es una 
+          \textmark{declaración} que especifica completamente una entidad.
       \begin{itemize}
         \item Toda definición es siempre una declaración.
         \item Toda declaración no tiene por qué ser una definición.
@@ -20,18 +21,20 @@ double area(double l, double a) { return l*a; } // Definición
 \end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile]{Multiplicidad}
+\begin{frame}[t,fragile]{Multiplicidad}
 \begin{itemize}
-  \item Una \alert{definición} reserva espacio de memoria para una variable o genera código
-        para una función.
+  \item Una \textgood{definición} reserva espacio de memoria 
+        para una variable o genera código para una función.
     \begin{itemize}
-      \item Solamente puede definirse una entidad una vez.
+      \item Solamente puede definirse una entidad \textemph{una única vez}.
     \end{itemize}
-  \item Una \alert{declaración} (que no defina) simplemente referencia la existencia de una entidad
-        para permitir su uso.
+  \item Una \textgood{declaración} (que no defina) 
+        simplemente \textmark{hace referencia la existencia} 
+        de una entidad para permitir su uso.
     \begin{itemize}
-      \item La entidad debe definirse en alguna otra parte.
-      \item Se puede declarar una entidad múltiples veces si mantiene el tipo.
+      \item La entidad \textbad{debe definirse} en alguna otra parte.
+      \item Se puede \textbad{declarar} una entidad \textmark{múltiples veces} 
+            si mantiene el tipo.
     \end{itemize}
 \end{itemize}
 \begin{lstlisting}
