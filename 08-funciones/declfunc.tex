@@ -1,0 +1,27 @@
+\section{Declaración de funciones}
+
+\begin{frame}[fragile]{Declaración}
+\begin{itemize}
+  \item Incluye sus parámetros y su tipo de retorno.
+  \item Dos sintaxis alternativas:
+\begin{lstlisting}
+double area(double nx, double ny);
+auto area(double nx, double ny) -> double;
+\end{lstlisting}
+
+\mode<presentation>{\vfill\pause}
+  \item Los nombres de parámetros no son obligatorios en declaraciones.
+\begin{lstlisting}
+double area(double, double); // Declaración
+double area(double nx, double ny) { return nx*ny; } // Definición
+\end{lstlisting}
+
+\mode<presentation>{\vfill\pause}
+  \item El tipo de retorno puede ser \cppkey{void}.
+\begin{lstlisting}
+void imprime(string nombre, int edad) {
+  std::cout << nombre << " -> " << edad << std::endl;
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}

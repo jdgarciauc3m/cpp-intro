@@ -1,0 +1,132 @@
+\section{Paso de parámetros}
+
+\subsection{Paso por valor}
+
+\begin{frame}[fragile]{Paso por valor}
+\begin{itemize}
+  \item Se pasa a la función una \textmark{copia del argumento} 
+        especificado en la llamada.
+\begin{columns}[T]
+\column{.3\textwidth}
+\begin{lstlisting}
+int incrementa(int n) {
+  ++n;
+  return n;
+}
+\end{lstlisting}
+
+\column{.4\textwidth}
+\begin{lstlisting}
+void f() {
+  int x = 5;
+  int a = incrementa(x);
+  int b = incrementa(x);
+  // ...
+}
+\end{lstlisting}
+\end{columns}
+
+  \mode<presentation>{\vfill\pause}
+  \item Se pueden pasar \textmark{literales} y \textmark{temporales} 
+        como argumentos.
+\begin{lstlisting}
+void g() {
+  int a = incrementa(3);
+  int b = incrementa(a+2);
+  // ...
+}
+\end{lstlisting}
+
+\end{itemize}
+\end{frame}
+
+\subsection{Paso por referencia}
+
+\begin{frame}[fragile]{Paso por referencia constante}
+\begin{itemize}
+  \item El paso por valor siempre realiza una copia.
+    \begin{itemize}
+      \item Si el objeto pasado es grande puede ser muy costoso.
+    \end{itemize}
+  \item \textgood{Paso por referencia constante}: 
+        Pasa la \textmark{dirección del objeto} pero 
+        \textbad{impide su alteración} dentro de la función.
+    \begin{itemize}
+      \item Conceptualmente equivalente a paso por valor.
+    \end{itemize}
+\begin{columns}[T]
+\column{.58\textwidth}
+\begin{lstlisting}
+double maxref(const vector<doulbe> & v) {
+  if (v.size() == 0) throw invalid_argument;
+  double r = v[0];
+  for (int i=1; i<v.size(); ++i) {
+    if (r>v[i]) r=v[i];
+  }
+  return r;
+}
+\end{lstlisting}
+
+\column{.42\textwidth}
+\begin{lstlisting}
+void f() {
+  vector<double> vec(10000000);
+  // ...
+  double m = maxref(vec);
+  // ...
+}
+\end{lstlisting}
+\end{columns}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Paso por referencia}
+\begin{itemize}
+  \item \textbad{Elimina la restricción} de \textmark{no modificar} 
+        el parámetro dentro de la función.
+\begin{lstlisting}
+void rellena(vector<int> & v, int n) {
+  for (int i=0; i!=n; ++i) { v.push_back(i); }
+}
+\end{lstlisting}
+  \item No se está pasando una copia.
+    \begin{itemize}
+      \item Se tiene acceso al propio objeto y se puede modificar.
+    \end{itemize}
+\begin{lstlisting}
+int incrementa(int & n) {
+  ++n;
+  return n;
+}
+
+void f() {
+  int x = 5;
+  int a = incrementa(x);
+  int b = incrementa(x);
+  // ...
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Ejemplo: intercambio de valores}
+\begin{lstlisting}
+void intercambia(int & x, int & y) {
+  int tmp = x;
+  x = y;
+  y = tmp;
+}
+
+void f() {
+  int a = 5, b=15;
+  intercambia(a,b);
+}
+\end{lstlisting}
+\begin{itemize}
+  \item La biblioteca estańdar ofrece intercambio de datos para 
+        todos los tipos predefinidos.
+    \begin{itemize}
+      \item \cppid{std::swap()}.
+    \end{itemize}
+\end{itemize}
+\end{frame}

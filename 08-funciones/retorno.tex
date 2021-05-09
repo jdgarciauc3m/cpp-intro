@@ -1,0 +1,31 @@
+\section{Retorno}
+
+\begin{frame}[fragile]{Retorno}
+\begin{itemize}
+  \item La sentencia \cppkey{return} devuelve un valor al llamante.
+\begin{lstlisting}
+double maximo(double x, double y) {
+  if (x>y) return x;
+  else return y;
+}
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item Una función con tipo de retorno \textbad{debe devolver} siempre un valor.
+\begin{lstlisting}
+double maximo(double x, double y) {
+  if (x>y) return x;
+  if (y>x) return y;
+} // Problema x==y
+\end{lstlisting}
+    \begin{itemize}
+      \item No siempre detectable por compilador.
+    \end{itemize}
+
+  \mode<presentation>{\vfill\pause}
+  \item \cppid{main()} es un \textmark{caso especial}.
+    \begin{itemize}
+      \item Si no se ejecuta \cppkey{return} se considera que devuelve \cppkey{0}.
+    \end{itemize}
+\end{itemize}
+\end{frame}
