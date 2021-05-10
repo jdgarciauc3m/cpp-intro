@@ -1,0 +1,30 @@
+\section{Funciones \textbf{constexpr}}
+
+\begin{frame}[t,fragile]{Funciones de expresión constante}
+\begin{itemize}
+  \item Funciones que se pueden usar para evaluar
+        expresiones en \textmark{tiempo de compilación}.
+    \begin{itemize}
+      \item Si los argumentos son \textmark{expresiones constantes},
+            se evalúan en \textgood{tiempo de compilación}.
+      \item Si los argumentos \textbad{no son} \textmark{expresiones constantes},
+            se evalúan en \textgood{tiempo de ejecución}.
+    \end{itemize}
+\end{itemize}
+
+\mode<presentation>{\vfill\pause}
+\begin{lstlisting}
+constexpr int eleva(int base, int exponente) {
+  int r = 1;
+  for (int i=0; i<exponente; ++i) {
+    r *= base;
+  }
+}
+
+void f(int a, int b) {
+  int x = eleva(2,3); // Tiempo de compilación
+  int x = eleva(a,b); // Tiempo de ejecución
+  //...
+}
+\end{lstlisting}
+\end{frame}
