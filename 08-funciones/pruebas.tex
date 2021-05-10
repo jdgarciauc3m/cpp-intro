@@ -21,3 +21,168 @@
 \end{itemize}
 \end{frame}
 
+\begin{frame}[t,fragile]{Ejemplo: \texttt{es\_bisiesto()}}
+\begin{itemize}
+  \item Función que determina si un año es bisiesto.
+    \begin{itemize}
+      \item Primer intento.
+    \end{itemize}
+\end{itemize}
+
+\mode<presentation>{\vfill}
+\begin{columns}[T]
+
+\column{.5\textwidth}
+\begin{block}{util.hpp}
+\lstinputlisting{ejemplos/08-funciones/calendario/util.hpp}
+\end{block}
+
+\column{.5\textwidth}
+\begin{block}{util.hpp}
+\begin{lstlisting}
+#include "util.hpp"
+
+namespace calendario {
+
+  bool es_bisiesto(int anyo) {
+    return (anyo % 4 == 0);
+  }
+}
+\end{lstlisting}
+\end{block}
+
+
+\end{columns}
+\end{frame}
+
+\begin{frame}[t,fragile]{Definiendo pruebas}
+\begin{itemize}
+  \item Incluir \cppstr{<gtest/gtest.h>}.
+
+  \mode<presentation>{\vfill\pause}
+  \item Usar la macro \cppid{TEST} para definir cada \textmark{prueba} de una
+        \textmark{suite de pruebas}.
+\begin{lstlisting}
+TEST(suite_pruebas, prueba) {
+  // Código de pruebas
+}
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item Aserciones básicas:
+    \begin{itemize}
+      \item \cppid{ASSERT\_TRUE(cond);} $\Rightarrow$ 
+            Comprueba que \cppid{cond} es cierta.
+      \item \cppid{ASSERT\_FALSE(cond);} $\Rightarrow$ 
+            Comprueba que \cppid{cond} es falsa.
+    \end{itemize}
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Ejemplo: pruebas básicas}
+\begin{block}{util\_test.cpp}
+\begin{lstlisting}
+#include "util.hpp"
+#include <gtest/gtest.h>
+
+TEST(bisiesto_test, nobisiesto) {
+  ASSERT_FALSE(calendario::es_bisiesto(2001));
+}
+
+TEST(bisiesto_test, multiplo_cuatro) {
+  ASSERT_TRUE(calendario::es_bisiesto(2004));
+}
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[t,fragile]{Probando múltiplos de 100}
+\begin{block}{util\_test.cpp}
+\begin{lstlisting}
+TEST(bisiesto_test, multiplo_cien) {
+  ASSERT_FALSE(calendario::es_bisiesto(1900));
+}
+\end{lstlisting}
+\end{block}
+
+\mode<presentation>{\vfill\pause}
+\begin{block}{util.cpp}
+\begin{lstlisting}
+  bool es_bisiesto(int anyo) {
+    return (anyo % 4 == 0) && (anyo % 100 !=0);
+  }
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[t,fragile]{Probando múltiplos de 400}
+\begin{block}{util\_test.cpp}
+\begin{lstlisting}
+TEST(bisiesto_test, multiplo_cien) {
+  ASSERT_TRUE(calendario::es_bisiesto(2000));
+}
+\end{lstlisting}
+\end{block}
+
+\mode<presentation>{\vfill\pause}
+\begin{block}{util.cpp}
+\begin{lstlisting}
+  bool es_bisiesto(int anyo) {
+    return (anyo % 4 == 0) && (anyo % 100 !=0) || (anyo % 400 == 0);
+  }
+\end{lstlisting}
+\end{block}
+
+\end{frame}
+
+\begin{frame}[t,fragile]{Integración con CMake}
+\begin{itemize}
+  \item Encontrar el paquete \textgood{CMake} para \textmark{GoogleTest}.
+    \begin{itemize}
+      \item \cppid{FindPackage(GTest)}
+    \end{itemize}
+
+  \mode<presentation>{\vfill\pause}
+  \item Crear un ejecutable con:
+    \begin{itemize}
+      \item El código que se quiere probar.
+      \item El código de las pruebas.
+      \item \cppid{add\_executable(calendario\_test util.cpp util\_test.cpp)}
+    \end{itemize}
+
+  \mode<presentation>{\vfill\pause}
+  \item Enlazar con las bibliotecas de \textmark{GoogleTest}:
+    \begin{itemize}
+      \item \cppid{target\_link\_libraries(calendario\_test GTest::GTest GTest::Main)}
+    \end{itemize}
+
+  \mode<presentation>{\vfill\pause}
+  \item Incluir descubrimiento de tests:
+    \begin{itemize}
+      \item \cppid{gtest\_discover\_tests(calendario\_test)}
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Ejecución de pruebas}
+\begin{lstlisting}[style=terminal]
+Running main() from /home/jdgarcia/clones/googletest/googletest/src/gtest_main.cc
+[==========] Running 4 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 4 tests from bisiesto_test
+[ RUN      ] bisiesto_test.nobisiesto
+[       OK ] bisiesto_test.nobisiesto (0 ms)
+[ RUN      ] bisiesto_test.multiplo_cuatro
+[       OK ] bisiesto_test.multiplo_cuatro (0 ms)
+[ RUN      ] bisiesto_test.multiplo_cien
+[       OK ] bisiesto_test.multiplo_cien (0 ms)
+[ RUN      ] bisiesto_test.multiplo_cuatrocientos
+[       OK ] bisiesto_test.multiplo_cuatrocientos (0 ms)
+[----------] 4 tests from bisiesto_test (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 4 tests from 1 test suite ran. (1 ms total)
+[  PASSED  ] 4 tests.
+\end{lstlisting}
+\end{frame}
