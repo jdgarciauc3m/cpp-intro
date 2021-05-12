@@ -1,13 +1,20 @@
 \section{Clases}
 
-\begin{frame}[fragile]{¿Qué es una clase?}
+\begin{frame}[t,fragile]{¿Qué es una clase?}
 \begin{itemize}
-  \item Tipo definido por el usuario.
+  \item Tipo \textemph{definido por el usuario}.
     \begin{itemize}
-      \item \alert{Representación} $\rightarrow$ \textbf{Datos miembro}.
-      \item \alert{Operaciones} $\rightarrow$ \textbf{Funciones miembro}
+      \item \textmark{Representación} $\rightarrow$ \textgood{Datos miembro}.
+      \item \textmark{Operaciones} $\rightarrow$ \textgood{Funciones miembro}
     \end{itemize}
+
+  \mode<presentation>{\vfill\pause}
   \item Construcciones del lenguaje:
+
+\begin{columns}[T]
+
+\column{.1\textwidth}
+\column{.3\textwidth}
     \begin{itemize}
       \item Estructura.
 \begin{lstlisting}
@@ -15,6 +22,10 @@ struct fecha {
   // Miembros
 };
 \end{lstlisting}
+    \end{itemize}
+
+\column{.3\textwidth}
+    \begin{itemize}
       \item Clase
 \begin{lstlisting}
 class fecha {
@@ -22,7 +33,14 @@ class fecha {
 };
 \end{lstlisting}
     \end{itemize}
-  \item Alternativas:
+
+\column{.3\textwidth}
+
+\end{columns}
+
+
+  \mode<presentation>{\vfill\pause}
+  \item \textmark{Alternativas}:
     \begin{itemize}
       \item Estructura + Funciones sobre estructura.
       \item Estructura con funciones miembro.
@@ -31,32 +49,9 @@ class fecha {
 \end{itemize}
 \end{frame}
 
-\begin{frame}[t,fragile]{Alcance de clase}
-\begin{itemize}
-  \item Las entidades declaradas dentro de una clase son accesible dentro de la definición de la clase.
-  \item También puede accederse cualificando el acceso.
-\end{itemize}
-\begin{lstlisting}
-class punto {
-public:
-  punto(double cx, double cy);
-  double modulo() { return sqrt(x*x+y*y); }
-  void simetria_x();
-private:
-  double x;
-  double y;
-};
-
-punto::simetria_x() {
-  y = -y;
-}
-
-\end{lstlisting}
-\end{frame}
-
 
 \begin{frame}{Estructura y funciones sobre estructura}
-\vspace{-.8em}
+\mode<presentation>{\vspace{-.8em}}
 \begin{block}{fecha.h}
 \lstinputlisting{09-clases/fecha1/fecha.h}
 \end{block}
@@ -65,7 +60,7 @@ punto::simetria_x() {
 \end{block}
 \end{frame}
 
-\vspace{-.25em}
+\mode<presentation>{\vspace{-.25em}}
 \begin{frame}
 \begin{block}{fecha.cpp}
 \mode<presentation>{
@@ -79,7 +74,8 @@ punto::simetria_x() {
 
 \begin{frame}[fragile]{Función miembro}
 \begin{itemize}
-  \item Es una función que puede invocarse solamente para una variable del tipo definido.
+  \item Es una \textgood{función} que puede invocarse 
+        \textbad{solamente} para una \textgood{variable} del tipo definido.
     \begin{itemize}
       \item Recibe implícitamente un parámetro del tipo definido.
       \item Puede acceder a los datos miembro de la variable.
@@ -124,9 +120,10 @@ void f() {
 \end{frame}
 
 \begin{frame}[t,fragile]{Visibilidad}
-\vspace{-0.25cm}
+\mode<presentation>{\vspace{-0.25cm}}
 \begin{itemize}
-  \item Los miembros de una estructura (o una clase) tienen asociado un nivel de visibilidad.
+  \item Los miembros de una estructura (o una clase) tienen asociado 
+        un \textmark{nivel de visibilidad}.
     \begin{itemize}
       \item \cppkey{public}: El miembro puede ser accedido por cualquiera.
       \item \cppkey{private}: El miembro puede ser accedido solamente por otros miembros.
@@ -152,12 +149,36 @@ private:
 \end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile]{Interfaz e implementación}
+\begin{frame}[t,fragile]{Alcance de clase}
 \begin{itemize}
-  \item Los niveles de visiblidad permiten especificar y separar:
+  \item Las entidades declaradas dentro de una clase son 
+        \textgood{accesibles} dentro de la definición de la clase.
+  \item También puede accederse cualificando el acceso.
+\end{itemize}
+\begin{lstlisting}
+class punto {
+public:
+  punto(double cx, double cy);
+  double modulo() { return sqrt(x*x+y*y); }
+  void simetria_x();
+private:
+  double x;
+  double y;
+};
+
+punto::simetria_x() {
+  y = -y;
+}
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[t,fragile]{Interfaz e implementación}
+\begin{itemize}
+  \item Los \textgood{niveles de visiblidad} permiten especificar y separar:
     \begin{itemize}
-      \item La interfaz pública de la clase.
-      \item Los detalles privados de implementación.
+      \item La \textmark{interfaz pública} de la clase.
+      \item Los \textmark{detalles privados} de implementación.
     \end{itemize}
 \end{itemize}
 \begin{lstlisting}
@@ -172,50 +193,50 @@ private:
 \end{lstlisting}
 \end{frame}
 
-\begin{frame}{Una clase fecha}
+\begin{frame}[t]{Una clase fecha}
 \begin{block}{fecha.h}
 \lstinputlisting{09-clases/fecha3/fecha.h}
 \end{block}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[t]{Uso de funciones}
 \begin{block}{main.cpp}
 \lstinputlisting{09-clases/fecha3/main.cpp}
 \end{block}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[t]{Implementación de funciones}
 \begin{block}{fecha.cpp}
 \lstinputlisting[lastline=19]{09-clases/fecha3/fecha.cpp}
 \end{block}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[t]{Implementación de funciones}
 \begin{block}{fecha.cpp}
 \lstinputlisting[firstline=21,lastline=39]{09-clases/fecha3/fecha.cpp}
 \end{block}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[t]{Implementación de funciones}
 \begin{block}{fecha.cpp}
 \lstinputlisting[firstline=40,lastline=47]{09-clases/fecha3/fecha.cpp}
 \end{block}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[t]{Implementación de funciones}
 \begin{block}{fecha.cpp}
 \lstinputlisting[firstline=49]{09-clases/fecha3/fecha.cpp}
 \end{block}
 \end{frame}
 
-\begin{frame}[fragile]{Constructor}
+\begin{frame}[t,fragile]{Constructor}
 \begin{itemize}
-  \item Un \alert{constructor} es una función miembro especial.
+  \item Un \textgood{constructor} es una función miembro especial.
     \begin{itemize}
-      \item Se usa para iniciar objetos del tipo definido por la clase.
+      \item Se usa para \textmark{iniciar objetos} del tipo definido por la clase.
       \item La sintaxis refuerza la invocación del constructor.
         \begin{itemize}
-          \item Es obligatorio pasar agumentos del constructor al declarar una variable.
+          \item Es obligatorio pasar agumentos del constructor al definir una variable.
         \end{itemize}
       \item Es una función miembro con el nombre de la clase y sin tipo de retorno.
     \end{itemize}
@@ -232,21 +253,26 @@ private:
 \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Invocación al constructor}
+\begin{frame}[t,fragile]{Invocación al constructor}
 \begin{itemize}
-  \item Dos notaciones para invocar al constructor.
+  \item Dos notaciones para \textmark{invocar al constructor}.
 \begin{lstlisting}
 punto p1(2.3, 3.5); // Clásica
 punto p2{2.3, 3.5}; // C++11
 \end{lstlisting}
-  \item Si una clase tiene constructor se debe suministrar argumentos.
+
+  \mode<presentation>{\vfill\pause}
+  \item Si una clase tiene constructor \textbad{se deben} suministrar 
+        \textmark{argumentos}.
 \begin{lstlisting}
 punto p; // Error faltan argumentos
 \end{lstlisting}
-  \item Se puede iniciar copiando otro objeto.
+
+  \mode<presentation>{\vfill\pause}
+  \item Se puede iniciar \textmark{copiando otro objeto}.
 \begin{lstlisting}
 punto p1{2.5, 3.5};
-punto p2 { p1 };
+punto p2 {p1};
 punto p3 = p1;
 punto p4 = punto(1.5, 2.5);
 punto p5 = punto{2.5, 3.5};
@@ -257,16 +283,18 @@ punto p5 = punto{2.5, 3.5};
 \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Implementación del constructor}
+\begin{frame}[t,fragile]{Implementación del constructor}
 \begin{itemize}
-  \item El contructor debe iniciar todos los datos miembro del tipo.
+  \item El contructor \textbad{debe iniciar} todos los \textmark{datos miembro} del tipo.
 \begin{lstlisting}
 punto::punto(double cx, double cy) {
   x = cx;
   y = cy;
 }
 \end{lstlisting}
-  \item Se puede usar una lista de iniciación de miembros.
+
+  \mode<presentation>{\vfill\pause}
+  \item Se puede usar una \textgood{lista de iniciación} de miembros.
 \begin{lstlisting}
 punto::punto(double cx, double cy) : x{cx}, y{cy}
 {
@@ -279,19 +307,19 @@ punto::punto(double cx, double cy) : x{cx}, y{cy}
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Construcción de fechas}
+\begin{frame}[t]{Construcción de fechas}
 \begin{block}{fecha.h}
 \lstinputlisting{09-clases/fecha4/fecha.h}
 \end{block}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[t]{Implementación de constructor}
 \begin{block}{fecha.cpp}
 \lstinputlisting[lastline=10]{09-clases/fecha4/fecha.cpp}
 \end{block}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[t]{Uso de constructor}
 \begin{block}{main.cpp}
 \lstinputlisting{09-clases/fecha4/main.cpp}
 \end{block}
