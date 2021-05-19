@@ -2,13 +2,13 @@
 #include <vector>
 #include <stdexcept>
 
-#include "contracts.h"
+#include <mincontracts/mincontracts.hpp>
 
 using namespace std;
 
 void imprime(vector<string> personas, vector<int> edades)
 {
-  contract_pre(personas.size() == edades.size());
+  CONTRACT_PRE(personas.size() == edades.size());
 
   const auto len = personas.size();
   for (std::size_t i=0; i<len; ++i) {
