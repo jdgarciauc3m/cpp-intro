@@ -55,7 +55,7 @@ double sqrt(double x);
 
 \begin{frame}[t]{Ausencia de comprobación}
 \begin{block}{nocheck.cpp}
-\lstinputlisting[firstline=1,lastline=14]{ejemplos/06-errores/prepost/nocheck.cpp}
+\lstinputlisting[firstline=1,lastline=12]{ejemplos/06-errores/prepost/nocheck.cpp}
 \ldots
 \end{block}
 \end{frame}
@@ -63,7 +63,7 @@ double sqrt(double x);
 \begin{frame}[t]{Ausencia de comprobación}
 \begin{block}{nocheck.cpp}
 \ldots
-\lstinputlisting[firstline=15]{ejemplos/06-errores/prepost/nocheck.cpp}
+\lstinputlisting[firstline=14]{ejemplos/06-errores/prepost/nocheck.cpp}
 \end{block}
 \end{frame}
 
@@ -122,7 +122,7 @@ std::string find_name(int i);
 \begin{frame}[t]{Comprobración defensiva}
 \mode<presentation>{\vspace{-1em}}
 \begin{block}{check.cpp}
-\lstinputlisting[lastline=17]{ejemplos/06-errores/prepost/check.cpp}
+\lstinputlisting[lastline=15]{ejemplos/06-errores/prepost/check.cpp}
 \ldots
 \end{block}
 \end{frame}
@@ -130,7 +130,7 @@ std::string find_name(int i);
 \begin{frame}[t]{Comprobación defensiva}
 \begin{block}{check.cpp}
 \ldots
-\lstinputlisting[firstline=19,lastline=31]{ejemplos/06-errores/prepost/check.cpp}
+\lstinputlisting[firstline=16,lastline=30]{ejemplos/06-errores/prepost/check.cpp}
 \ldots
 \end{block}
 \end{frame}
@@ -138,7 +138,7 @@ std::string find_name(int i);
 \begin{frame}[t]{Comprobación defensiva}
 \begin{block}{check.cpp}
 \ldots
-\lstinputlisting[firstline=33]{ejemplos/06-errores/prepost/check.cpp}
+\lstinputlisting[firstline=31]{ejemplos/06-errores/prepost/check.cpp}
 \end{block}
 \end{frame}
 
@@ -168,6 +168,38 @@ Maria -> 8
 \end{itemize}
 \end{frame}
 
+\begin{frame}[t]{Comparación de alternativas}
+\begin{itemize}
+  \item \textgood{Sin comprobaciones}:
+    \begin{itemize}
+      \item Traslada la responsabilidad al llamante.
+      \item Código muy eficiente.
+      \item Si se viola una precondición $\Rightarrow$ Comportamiento no definido.
+    \end{itemize}
+
+  \mode<presentation>{\vfill\pause}
+  \item \textgood{Comprobación defensiva}:
+    \begin{itemize}
+      \item Responsabilidad del llamado.
+      \item Sustituye la precondición por un comportamiento definido.
+      \item Robustez a cambio de rendimiento.
+      \item Suele ser difícil recuperarse.
+    \end{itemize}
+
+  \mode<presentation>{\vfill\pause}
+  \item \textmark{Otro enfoque}:
+    \begin{itemize}
+      \item Biblioteca de programación por contratos:
+            \url{https://github.com/jdgarciauc3m/min-contracts}
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Programación basada en contratos}
+\begin{block}{check.cpp}
+\lstinputlisting[firstline=7,lastline=14]{ejemplos/06-errores/prepost/contract_check.cpp}
+\end{block}
+\end{frame}
 
 \subsection{Postcondiciones}
 
@@ -191,14 +223,20 @@ vector<int> copia_ordenado(vector<int> v);
     \begin{itemize}
       \item Incumplimiento de una precondición.
         \begin{itemize}
-          \item No es necesario comprobarla.
+          \item No es una postcondición real.
         \end{itemize}
-      \item Error de programación.
+      \item Error de implementación.
         \begin{itemize}
           \item Recomendable comprobarlas.
         \end{itemize}
     \end{itemize}
 \end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Contratos: Postcondiciones}
+\begin{block}{Postcondición de valor absoluto}
+\lstinputlisting[firstline=16,lastline=20]{ejemplos/06-errores/prepost/contract_check.cpp}
+\end{block}
 \end{frame}
 
 \subsection{Aserciones}
@@ -220,5 +258,24 @@ vector<int> copia_ordenado(vector<int> v);
     \begin{lstlisting}
     #include <cassert>
     \end{lstlisting}
+
+  \item Se puede usar \cppid{CONTRACT\_ASSERT()}.
+    \begin{lstlisting}
+    #include <mincontracts/mincontracts.hpp>
+    \end{lstlisting}
 \end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Aserciones}
+\begin{block}{Usando Aserciones}
+\ldots
+\begin{lstlisting}
+std::vector<double> v = get_vector();
+for (auto x : v) {
+  CONTRACT_ASSERT(x>0.0);
+  procesa(x);
+}
+\end{lstlisting}
+\ldots
+\end{block}
 \end{frame}
