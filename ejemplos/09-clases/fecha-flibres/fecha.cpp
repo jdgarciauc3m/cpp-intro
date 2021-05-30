@@ -38,6 +38,7 @@ namespace {
 }// namespace
 
 void suma_dia(fecha & f, int d) {
+  CONTRACT_PRE(d>=0);
   while (d > 0) {
     int dias = dias_mes(f.mes, f.anyo);
 
