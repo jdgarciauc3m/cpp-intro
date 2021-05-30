@@ -162,13 +162,12 @@ void f() {
 
 
 \begin{frame}[t,fragile]{Visibilidad}
-\mode<presentation>{\vspace{-0.25cm}}
 \begin{itemize}
   \item Los miembros de una estructura (o una clase) tienen asociado 
         un \textmark{nivel de visibilidad}.
     \begin{itemize}
-      \item \cppkey{public}: El miembro puede ser accedido por cualquiera.
-      \item \cppkey{private}: El miembro puede ser accedido solamente por otros miembros.
+      \item \cppkey{public}: Puede ser accedido por cualquiera.
+      \item \cppkey{private}: Puede ser accedido solamente por otros miembros.
       \item \cppkey{protected}: Relacionado con herencia.
     \end{itemize}
   \item Visibilidad por defecto:
@@ -177,7 +176,27 @@ void f() {
       \item Los miembros de una clase son privados por defecto.
     \end{itemize}
 \end{itemize}
-\vspace{-0.25cm}
+
+\mode<presentation>{\vfill}
+
+\begin{columns}
+
+\column{.5\textwidth}
+
+\begin{lstlisting}
+struct X {
+  int x; // x es público
+  double y; // y es público
+public:
+  void f(int n); // f es pública
+  void g(double x); // g es pública
+private:
+  void h(); // h es privada
+};
+\end{lstlisting}
+
+\column{.5\textwidth}
+
 \begin{lstlisting}
 class X {
   int x; // x es privado
@@ -189,6 +208,9 @@ private:
   void h(); // h es privada
 };
 \end{lstlisting}
+
+\end{columns}
+
 \end{frame}
 
 \begin{frame}[t,fragile]{Alcance de clase}
@@ -201,7 +223,7 @@ private:
 class punto {
 public:
   punto(double cx, double cy);
-  double modulo() { return sqrt(x*x+y*y); }
+  double modulo() { return std::sqrt(x*x+y*y); }
   void simetria_x();
 private:
   double x;
@@ -236,40 +258,64 @@ private:
 \end{frame}
 
 \begin{frame}[t]{Una clase fecha}
+
+\begin{columns}[T]
+
+\column{.5\textwidth}
 \begin{block}{fecha.h}
-\lstinputlisting{ejemplos/09-clases/fecha3/fecha.h}
+\lstinputlisting[lastline=12]{ejemplos/09-clases/fecha-clase/fecha.hpp}
 \end{block}
+
+\column{.5\textwidth}
+\begin{block}{fecha.h}
+\lstinputlisting[firstline=13]{ejemplos/09-clases/fecha-clase/fecha.hpp}
+\end{block}
+
+\end{columns}
+
 \end{frame}
 
 \begin{frame}[t]{Uso de funciones}
 \begin{block}{main.cpp}
-\lstinputlisting{ejemplos/09-clases/fecha3/main.cpp}
+\lstinputlisting{ejemplos/09-clases/fecha-clase/main.cpp}
+\end{block}
+\end{frame}
+
+\mode<presentation>{
+
+\begin{frame}[t]{Implementación de funciones}
+\begin{block}{fecha.cpp}
+\lstinputlisting[lastline=12]{ejemplos/09-clases/fecha-clase/fecha.cpp}
 \end{block}
 \end{frame}
 
 \begin{frame}[t]{Implementación de funciones}
 \begin{block}{fecha.cpp}
-\lstinputlisting[lastline=19]{ejemplos/09-clases/fecha3/fecha.cpp}
+\lstinputlisting[firstline=14,lastline=26]{ejemplos/09-clases/fecha-clase/fecha.cpp}
 \end{block}
 \end{frame}
 
 \begin{frame}[t]{Implementación de funciones}
 \begin{block}{fecha.cpp}
-\lstinputlisting[firstline=21,lastline=39]{ejemplos/09-clases/fecha3/fecha.cpp}
+\lstinputlisting[firstline=28,lastline=44]{ejemplos/09-clases/fecha-clase/fecha.cpp}
 \end{block}
 \end{frame}
 
 \begin{frame}[t]{Implementación de funciones}
 \begin{block}{fecha.cpp}
-\lstinputlisting[firstline=40,lastline=47]{ejemplos/09-clases/fecha3/fecha.cpp}
+\lstinputlisting[firstline=46]{ejemplos/09-clases/fecha-clase/fecha.cpp}
 \end{block}
 \end{frame}
 
+}
+
+\mode<article>{
 \begin{frame}[t]{Implementación de funciones}
 \begin{block}{fecha.cpp}
-\lstinputlisting[firstline=49]{ejemplos/09-clases/fecha3/fecha.cpp}
+\lstinputlisting{ejemplos/09-clases/fecha-clase/fecha.cpp}
 \end{block}
 \end{frame}
+}
 
 \begin{frame}[t,fragile]{Constructor}
 \begin{itemize}

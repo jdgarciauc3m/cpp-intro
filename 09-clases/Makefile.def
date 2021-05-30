@@ -3,7 +3,7 @@ CLASES_PARTS= \
 $(CLASES_BASE)/*.tex  \
 ejemplos/$(CLASES_BASE)/fecha-flibres/* \
 ejemplos/$(CLASES_BASE)/fecha-fmiembro/* \
-ejemplos/$(CLASES_BASE)/fecha3/* \
+ejemplos/$(CLASES_BASE)/fecha-clase/* \
 ejemplos/$(CLASES_BASE)/fecha4/* \
 metadata.tex
 
