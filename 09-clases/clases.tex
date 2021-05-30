@@ -55,27 +55,43 @@ class fecha {
 
 \begin{frame}[t]{Estructura y funciones sobre estructura}
 \begin{block}{fecha.h}
-\lstinputlisting{ejemplos/09-clases/fecha1/fecha.hpp}
+\lstinputlisting{ejemplos/09-clases/fecha-flibres/fecha.hpp}
 \end{block}
 \end{frame}
 
 \begin{frame}[t]{Uso de funciones sobre estructura}
 \begin{block}{main.cpp}
-\lstinputlisting{ejemplos/09-clases/fecha1/main.cpp}
+\lstinputlisting{ejemplos/09-clases/fecha-flibres/main.cpp}
 \end{block}
 \end{frame}
 
-\mode<presentation>{\vspace{-.25em}}
-\begin{frame}
-\begin{block}{fecha.cpp}
 \mode<presentation>{
-\lstinputlisting[lastline=18]{ejemplos/09-clases/fecha1/fecha.cpp}
-}
-\mode<article>{
-\lstinputlisting{ejemplos/09-clases/fecha1/fecha.cpp}
-}
+\begin{frame}
+\begin{block}{fecha.cpp (iniciación y suma de año y mes)}
+\lstinputlisting[lastline=19]{ejemplos/09-clases/fecha-flibres/fecha.cpp}
 \end{block}
 \end{frame}
+
+\begin{frame}
+\begin{block}{fecha.cpp (funciones auxiliares)}
+\lstinputlisting[firstline=21,lastline=38]{ejemplos/09-clases/fecha-flibres/fecha.cpp}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\begin{block}{fecha.cpp (suma de días)}
+\lstinputlisting[firstline=40]{ejemplos/09-clases/fecha-flibres/fecha.cpp}
+\end{block}
+\end{frame}
+}
+
+\mode<article>{
+\begin{frame}{Implementación de funciones}
+\begin{block}{fecha.cpp}
+\lstinputlisting{ejemplos/09-clases/fecha-flibres/fecha.cpp}
+\end{block}
+\end{frame}
+}
 
 \begin{frame}[fragile]{Función miembro}
 \begin{itemize}
