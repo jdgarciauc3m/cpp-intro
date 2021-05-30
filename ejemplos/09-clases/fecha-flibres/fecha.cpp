@@ -1,5 +1,5 @@
 #include "fecha.hpp"
-#include <cassert>
+#include <mincontracts/mincontracts.hpp>
 
 void inicia(fecha & f, int d, int m, int a) {
   f.dia = d;
@@ -31,7 +31,7 @@ int dias_mes(int m, int a) {
     case 2:
       return es_bisiesto(a) ? 29 : 28;
     default:
-      assert(false);
+      CONTRACT_ASSERT(false);
   }
 }
 
