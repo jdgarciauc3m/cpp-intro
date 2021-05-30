@@ -4,7 +4,7 @@ $(CLASES_BASE)/*.tex  \
 ejemplos/$(CLASES_BASE)/fecha-flibres/* \
 ejemplos/$(CLASES_BASE)/fecha-fmiembro/* \
 ejemplos/$(CLASES_BASE)/fecha-clase/* \
-ejemplos/$(CLASES_BASE)/fecha4/* \
+ejemplos/$(CLASES_BASE)/fecha-ctor/* \
 metadata.tex
 
 CLASES_PDF=$(CLASES_BASE).pdf

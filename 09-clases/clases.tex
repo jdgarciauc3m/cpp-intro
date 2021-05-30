@@ -346,7 +346,7 @@ private:
   \item Dos notaciones para \textmark{invocar al constructor}.
 \begin{lstlisting}
 punto p1(2.3, 3.5); // Clásica
-punto p2{2.3, 3.5}; // C++11
+punto p2{2.3, 3.5}; // C++ moderno
 \end{lstlisting}
 
   \mode<presentation>{\vfill\pause}
@@ -395,21 +395,32 @@ punto::punto(double cx, double cy) : x{cx}, y{cy}
 \end{itemize}
 \end{frame}
 
-\begin{frame}[t]{Construcción de fechas}
+\begin{frame}[t]{Clase con constructor}
+
+\begin{columns}[T]
+
+\column{.5\textwidth}
 \begin{block}{fecha.h}
-\lstinputlisting{ejemplos/09-clases/fecha4/fecha.h}
+\lstinputlisting[lastline=12]{ejemplos/09-clases/fecha-ctor/fecha.hpp}
+\end{block}
+
+\column{.5\textwidth}
+\begin{block}{fecha.h}
+\lstinputlisting[firstline=13]{ejemplos/09-clases/fecha-ctor/fecha.hpp}
+\end{block}
+
+\end{columns}
+
+\end{frame}
+
+\begin{frame}[t]{Uso de constructor}
+\begin{block}{main.cpp}
+\lstinputlisting{ejemplos/09-clases/fecha-ctor/main.cpp}
 \end{block}
 \end{frame}
 
 \begin{frame}[t]{Implementación de constructor}
 \begin{block}{fecha.cpp}
-\lstinputlisting[lastline=10]{ejemplos/09-clases/fecha4/fecha.cpp}
+\lstinputlisting[lastline=9]{ejemplos/09-clases/fecha-ctor/fecha.cpp}
 \end{block}
 \end{frame}
-
-\begin{frame}[t]{Uso de constructor}
-\begin{block}{main.cpp}
-\lstinputlisting{ejemplos/09-clases/fecha4/main.cpp}
-\end{block}
-\end{frame}
-
