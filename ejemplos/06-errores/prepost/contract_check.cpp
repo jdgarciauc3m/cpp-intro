@@ -19,15 +19,6 @@ double valor_absoluto(double x) {
   return result;
 }
 
-void print_unique(std::vector<double> v) {
-  double anterior = v[0];
-  std::cout << anterior << "\n";
-  for (std::size_t i=1; i<v.size(); ++i) {
-    CONTRACT_ASSERT(anterior <= v[i]);
-    if
-  }
-}
-
 int main() {
   std::vector<std::string> p {"Carlos", "Daniel", "José", "Manuel", "Maria"};
   std::vector<int> e {10, 43, 67, 98};
