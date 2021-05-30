@@ -1,3 +1,6 @@
+#ifndef FECHA_HPP
+#define FECHA_HPP
+
 struct fecha {
   int dia, mes, anyo;
   void inicia(int d, int m, int a);
@@ -5,3 +8,5 @@ struct fecha {
   void suma_mes(int m);
   void suma_dia(int d);
 };
+
+#endif

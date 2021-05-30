@@ -3,7 +3,7 @@
 
 int main() {
   fecha f;
-  inicia(f, 4, 9, 1969);
-  suma_dia(f,60);
+  f.inicia(4, 9, 1969);
+  f.suma_dia(60);
   std::cout << f.dia << "/" << f.mes << "/" << f.anyo << "\n";
 }
