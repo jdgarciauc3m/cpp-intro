@@ -1,11 +1,10 @@
-#include <iostream>
-using namespace std;
+#include "fecha.hpp"
 
-#include "fecha.h"
+#include <iostream>
 
 int main() {
   fecha f{4, mes_id::septiembre, 1969};
   f.suma_dia(60);
-  cout << "Fecha: ";
+  std::cout << "Fecha: ";
   f.imprime();
 }

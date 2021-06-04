@@ -1,7 +1,11 @@
+#ifndef FECHA_HPP
+#define FECHA_HPP
+
+// clang-format off
 enum class mes_id {
-  enero = 1, febrero, marzo, 
+  enero = 1, febrero, marzo,
   abril, mayo, junio,
-  julio, agosto, septiembre, 
+  julio, agosto, septiembre,
   octubre, noviembre, diciembre,
 
   // Abreviados
@@ -10,6 +14,7 @@ enum class mes_id {
   jul = julio, ago = agosto, sep = septiembre,
   oct = octubre, nov = noviembre, dic = diciembre
 };
+// clang-format on
 
 class fecha {
 public:
@@ -30,3 +35,5 @@ private:
 int dias_de_mes(mes_id m, int a);
 
 bool es_bisiesto(int a);
+
+#endif
