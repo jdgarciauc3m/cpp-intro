@@ -1,6 +1,7 @@
 OPERADORES_BASE= 11-operadores
 OPERADORES_PARTS= \
 $(OPERADORES_BASE)/*.tex  \
+ejemplos/$(OPERADORES_BASE)/* \
 metadata.tex
 
 OPERADORES_PDF=$(OPERADORES_BASE).pdf

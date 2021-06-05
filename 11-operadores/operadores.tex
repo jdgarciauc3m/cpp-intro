@@ -1,29 +1,85 @@
 \section{Sobrecarga de operadores}
 
-
-\begin{frame}[fragile]{Operadores}
+\begin{frame}[t,fragile]{Operadores}
 \begin{itemize}
-  \item Permite definir el comportamiento de un operador cuando
-        se aplica a un tipo definido por el usuario.
+  \item Los operadores no funcionan con tipos definidos por el usuario.
+       
 \begin{lstlisting}
 enum class dia_semana { 
   lunes, martes, miercoles, jueves, viernes, 
   sabado, domingo
 };
-dia_semana d { dia_semana::martes };
-++d; // miércoles
-++d; // jueves
-d = dia_semana::domingo;
-++d; // lunes
+dia_semana x { dia_semana::martes };
+++x; // Error de compilación
 \end{lstlisting}
-  \item Se puede definir una función operador
+
+  \mode<presentation>{\vfill\pause}
+  \item Pero se puede definir una función operador:
+\begin{lstlisting}
+dia_semana operator++(dia_semana & d) {
+  d = static_cast<dia_semana>(static_cast<int>(d)+1);
+  return d;
+}
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item El uso del operador invoca a la función operador
+\begin{lstlisting}
+++x; // operator++(x);
+\end{lstlisting}
+\end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}[t,fragile]{Incremento y enumerados}
+\begin{itemize}
+  \item Puede llegarse a tener valores fuera del enumerado.
+\begin{lstlisting}
+x = dia_semana::sabado;
+++x; // x == dia_semana(6) == domingo
+++x; // x == dia_semana(7) == ??
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item Se puede controlar en la función operador
 \begin{lstlisting}
 dia_semana operator++(dia_semana & d) {
   d = (d==dia_semana::domingo)?
-    lunes :
+    dia_semana::lunes :
     static_cast<dia_semana>(static_cast<int>(d)+1);
   return d;
 }
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Postincremento}
+\begin{itemize}
+  \item La función \cppkey{operator}\cppid{++} define operador de 
+        preincremento.
+\begin{lstlisting}
+z = ++x; // z = operator++(x)
+z = x++; // ??
+\end{lstlisting}
+  
+  \mode<presentation>{\vfill\pause}
+  \item La función de post-incremento toma un segundo parámetro
+        no usado de tipo \cppid{int}.
+\begin{lstlisting}
+dia_semana operator++(dia_semana & d) {
+  auto anterior = d; // Copiar el valor anterior
+  ++d; // Incrementa d
+  return anterior;
+}
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item El uso del postincremento invoca a la función operador.
+\begin{lstlisting}
+z = ++x; // z = operator++(x)
+z = x++; // z = operator++(x,int)
 \end{lstlisting}
 \end{itemize}
 \end{frame}
@@ -45,12 +101,12 @@ ostream & operator<<(ostream & os, color c) {
     case color::azul:
       return cout << "azul";
   }
-  throw logic_error("Dia no esperado");
+  CONTRACT_ASSERT(false);
 }
 \end{lstlisting}
   \item Ejemplo de uso:
 \begin{lstlisting}
-  cout << color::verde << endl;
+  std::cout << color::verde; // operator<<(std::cout,color::verde)
 \end{lstlisting}
 \end{itemize}
 \end{frame}
@@ -59,12 +115,23 @@ ostream & operator<<(ostream & os, color c) {
 
 \begin{frame}
 \begin{block}{fecha.h}
-\lstinputlisting[lastline=17]{11-operadores/fecha6/fecha.h}
+\lstinputlisting[lastline=4]{ejemplos/11-operadores/fecha-oper/fecha.hpp}
+\lstinputlisting[firstline=6,lastline=18]{ejemplos/11-operadores/fecha-oper/fecha.hpp}
 \end{block}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[t,fragile]{Operador de incremento}
 \begin{block}{fecha.cpp}
-\lstinputlisting[firstline=7,lastline=21]{11-operadores/fecha6/fecha.cpp}
+\lstinputlisting[firstline=9,lastline=18]{ejemplos/11-operadores/fecha-oper/fecha.cpp}
+\end{block}
+\end{frame}
+
+\begin{frame}[t,fragile]{Operador de salida}
+\begin{block}{fecha.cpp (mes)}
+\lstinputlisting[firstline=20,lastline=26]{ejemplos/11-operadores/fecha-oper/fecha.cpp}
+\end{block}
+\mode<presentation>{\vfill\pause}
+\begin{block}{fecha.cpp (fecha)}
+\lstinputlisting[firstline=55,lastline=58]{ejemplos/11-operadores/fecha-oper/fecha.cpp}
 \end{block}
 \end{frame}
