@@ -5,6 +5,7 @@ ejemplos/$(IOSTREAM_BASE)/filtro/* \
 ejemplos/$(IOSTREAM_BASE)/ruta/* \
 ejemplos/$(IOSTREAM_BASE)/error/* \
 ejemplos/$(IOSTREAM_BASE)/except/* \
+ejemplos/$(IOSTREAM_BASE)/calendario/* \
 metadata.tex
 
 IOSTREAM_PDF=$(IOSTREAM_BASE).pdf

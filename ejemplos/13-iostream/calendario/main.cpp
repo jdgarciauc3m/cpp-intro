@@ -1,14 +1,13 @@
 #include <iostream>
-using namespace std;
 
-#include "fecha.h"
-using namespace calendario;
+#include "fecha.hpp"
 
 int main() {
+  using namespace std;
   cout << "Fecha: ";
 
   cin.exceptions(cin.exceptions() | ios_base::failbit);
-  fecha f;
+  calendario::fecha f;
   cin >> f;
 
   cout << "Fecha: " << f << endl;
