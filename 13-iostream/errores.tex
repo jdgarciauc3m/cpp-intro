@@ -1,6 +1,6 @@
 \section{Errores}
 
-\begin{frame}[fragile]{Estado}
+\begin{frame}[t,fragile]{Estado}
 \begin{itemize}
   \item Un flujo puede estar en cuatro estados:
     \begin{itemize}
@@ -8,14 +8,23 @@
       \item \cppid{eof}: Se ha llegado a fin de archivo.
       \item \cppid{fail}: Error recuperable.
         \begin{itemize}
-          \item \alert{Ejemplo}: Error de formato.
+          \item Ejemplo: Error de formato.
         \end{itemize}
       \item \cppid{bad}: Error severo.
         \begin{itemize}
-          \item \alert{Ejemplo}: Error de disco.
+          \item Ejemplo: Error de disco.
         \end{itemize}
     \end{itemize}
+
+  \mode<presentation>{\vfill\pause}
   \item Funciones miembro de consulta: \cppid{good()}, \cppid{eof()}, \cppid{fail()}, \cppid{bad()}.
+\begin{lstlisting}
+if (flujo.good()) {
+  flujo >> x;
+}
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
   \item Se puede restablecer el estado a \cppid{good}.
 \begin{lstlisting}
 flujo.clear(); // Estado pasa a good.
@@ -23,7 +32,7 @@ flujo.clear(); // Estado pasa a good.
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Ejemplo}
+\begin{frame}[t]{Ejemplo}
 \begin{itemize}
   \item Leer números enteros de un archivo.
   \item Si se encuentran caracteres no numéricos se ignoran y se sigue leyendo.
@@ -33,18 +42,18 @@ flujo.clear(); // Estado pasa a good.
 
 \begin{frame}
 \begin{block}{main.cpp}
-\lstinputlisting[firstline=15,lastline=36]{13-iostream/error/main.cpp}
+\lstinputlisting[firstline=14,lastline=30]{ejemplos/13-iostream/error/main.cpp}
 \end{block}
 \end{frame}
 
-\begin{frame}[fragile]{Excecpción de entrada/salida}
+\begin{frame}[t,fragile]{Excepción de entrada/salida}
 \begin{itemize}
-  \item La biblioteca de E/S no lanza normalmente excecpiones.
+  \item La biblioteca de E/S no lanza normalmente excepiones.
   \item Se puede configurar un flujo para que lance excepciones al cambiar de estado.
 \begin{lstlisting}
 flujo.exceptions(ios_base::badbit); // Lanza si pasa a bad
 flujo.exceptions(ios_base::failbit); // Lanza si pasa a fail
-flujo.exceptions(ios_base::badbit | ios_base::failbit); // Lanza si pasa a bad o fail
+flujo.exceptions(ios_base::badbit | ios_base::failbit); // Lanza si bad o fail
 \end{lstlisting}
   \item En caso de producirse fallo se lanza \cppid{ios\_base::exception}.
   \item Se puede obtener la máscara de excepciones actual.
@@ -56,8 +65,8 @@ flujo.exceptions(m);
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Uso de excepciones en entrada/salida}
+\begin{frame}[t]{Uso de excepciones en entrada/salida}
 \begin{block}{main.cpp}
-\lstinputlisting{13-iostream/except/main.cpp}
+\lstinputlisting{ejemplos/13-iostream/except/main.cpp}
 \end{block}
 \end{frame}

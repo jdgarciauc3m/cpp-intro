@@ -1,6 +1,10 @@
 IOSTREAM_BASE= 13-iostream
 IOSTREAM_PARTS= \
 $(IOSTREAM_BASE)/*.tex  \
+ejemplos/$(IOSTREAM_BASE)/filtro/* \
+ejemplos/$(IOSTREAM_BASE)/ruta/* \
+ejemplos/$(IOSTREAM_BASE)/error/* \
+ejemplos/$(IOSTREAM_BASE)/except/* \
 metadata.tex
 
 IOSTREAM_PDF=$(IOSTREAM_BASE).pdf
