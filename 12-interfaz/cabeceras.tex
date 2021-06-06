@@ -1,0 +1,108 @@
+\section{Archivos de cabecera}
+
+\begin{frame}[t]{Archivos de cabecera}
+\begin{itemize}
+  \item Un \textgood{archivo de cabecera} contiene \textmark{declaraciones} 
+        que permiten el uso de entidades.
+    \begin{itemize}
+      \item Un archivo \cppid{.cpp} contiene definiciones de entidades.
+    \end{itemize}
+
+  \mode<presentation>{\vfill\pause}
+  \item \textgood{Unidad de traducción}: Un archivo que se puede compilar, junto con
+        todos los archivos de cabecera \textmark{incluidos} por él.
+    \begin{itemize}
+      \item Un archivo de cabecera puede participar en \textemph{varias} 
+            unidades de traducción.
+      \item Un archivo de cabecera no debe contener definiciones de objetos 
+            (solamente declaraciones).
+    \end{itemize}
+
+  \mode<presentation>{\vfill\pause}
+  \item Cada \textgood{unidad de traducción} da lugar a un \textmark{archivo objeto}.
+    \begin{itemize}
+      \item No debe haber \textbad{definiciones duplicadas} de entidades en dos 
+            unidades de traducción.
+        \begin{itemize}
+          \item Generaría problemas de enlace.
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Inclusión múltiple}
+\begin{itemize}
+  \item \textbad{Problema}: Inclusión múltiple de un archivo.
+    \begin{itemize}
+      \item Podría dar lugar a \textbad{definiciones múltiples}.
+    \end{itemize}
+\end{itemize}
+
+\mode<presentation>{\vfill\pause}
+\begin{block}{fecha.h}
+\begin{lstlisting}
+struct fecha {
+  int d, m, a;
+};
+\end{lstlisting}
+\end{block}
+\begin{block}{main.cpp}
+\begin{lstlisting}
+#include "fecha.h"
+// Otros include
+// ...
+#include "fecha.h" // Error: Redefinición de struct fecha
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[t,fragile]{Guardas de inclusión}
+\begin{itemize}
+  \item Usar un \textmark{símbolo del preprocesador} para evitar la 
+        inclusión múltiple.
+    \begin{itemize}
+      \item Todo el contenido del archivo de cabecera dentro de las guardas.
+    \end{itemize}
+\end{itemize}
+
+\mode<presentation>{\vfill\pause}
+\begin{block}{fecha.h}
+\begin{lstlisting}
+#ifndef CALENDARIO_FECHA_H
+#define CALENDARIO_FECHA_H
+
+struct fecha {
+  int d, m, a;
+};
+
+// Más declaraciones
+
+#endif
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[t]{Alternativas de organización de archivos de cabecera}
+\begin{enumerate}[a]
+  \item Un par archivo de cabecera/implementación por clase:
+    \begin{itemize}
+      \item Cabecera contiene la definición de la clase y funciones asociadas.
+      \item Archivo \cppid{cpp} contiene definición de funciones.
+      \item El usuario incluye las cabeceras que necesita.
+    \end{itemize}
+
+  \mode<presentation>{\vfill\pause}
+  \item Un único archivo de cabecera por biblioteca:
+    \begin{itemize}
+      \item Cabecera contiene todas las declaraciones de todos los tipos de la biblioteca.
+      \item Uno o más archivo \cppid{cpp} contienen las definiciones.
+      \item El usuario incluye una única cabecera.
+    \end{itemize}
+
+  \mode<presentation>{\vfill\pause}
+  \item Organización pragmática:
+    \begin{itemize}
+      \item Una cabecera por cada conjunto de tipos que es previsible usar juntos.
+    \end{itemize}
+\end{enumerate}
+\end{frame}

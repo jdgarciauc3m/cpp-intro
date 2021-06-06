@@ -1,0 +1,74 @@
+\section{Construcción}
+
+\begin{frame}[t,fragile]{Iniciación de miembros no estáticos}
+\begin{itemize}
+  \item Permite indicar el \textgood{valor por defecto} para un dato miembro 
+        en la declaración de una clase.
+\begin{lstlisting}
+class punto {
+  private:
+    double x{1.0};
+    double y = 1.5;
+};
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item Equivalencia:
+\begin{lstlisting}
+class punto {
+  public:
+    punto() : x{1.0}, y{1.5} {}
+  private:
+    double x;
+    double y;
+};
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Iniciación con múltiples constructores}
+\begin{itemize}
+  \item Problemas de mantenimiento cuando se tienen muchos constructores.
+\end{itemize}
+\begin{lstlisting}[escapechar=@]
+class servicio {
+  private:
+    direccion dir;
+    int puerto;
+    string nombre;
+  public:
+    servicio() :
+      dir(direccion_defecto), puerto(9025), nombre("sin nombre") {}
+    servicio(direccion d) :
+      dir(d), puerto(@\color{red}9026@), nombre("sin nombre") {}
+    servicio(direccion d, int p) :
+      dir(d), puerto(p), nombre(@\color{red}"{}unnamed"@) {}
+    servicio(string n) :
+      dir(direccion_defecto), puerto(9025), nombre(n) {}
+// ...
+};
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[t,fragile]{Simplificación de iniciación}
+\begin{itemize}
+  \item Se puede \textmark{refactorizar} código para simplificar.
+  \item La iniciación de un miembro en el constructor 
+        \textbad{anula} la iniciación en la definición de la variable miembro.
+\end{itemize}
+\begin{lstlisting}
+class servicio {
+  private:
+    direccion dir{direccion_defecto};
+    int puerto{9025};
+    string nombre{"sin nombre"};
+  public:
+    servicio() {}
+    servicio(direccion d) : dir{d} {}
+    servicio(direccion d, int p) : dir{d}, puerto{p} {}
+    servicio(string n) : nombre{n} {}
+// ...
+};
+\end{lstlisting}
+\end{frame}
+

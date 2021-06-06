@@ -1,0 +1,157 @@
+\section{Inmutabilidad}
+
+\begin{frame}[t,fragile]{Modificabilidad}
+\begin{itemize}
+  \item Un \textgood{objeto} puede ser:
+    \begin{itemize}
+      \item \textgood{Modificable}: Si se puede alterar su valor.
+      \item \textgood{Constante}: Si no se puede modificar su valor.
+    \end{itemize}
+
+  \mode<presentation>{\vfill\pause}
+  \item Una \textgood{función} puede aceptar:
+    \begin{itemize}
+      \item Parámetros por \textmark{referencia no-constante}:
+        \begin{itemize}
+          \item Solamente argumentos modificables.
+        \end{itemize}
+\begin{lstlisting}
+void f(T & x);
+\end{lstlisting}
+
+      \item Parámetros por \textmark{valor} o por \textmark{referencia constante}:
+        \begin{itemize}
+          \item Argumentos modificables y no modificables.
+        \end{itemize}
+\begin{lstlisting}
+void g(const T & x);
+void h(T x);
+\end{lstlisting}
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Parámetros por referencia no-constante}
+\begin{itemize}
+  \item \textbad{No se puede pasar}:
+    \begin{itemize}
+      \item Objetos constantes.
+      \item Resultados de expresiones (objetos temporales).
+    \end{itemize}
+\end{itemize}
+\begin{lstlisting}
+void f(int & x) {
+  ++x;
+  cout << x << endl;
+}
+
+void g() {
+  int z = 1;
+  const int t = 2;
+  f(z);
+  f(t); // Error: No puede pasar objeto constante
+  f(z+t); // Error: No puede pasar objeto temporal
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[t,fragile]{Parámetros por referencia constante}
+\begin{itemize}
+  \item \textgood{Si se pueden pasar}:
+    \begin{itemize}
+      \item Objetos constantes.
+      \item Resultados de expresiones (objetos temporales).
+    \end{itemize}
+\end{itemize}
+\begin{lstlisting}
+void f(const int & x) {
+  ++x; // Error no se puede modificar x
+  cout << x << endl;
+}
+
+void g() {
+  int z = 1;
+  const int t = 2;
+  f(z);
+  f(t); 
+  f(z+t); 
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Parámetros y funciones miembro}
+\begin{itemize}
+  \item Cuando se invoca una función miembro se pasa implícitamente una 
+        \textgood{referencia al objeto} para el que se invoca la función 
+        (el objeto \cppkey{*this}).
+\begin{lstlisting}
+struct fecha {
+  // ...
+  int dia() { return dia_; }
+  // ...
+  int dia_; // Un dato miembro y una función miembro no se pueden llamar igual
+};
+
+int que_dia(fecha & f) { return f.dia_; }
+
+fecha cumple{4, id_mes::septiembre, 1969 };
+int d1 = cumple.dia();    // d1 == que_dia(f)
+int d2 = que_dia(cumple); // d2 == f.dia()
+const fecha inicio{1, id_mes::enero, 1969 };
+int d3 = inicio.dia();    // Error: inicio es const
+int d4 = que_dia(inicio); // Error: inicio es const
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Función miembro constante}
+\begin{itemize}
+  \item Una \textmark{función miembro} marcada como \textemph{constante} 
+        recibe de forma implícita una \textemph{referencia constante}
+        al objeto para el que se invoca la función (el objeto \cppid{*this}).
+    \begin{itemize}
+      \item Su implementación \textbad{no pude modificar} ningún dato miembro.
+      \item \textgood{Se puede invocar} para objetos 
+            modificables y para objetos constantes.
+    \end{itemize}
+\begin{lstlisting}
+class punto {
+public:
+  punto();
+  double x() const { return x_; }
+  double y() const { return y_; }
+private:
+  double x_, y_;
+};
+punto p1{2.0, 2.0};
+auto x = p1.x();
+const punto p2{0.0, 0.0};
+auto y = p2.y();
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Miembros de acceso: ¿Siempre?}
+\begin{lstlisting}
+struct punto1 {
+  double x, y;
+};
+
+class punto2 {
+public:
+  punto2() : x_{0}, y_{0} {}
+  punto2(double x, double y) : x_{x}, y_{y} {}
+  
+  void x(double x) { x_ = x; }
+  double x() const { return x_; }
+  void y(double y) { y_ = y; }
+  double y() const { return y_; }
+
+private:
+  double x_, y_;
+};
+\end{lstlisting}
+\begin{itemize}
+  \item Eficiencia / Mantenibilidad / Evolución.
+\end{itemize}
+\end{frame}

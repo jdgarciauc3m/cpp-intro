@@ -1,0 +1,119 @@
+\section{Iniciación de objetos}
+
+\begin{frame}[t,fragile]{Iniciación de objetos}
+\begin{itemize}
+  \item Un tipo que tiene al menos un constructor \textbad{necesita} 
+        que se \textmark{suministren argumentos} al crear el objeto.
+\begin{lstlisting}
+fecha f{5, mes_id::marzo, 2000}; // OK
+fecha f; // Error
+\end{lstlisting}
+    \begin{itemize}
+      \item \textgood{Objetivo}: Evitar variables sin valor inicial.
+    \end{itemize}
+
+  \mode<presentation>{\vfill\pause}
+  \item Si se desea dar un valor por defecto a variables no iniciadas, se
+        necesita definir un constructor por defecto.
+\begin{lstlisting}
+fecha::fecha() :
+  dia_{1}, mes_{mes_id::enero}, anyo_{2000}
+{
+}
+
+fecha f{}; // OK
+fecha f; // OK
+fecha f(); // Cuidado: No construye. Declara una función
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Objetos globales y enlace externo}
+\begin{itemize}
+  \item Una variable \textmark{definida} en una unidad de traducción 
+        tiene \textgood{enlace externo}.
+    \begin{itemize}
+      \item \textgood{Puede accederse} desde otras unidades de traducción 
+            con una declaración \cppkey{extern}.
+    \end{itemize}
+\end{itemize}
+
+\begin{columns}[T]
+
+\column{.2\textwidth}
+\column{.25\textwidth}
+\begin{block}{a.cpp}
+\begin{lstlisting}
+int x = 1;
+void f() {
+  ++x;
+}
+\end{lstlisting}
+\end{block}
+
+\column{.1\textwidth}
+\column{.25\textwidth}
+\begin{block}{b.cpp}
+\begin{lstlisting}
+extern int x;
+void g() {
+  --x;
+}
+\end{lstlisting}
+\end{block}
+
+\column{.2\textwidth}
+
+\end{columns}
+
+\mode<presentation>{\vfill\pause}
+\begin{itemize}
+  \item Los objetos globales son una fuente de \textbad{problemas en concurrencia}.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Enlace interno}
+\begin{itemize}
+  \item Cualquier definición de 
+        \textmark{alcance global} o \textmark{alcance de espacio de nombres}
+        calificada con 
+        \cppkey{const}, \cppkey{constexpr} o \cppkey{static}
+        tiene \textgood{enlace interno}.
+    \begin{itemize}
+      \item \textbad{No puede accederse} desde \textmark{otras unidades de traducción} 
+            ni siquiera con \cppkey{extern}.
+    \end{itemize}
+\end{itemize}
+\begin{block}{a.cpp}
+\begin{lstlisting}
+constexpr int max = 100;
+const string nombre = "Daniel";
+static vector<string> tabla { "uno", "dos" };
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[t,fragile]{Variables locales estáticas}
+\begin{itemize}
+  \item Dentro de una función, una \textgood{variable estática} 
+        se inicia \textmark{solamente la primera vez}.
+\end{itemize}
+\begin{lstlisting}
+void imprime(color c) {
+  const vector<string> nombres { "rojo", "verde", "azul" };
+  static vector<int> usos { 0, 0, 0 };
+  int id = static_cast<int>(c);
+  if (id<0 || id>2) throw invalid_argument("Color no válido");
+  ++usos[id];
+  cout << "Usos de ";
+  for (auto x : nombres) {
+    cout << x << "  ";
+  }
+  cout << " --> ";
+  for (auto x : usos) {
+    cout << x << "  ";
+  }
+  cout << endl;
+}
+\end{lstlisting}
+\end{frame}

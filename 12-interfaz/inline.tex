@@ -1,0 +1,127 @@
+\section{Definiciones en-línea}
+
+\begin{frame}[t,fragile]{Función en-linea}
+\begin{itemize}
+  \item Una definición \textgood{en-línea} es una \textmark{sugerencia} 
+        al compilador para que expanda
+        el cuerpo de una función, en vez de generar el código de llamada.
+    \begin{itemize}
+      \item El compilador \textmark{puede ignorar} la sugerencia.
+    \end{itemize}
+\begin{lstlisting}
+inline int cuadrado(int n) { 
+  return n*n; 
+}
+
+int x = cuadrado(3); // Podría generar x = 9
+int y = cuadrado(x); // Podria generar x = y*y
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item Permite generar código pequeño, rápido y mantenible.
+    \begin{itemize}
+      \item Preferible al uso de macros en C.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Definiciones en-línea: Reglas}
+\begin{itemize}
+\item La \textgood{definición} de una función \cppkey{inline} 
+      debe haberse visto \textmark{antes de su primer uso}.
+
+\begin{lstlisting}
+int cuadrado(int n);
+
+x = cuadrado(2);
+
+inline int cuadrado(int n) { return n*n; } // Error
+\end{lstlisting}
+
+\mode<presentation>{\vfill\pause}
+\item Si varias unidades de traducción contienen la misma función \cppkey{inline}
+      su definición debe ser idéntica.
+
+\begin{lstlisting}
+// f1.cpp
+inline int cuadrado(int n) { return n*n; }
+
+
+// f2.cpp
+inline int cuadrado(int n) { return 2*n*n/2; }
+\end{lstlisting}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[t,fragile]{Organización y funciones en línea}
+\begin{itemize}
+  \item Colocar las definiciones de funciones \cppkey{inline} en archivos de cabecera.
+    \begin{itemize}
+      \item Definición vista antes de uso.
+      \item Misma definición vista por todas las unidades de traducción.
+    \end{itemize}
+\end{itemize}
+\begin{block}{fecha.h}
+\begin{lstlisting}
+#ifndef CALENDARIO_FECHA_H
+#define CALENDARIO_FECHA_H
+
+// ...
+
+inline bool es_bisiesto(int a) {
+  return ((a % 4 == 0 && a % 100 != 0) || (a % 400 == 0));
+}
+
+// ...
+
+#endif
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[t,fragile]{Funciones miembro definidas dentro de clase}
+\begin{itemize}
+  \item Una función miembro \textmark{definida dentro de una clase} se considera 
+        una función miembro \cppkey{inline}.
+\begin{lstlisting}
+class fecha {
+public:
+  // ...
+  fecha() : dia{1}, mes{mes_id::enero}, anyo{2000} {}
+  // ...
+private:
+  int dia;
+  mes_id mes;
+  int anyo;
+};
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Equivalencia}
+\begin{itemize}
+  \item Es \textmark{equivalente} a definir la función en línea 
+        \textmark{justo después} de la definición de la clase.
+\end{itemize}
+\begin{lstlisting}
+class fecha {
+public:
+  // ...
+  fecha() : dia{1}, mes{mes_id::enero}, anyo{2000} {}
+  // ...
+private:
+  int dia;
+  mes_id mes;
+  int anyo;
+};
+
+inline fecha::fecha() :
+  dia{1},
+  mes{mes_id::enero},
+  anyo{2000}
+{
+}
+\end{lstlisting}
+\end{frame}
+
