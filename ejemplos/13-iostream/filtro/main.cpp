@@ -1,10 +1,10 @@
-#include <iostream>
 #include <fstream>
+#include <iostream>
 #include <string>
 
 using namespace std;
 
-string lee_nombre(string pregunta) {
+string lee_nombre(const string & pregunta) {
   cout << pregunta;
   string nombre;
   cin >> nombre;
@@ -14,9 +14,7 @@ string lee_nombre(string pregunta) {
 void filtra(ifstream & fe, ofstream & fs) {
   int x;
   while (fe >> x) {
-    if (x > 0) {
-      fs << x << endl;
-    }
+    if (x > 0) { fs << x << endl; }
   }
 }
 
@@ -35,7 +33,7 @@ int main() {
     return -2;
   }
 
-  filtra(fentrada,fsalida);
+  filtra(fentrada, fsalida);
 
   return 0;
 }

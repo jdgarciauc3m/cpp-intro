@@ -8,12 +8,16 @@
       \item \cppid{ifstream}: Es un \cppid{istream} para leer de un fichero.
     \end{itemize}
   \vfill
-  \item Necesitna construirse con un nombre de archivo.
+
+  \mode<presentation>{\vfill\pause}  
+  \item Necesitan construirse con un nombre de archivo.
 \begin{lstlisting}
 ofstream fsalida{"salida.txt"};
 ifstream fentrada{"entrada.txt"};
 \end{lstlisting}
   \vfill
+
+  \mode<presentation>{\vfill\pause}
   \item Cuando el objeto sale de alcance el archivo se cierra automáticamente.
     \begin{itemize}
       \item Cuando se cierra el archivo se vacía el búfer asociado.
@@ -31,7 +35,7 @@ if (!flujo) {
 \end{lstlisting}
   \item Se pueden usar en una condición para comprobar si el estado es correcto.
 \begin{lstlisting}
-while (fe >> x) { 
+while (flujo >> x) { 
   procesa(x); 
 }
 \end{lstlisting}
@@ -40,38 +44,40 @@ while (fe >> x) {
 
 \mode<presentation> {
 
-\begin{frame}
+\begin{frame}[t]
 \begin{block}{main.cpp}
-\lstinputlisting[lastline=21]{13-iostream/filtro/main.cpp}
-\ldots
+\lstinputlisting[lastline=19]{ejemplos/13-iostream/filtro/main.cpp}
 \end{block}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[t]
 \begin{block}{main.cpp}
-\ldots
-\lstinputlisting[firstline=23]{13-iostream/filtro/main.cpp}
+\lstinputlisting[firstline=21]{ejemplos/13-iostream/filtro/main.cpp}
 \end{block}
 \end{frame}
 
 }
 
 \mode<article> {
-\begin{frame}
+\begin{frame}[t]
 \begin{block}{main.cpp}
-\lstinputlisting{13-iostream/filtro/main.cpp}
+\lstinputlisting{ejemplos/13-iostream/filtro/main.cpp}
 \end{block}
 \end{frame}
 }
 
-\begin{frame}{Ejemplo}
+\begin{frame}[t]{Ejemplo}
 \begin{itemize}
   \item Archivo con ruta de un vehículo.
+
+  \mode<presentation>{\vfill}
   \item Cada línea contiene:
      \begin{itemize}
        \item Marca de tiempo ascendente (en segundos).
        \item Posición del vehículo: par \cppid{x,y}.
      \end{itemize}
+
+  \mode<presentation>{\vfill}
   \item Calcular:
     \begin{itemize}
       \item Distancia recorrida.
@@ -83,36 +89,30 @@ while (fe >> x) {
 
 \mode<presentation> {
 
-\begin{frame}
+\begin{frame}[t]
 \begin{block}{main.cpp}
-\lstinputlisting[lastline=15]{13-iostream/ruta/main.cpp}
+\lstinputlisting[lastline=20]{ejemplos/13-iostream/ruta/main.cpp}
 \end{block}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[t]
 \begin{block}{main.cpp}
-\lstinputlisting[firstline=17,lastline=30]{13-iostream/ruta/main.cpp}
+\lstinputlisting[firstline=22,lastline=41]{ejemplos/13-iostream/ruta/main.cpp}
 \end{block}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[t]
 \begin{block}{main.cpp}
-\lstinputlisting[firstline=31,lastline=43]{13-iostream/ruta/main.cpp}
-\end{block}
-\end{frame}
-
-\begin{frame}
-\begin{block}{main.cpp}
-\lstinputlisting[firstline=45]{13-iostream/ruta/main.cpp}
+\lstinputlisting[firstline=43]{ejemplos/13-iostream/ruta/main.cpp}
 \end{block}
 \end{frame}
 
 }
 
 \mode<article> {
-\begin{frame}
+\begin{frame}[t]
 \begin{block}{main.cpp}
-\lstinputlisting{13-iostream/ruta/main.cpp}
+\lstinputlisting{ejemplos/13-iostream/ruta/main.cpp}
 \end{block}
 \end{frame}
 }
