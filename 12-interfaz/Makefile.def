@@ -1,6 +1,7 @@
 INTERFAZ_BASE= 12-interfaz
 INTERFAZ_PARTS= \
 $(INTERFAZ_BASE)/*.tex  \
+ejemplos/$(INTERFAZ_BASE)/* \
 metadata.tex
 
 INTERFAZ_PDF=$(INTERFAZ_BASE).pdf
