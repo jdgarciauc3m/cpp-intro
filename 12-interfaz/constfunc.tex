@@ -131,6 +131,55 @@ auto y = p2.y();
 \end{itemize}
 \end{frame}
 
+\begin{frame}[t,fragile]{Resultados no ignorables}
+\begin{itemize}
+  \item Normalmente, el resultado de una función se puede ignorar.
+    \begin{itemize}
+      \item \textgood{Evitable} usando marcador \cppkey{[[nodiscard]]}.
+    \end{itemize}
+\end{itemize}
+
+\begin{columns}[T]
+
+\pause
+\column{.4\textwidth}
+
+\begin{lstlisting}
+class punto {
+public:
+  punto();
+  double x() const { return x_; }
+  double y() const { return y_; }
+private:
+  double x_, y_;
+};
+
+punto p1{2.0, 2.0};
+p1.x(); // OK
+double x = p1.x(); // OK
+\end{lstlisting}
+
+\pause
+\column{.6\textwidth}
+\begin{lstlisting}
+class punto {
+public:
+  punto();
+  [[nodiscard]] double x() const { return x_; }
+  [[nodiscard]] double y() const { return y_; }
+private:
+  double x_, y_;
+};
+
+punto p1{2.0, 2.0};
+p1.x(); // Error
+double x = p1.x(); // OK
+\end{lstlisting}
+
+\end{columns}
+
+\end{frame}
+
 \begin{frame}[t,fragile]{Miembros de acceso: ¿Siempre?}
 \begin{lstlisting}
 struct punto1 {

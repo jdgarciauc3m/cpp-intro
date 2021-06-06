@@ -72,3 +72,49 @@ class servicio {
 \end{lstlisting}
 \end{frame}
 
+\begin{frame}[t,fragile]{Generación de constructor por defecto}
+\begin{itemize}
+  \item Si una clase no tiene \textbad{ningún constructor}:
+    \begin{itemize}
+      \item \textgood{Se sintetiza} uno automáticamente.
+    \end{itemize}
+\begin{lstlisting}
+class punto {
+public:
+  // Sin constructores
+};
+punto p; // OK
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item Si una clase tiene \textgood{algún constructor}:
+    \begin{itemize}
+      \item \textbad{No se sintetiza automáticamente} y hay que definirlo.
+    \end{itemize}
+\begin{lstlisting}
+class punto {
+public:
+  punto(double x, double y);
+};
+punto p; // Error
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Forzando la generación del constructor por defecto}
+\begin{itemize}
+  \item Se puede forzar la síntesis del constructor por defecto marcándolo
+        con \cppkey{default}.
+\begin{lstlisting}
+class punto {
+public:
+  punto() = default;
+  punto(double x, double y) : x_{x}, y_{y} {}
+  //...
+private:
+  double x_ = 0.0;
+  double y_ = 0.0;
+};
+\end{lstlisting}
+\end{itemize}
+\end{frame}
