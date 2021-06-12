@@ -1,12 +1,14 @@
 \section{Manipulación de archivos}
 
-\begin{frame}[fragile]{Modos de apertura}
+\begin{frame}[t,fragile]{Modos de apertura}
 \begin{itemize}
   \item Apertura por defecto.
     \begin{itemize}
       \item \cppid{ifstream}: Abre para lectura.
       \item \cppid{ofstream}: Abre para escritura.
     \end{itemize}
+
+  \mode<presentation>{\vfill\pause}
   \item Modos de apertura:
     \begin{itemize}
       \item \cppid{ios\_base::app}: Abre para añadir al final del fichero.
@@ -16,6 +18,8 @@
       \item \cppid{ios\_base::out}: Abre para escritura.
       \item \cppid{ios\_base::trunc}: Abre y trunca el fichero (tamaño 0).
     \end{itemize}
+
+  \mode<presentation>{\vfill\pause}
   \item Los modos se pueden combinar:
 \begin{lstlisting}
 ofstream f1{"f1.txt", ios_base::app};
@@ -25,21 +29,24 @@ ofstream f2{"f2.txt", ios_base::in | ios_base::out};
 \end{frame}
 
 
-\begin{frame}[fragile]{Entrada/salida binaria}
+\begin{frame}[t,fragile]{Entrada/salida binaria}
 \begin{itemize}
   \item Si se abre un archivo en modo binario no se usan los operadores \cppid{<{}<} y \cppid{>{}>}.
     \begin{itemize}
       \item \cppid{flujo.write(buf, nbytes)}.
       \item \cppid{flujo.read(buf, nbytes)}.
     \end{itemize}
+
+  \mode<presentation>{\vfill\pause}
   \item Es necesario convertir el dato que se desea operar a la dirección de una secuencia de bytes.
 \begin{lstlisting}
-template <class T>
-char * como_bufer(T & x) {
+char * como_bufer(int & x) {
   void * dir = &x;
   return static_cast<char*>(dir);
 }
 \end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
   \item Utilización:
 \begin{lstlisting}
 int x = 42;
@@ -56,12 +63,12 @@ flujo.write(como_bufer(x), sizeof(x));
 \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Posiciones}
+\begin{frame}[t,fragile]{Posiciones}
 \begin{itemize}
   \item Un archivo tiene asociado dos punteros:
     \begin{itemize}
-      \item \alert{get pointer}: Posición del siguiente carácter a leer.
-      \item \alert{put pointer}: Posición del siguiente carácter a escribir.
+      \item \textmark{get pointer}: Posición del siguiente carácter a leer.
+      \item \textmark{put pointer}: Posición del siguiente carácter a escribir.
     \end{itemize}
   \item Consulta de posiciones:
 \begin{lstlisting}
@@ -76,7 +83,7 @@ flujo.seekg(n2); // Puntero de escritura
 \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Posiciones relativas}
+\begin{frame}[t,fragile]{Posiciones relativas}
 \begin{itemize}
   \item Dirección de posicionamiento
     \begin{itemize}
