@@ -2,7 +2,9 @@
 
 \subsection{Objetos de tipo array}
 
-\begin{frame}[fragile]{Arrays fuera de memoria dinámica}
+\begin{frame}[t,fragile]{Arrays sin memoria dinámica}
+\begin{columns}[T]
+\column{.5\textwidth}
 \begin{itemize}
   \item Como variables globales:
 \begin{lstlisting}
@@ -12,6 +14,10 @@ double v1[max1];
 double v2[max2];
 double v3[25];
 \end{lstlisting}
+\end{itemize}
+
+\column{.5\textwidth}
+\begin{itemize}
   \item Como variables locales:
 \begin{lstlisting}
 void f() {
@@ -19,17 +25,22 @@ void f() {
   // ...
 }
 \end{lstlisting}
+\end{itemize}
+
+\end{columns}
+
+\mode<presentation>{\vfill\pause}
+\begin{itemize}
   \item Diferencias con \cppid{std::vector}:
     \begin{itemize}
-      \item El tamaño de un array debe ser conocido en tiempo de compilación.
-      \item No se puede obtener el número de elementos de un array.
-      \item Los arrays locales no se inician a ningún valor.
+      \item El tamaño de un array \textbad{debe ser conocido} en tiempo de compilación.
+      \item \textbad{No se puede} obtener el número de elementos de un array.
+      \item Los arrays locales \textbad{no se inician} a ningún valor.
     \end{itemize}
 \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]
-\vspace{-0.5em}
+\begin{frame}[t,fragile]{Tamaño de array}
 \begin{itemize}
   \item No se puede definir un array usando como tamaño un parámetro de función.
 \begin{lstlisting}
@@ -39,6 +50,13 @@ void f(int n) {
  // ...
 }
 \end{lstlisting}
+\end{itemize}
+
+\begin{columns}[T]
+
+\mode<presentation>{\pause}
+\column{.5\textwidth}
+\begin{itemize}
   \item Pero si se puede hacer con memoria dinámica
 \begin{lstlisting}
 void f(int n) {
@@ -48,6 +66,11 @@ void f(int n) {
  delete []v; // Si se olvida hay goteo
 }
 \end{lstlisting}
+\end{itemize}
+
+\mode<presentation>{\pause}
+\column{.5\textwidth}
+\begin{itemize}
   \item O con \cppid{std::vector}:
 \begin{lstlisting}
 void f(int n) {
@@ -57,56 +80,72 @@ void f(int n) {
 }
 \end{lstlisting}
 \end{itemize}
+\end{columns}
+
 \end{frame}
 
 \subsection{Iniciación de arrays}
 
-\begin{frame}[fragile]{Iniciadores}
-\vspace{-0.5em}
+\begin{frame}[t,fragile]{Iniciadores}
 \begin{itemize}
-  \item Un array puede iniciarse con una lista de valores.
+  \item Un array puede \textgood{iniciarse} con una \textmark{lista de valores}.
 \begin{lstlisting}
 double v[4] = { 1.0, 2.0, 3.5, 4.7 };
 char c[4] = { 'c', '+', '+', 0 };
 \end{lstlisting}
-  \item Si un array se declara con iniciador, se puede omitir el tamaño para
-        que se calcule automáticamente.
+
+  \mode<presentation>{\vfill\pause}
+  \item Se puede \textgood{omitir el tamaño} si hay un valor inicial.
 \begin{lstlisting}
 double v[] = {1.2, 2.4, 3.6 }; // Tamaño = 3
 char c[] = { 'H', 'o', 'l', 'a' }; // Tamaño = 4
 \end{lstlisting}
-  \item Si se especifican menos iniciadores de los necesarios, se completa con \cppid{0}.
+
+  \mode<presentation>{\vfill\pause}
+  \item Si \textbad{faltan iniciadores}, \textgood{se completa} con \cppid{0}.
 \begin{lstlisting}
 double v[4] = {1.5, 2.5}; // v[2]==0.0, v[3]==0.0
 \end{lstlisting}
-  \item No se pueden especificar más iniciadores de los necesarios.
+
+  \mode<presentation>{\vfill\pause}
+  \item No se pueden especificar \textbad{más iniciadores de los necesarios}.
 \begin{lstlisting}
 char c[3] = { 'H', 'o', 'l', 'a' };
 \end{lstlisting}
-  \item Iniciación a 0.
+
+  \mode<presentation>{\vfill\pause}
+  \item Iniciación a \textgood{0}.
 \begin{lstlisting}
 double v[10] = {};
 \end{lstlisting}
 \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Iniciación de cadenas}
+\begin{frame}[t,fragile]{Iniciación de cadenas}
 \begin{itemize}
-  \item Un literal de cadena equivale a un array de caracteres constantes con un carácter adicional para el terminador. 
+  \item Un \textmark{literal de cadena} equivale a 
+        un \textgood{array de caracteres constantes} con 
+        un \textemph{carácter adicional} para el terminador (\textgood{0}). 
 \begin{lstlisting}
 const char c1[5] = "Hola";
 const char c2[5] = {'H', 'o', 'l', 'a', 0 };
 \end{lstlisting}
-  \item Se puede asignar un literal de cadena a un array no constante.
+
+  \mode<presentation>{\vfill\pause}
+  \item Se puede asignar un literal de cadena a un \textmark{array no constante}.
 \begin{lstlisting}
 char c[] = "Hola";
 c[0] = 'C';
 c[2] = 's';
 \end{lstlisting}
-  \item Se puede iniciar con un literal un puntero a carácter constante.
+
+  \mode<presentation>{\vfill\pause}
+  \item Se puede iniciar con un literal un \textmark{puntero a carácter constante}.
 \begin{lstlisting}
 const char * p = "Hola";
 \end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
   \item Pero no un puntero a carácter no constante.
 \begin{lstlisting}
 char * p = "Hola"; // Error
@@ -114,12 +153,14 @@ char * p = "Hola"; // Error
 \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Otros tipos de cadenas}
+\begin{frame}[t,fragile]{Otros tipos de cadenas}
 \begin{itemize}
-  \item Cadenas en modo \emph{crudo}:
+  \item Cadenas en modo \textemph{crudo} (\emph{raw}):
 \begin{lstlisting}
 cout << R"(\t")"; // Imprime '\', 't', '"'
 \end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
   \item Cadenas UTF:
     \begin{itemize}
       \item Cadenas UTF-8.
@@ -138,9 +179,10 @@ cout << R"(\t")"; // Imprime '\', 't', '"'
 \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Iniciación de array como dato miembro}
+\begin{frame}[t,fragile]{Iniciación de array como dato miembro}
 \begin{itemize}
-  \item Un dato miembro que sea de tipo array se puede iniciar con una lista de valores.
+  \item Un dato miembro que sea de tipo array \textgood{se puede iniciar} 
+        con una \textmark{lista de valores}.
 \begin{lstlisting}
 class conversor {
 private:
@@ -154,7 +196,7 @@ public:
 
 void f() {
   conversor c{1.0, 0.0, -1, 2};
-  cout << c.convierte(3) << endl;
+  cout << c.convierte(3) << "\n";
 }
 \end{lstlisting}
 \end{itemize}
@@ -162,21 +204,26 @@ void f() {
 
 \subsection{Arrays y aritmética de punteros}
 
-\begin{frame}[fragile]{Punteros a posiciones de un array}
+\begin{frame}[t,fragile]{Punteros a posiciones de un array}
 \begin{itemize}
-  \item Un objeto de tipo array se puede usar como un puntero a la primera posición del array.
+  \item Un objeto de tipo \textmark{array} \textgood{se puede usar} 
+        como un \textmark{puntero} a la primera posición del array.
 \begin{lstlisting}
 double v[4];
 *v = 1.5;
 double x = v[0]; // x == 1.5
 \end{lstlisting}
-  \item Se puede iniciar un puntero a cualquier posición del array.
+
+  \mode<presentation>{\vfill\pause}
+  \item Se puede \textgood{iniciar} un puntero a \textmark{cualquier posición} del array.
 \begin{lstlisting}
 double v[4];
 double * p = &v[1];
 p = &v[3];
 \end{lstlisting}
-  \item También se puede apuntar a la posición siguiente a la última.
+
+  \mode<presentation>{\vfill\pause}
+  \item También se puede apuntar a la \textmark{posición siguiente a la última}.
     \begin{itemize}
       \item Pero no a posiciones anteriores o posteriores.
     \end{itemize}
@@ -188,22 +235,28 @@ double * p = &v[7]; // Comportamiento no definido
 \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Aritmética de punteros}
+\begin{frame}[t,fragile]{Aritmética de punteros}
 \begin{itemize}
-  \item Se puede avanzar con un puntero en un array, sumando un entero al puntero.
+  \item Se puede \textgood{avanzar} con un puntero en un array, 
+        \textmark{sumando un entero} al puntero.
 \begin{lstlisting}
 double v[4] = {}
 double * p = v + 1; // Apunta a v[1]
 p = p + 2; // Apunta a v[3];
 ++p; // Apunta a v[4]
 \end{lstlisting}
-  \item Igualmente se puede retroceder;
+
+  \mode<presentation>{\vfill\pause}
+  \item Igualmente se puede \textgood{retroceder};
 \begin{lstlisting}
 --p; // Apunta a v[3]
 p = p - 2; // Apunta a v[1]
 p -=1; // Apunta a v[0]
 \end{lstlisting}
-  \item Se puede calcular la distancia entre dos punteros como número de elementos.
+
+  \mode<presentation>{\vfill\pause}
+  \item Se puede \textgood{calcular la distancia} entre dos punteros 
+        como número de elementos.
     \begin{itemize}
       \item Solamente si apuntan a objetos del mismo array.
     \end{itemize}
@@ -215,20 +268,23 @@ int m = &v[4] - &w[2]; // No definido
 \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Conversión}
+\begin{frame}[t,fragile]{Conversión}
 \begin{itemize}
-  \item Existe una conversión implícita del nombre de un array a puntero.
+  \item Existe una \textgood{conversión implícita} 
+        del \textmark{nombre de un array a puntero}.
 \begin{lstlisting}
 double v[4] = {};
 f(v); // Pasa a f el puntero &v[0]
 \end{lstlisting}
-  \item Esto impide el paso por valor de arrays a funciones.
+
+  \mode<presentation>{\vfill\pause}
+  \item Esto \textbad{impide el paso por valor} de arrays a funciones.
     \begin{itemize}
-      \item Objetivo: Evitar paso accidental por copia de arrays grandes.
+      \item \textmark{Objetivo}: Evitar paso accidental por copia de arrays grandes.
     \end{itemize}
 \begin{lstlisting}
 double f(double vec[], int n) {
-  double r{};
+  double r{}; // r = 0.0
   for (int i = 0; i<n; ++i) {
     r += vec[i];
   }
@@ -240,38 +296,49 @@ double f(double vec[], int n) {
 
 \begin{frame}[t,fragile]{Conversión}
 \begin{itemize}
-  \item El resultado de la conversión es un valor, no una variable
+  \item El resultado de la conversión es un valor, no una variable.
 \begin{lstlisting}
 double v[4] = {};
-v = new double[4]; // Error: v no es una variable punter
+v = new double[4]; // Error: v no es una variable puntero
+
+double * w = nullptr;
+w = new double[4]; // OK
 \end{lstlisting}
+    \begin{itemize}
+      \item Los punteros y arrays no son siempre intercambiables.
+    \end{itemize}
 \end{itemize}
 \end{frame}
 
 \subsection{Copia de arrays}
 
-\begin{frame}[fragile]{Copia de arrays}
+\begin{frame}[t,fragile]{Copia de arrays}
 \begin{itemize}
-  \item La asignación de punteros copia direcciones.
+  \item La \textgood{asignación} de punteros \textbad{copia direcciones}.
 \begin{lstlisting}
 double v[4]={}, w[4]={};
 double * p = v; // p apunta a v
 \end{lstlisting}
-  \item No se puede colocar el nombre de un array en la parte izquierda de una asignación.
+
+  \mode<presentation>{\vfill\pause}
+  \item No se puede \textbad{colocar el nombre de un array} 
+        en la parte izquierda de una asignación.
 \begin{lstlisting}
 v = w; // Error: v no es una variable
 \end{lstlisting}
-  \item Alternativas:
+
+  \mode<presentation>{\vfill\pause}
+  \item \textgood{Alternativas}:
     \begin{itemize}
-      \item Copia explícita elemento a elemento.
+      \item \textmark{Copia explícita} elemento a elemento.
 \begin{lstlisting}
 for (int i=0; i<4; ++i) v[i] = w[i];
 \end{lstlisting}
-      \item Copia de memoria.
+      \item \textmark{Copia de memoria}.
 \begin{lstlisting}
 memcpy(v, w, 4 * sizeof(double)); // Cuidado
 \end{lstlisting}
-      \item Algoritmo de copia.
+      \item \textmark{Algoritmo de copia}.
 \begin{lstlisting}
 std::copy_n(w, 4, v); // Preferida
 \end{lstlisting}
@@ -281,9 +348,9 @@ std::copy_n(w, 4, v); // Preferida
 
 \subsection{Paso de parámetros array}
 
-\begin{frame}[fragile]{Cuestión de estilo}
+\begin{frame}[t,fragile]{Cuestión de estilo}
 \begin{itemize}
-  \item Estilo alternativo a paso de dirección más tamaño:
+  \item \textmark{Estilo alternativo} a paso de dirección más tamaño:
 \begin{lstlisting}
 double suma(double * b, double * e) {
   double r{};
@@ -293,40 +360,56 @@ double suma(double * b, double * e) {
   return r;
 }
 \end{lstlisting}
-  \item Invocación:
+
+  \mode<presentation>{\vfill\pause}
+  \item \textgood{Invocación}:
 \begin{lstlisting}
 void f() {
   double v[] = { 1, 2, 3, 4 };
   cout << suma(v, v+4) << endl;
 }
 \end{lstlisting}
-  \item Enfoque: Paso de un rango semiabierto.
+
+  \mode<presentation>{\vfill\pause}
+  \item \textgood{Enfoque}: Paso de un \textmark{rango semiabierto}.
     \begin{itemize}
-      \item Inicio: Puntero a primer elemento.
-      \item Fin: Puntero al siguiente del último elemento.
+      \item \textmark{Inicio}: Puntero a primer elemento.
+      \item \textmark{Fin}: Puntero al siguiente del último elemento.
     \end{itemize}
 \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Constantes arrays y punteros}
+\begin{frame}[t,fragile]{Constantes arrays y punteros}
 \begin{itemize}
-  \item El calificador \cppkey{const} indica la inmutabilidad de un objeto.
+  \item El calificador \cppkey{const} indica la \textmark{inmutabilidad de un objeto}.
     \begin{itemize}
-      \item Forma parte del tipo
+      \item Forma parte del tipo.
     \end{itemize}
 \begin{lstlisting}
 const int max = 4; // max es const int
 const double v[max] = { 1, 2, 3, 4 }; // v[0] es const double
 \end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
   \item En el caso de un puntero realmente hay dos objetos:
     \begin{itemize}
-      \item El puntero (dirección de memoria).
-      \item El objeto apuntado.
+      \item El \textmark{puntero} (dirección de memoria).
+      \item El \textgood{objeto apuntado}.
+    \end{itemize}
+
+  \mode<presentation>{\vfill\pause}
+  \item \textgood{Implicaciones}
+    \begin{itemize}
+      \item Si el puntero es constante $\Rightarrow$ 
+            no se puede cambiar el lugar apuntado.
+      \item Si el objeto apuntado es constante $\Rightarrow$
+            no se puede cambiar el valor del objeto.
     \end{itemize}
 \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]
+\begin{frame}[t,fragile]{Alternativas}
+\mode<presentation>{\vspace{-0.5em}}
 \begin{itemize}
   \item Puntero a valor constante:
 \begin{lstlisting}
@@ -334,18 +417,24 @@ const double * p = v; // p apunta a v[0]
 p = v + 2; // OK. Modificación del puntero
 *p = 10; // Error: elementos constantes
 \end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
   \item Puntero a valor constante (notación alternativa):
 \begin{lstlisting}
 double const * p = v; // p apunta a v[0]
 p = v + 2; // OK. Modificación del puntero
 *p = 10; // Error: elementos constantes
 \end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
   \item Puntero constante a valor variable:
 \begin{lstlisting}
 double * const p = v; // p apunta a v[0]
 p = v + 2; // Error no se puede apuntar a otro sitio
 *p = 10; // OK: Modificación de objeto apuntado
 \end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
   \item Puntero constante a valor constante:
 \begin{lstlisting}
 const double * const p = v; // p apunta a v[0]
@@ -355,7 +444,7 @@ p = v + 2; // Error no se puede apuntar a otro sitio
 \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Parámetros de función constantes}
+\begin{frame}[t,fragile]{Parámetros de función constantes}
 \begin{itemize}
   \item \cppkey{const} forma parte del tipo $\rightarrow$ se puede usar para restringir las operaciones que se
         pueden realizar sobre un parámetro.
@@ -371,7 +460,7 @@ void copia(char * dest, const char * orig) {
 
 \subsection{Problemas con punteros}
 
-\begin{frame}{Lista de problemas}
+\begin{frame}[t]{Lista de problemas}
 \begin{itemize}
   \item Indirección de un puntero nulo.
   \item Indirección de un puntero no iniciado.

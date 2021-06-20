@@ -1,30 +1,38 @@
 \section{Punteros y referencias}
 
-\begin{frame}[fragile]{Comparación: punteros/referencias}
+\begin{frame}[t,fragile]{Punteros frente a referencias}
 \begin{itemize}
-  \item Un puntero almacena la dirección de memoria de un objeto.
+  \item Un \textgood{puntero} almacena la \textmark{dirección de memoria} de un objeto.
     \begin{itemize}
-      \item Se puede modificar la dirección de memoria y el valor del objeto.
+      \item Se puede \textgood{modificar} 
+            la \textmark{dirección de memoria} y el \textmark{valor} del objeto.
     \end{itemize}
 \begin{lstlisting}
 int * p = nullptr; 
 p = f(); // Modificación de dirección
 *p = 42; // Modificación de objeto.
 \end{lstlisting}
-  \item Una referencia mantiene un vínculo con una variable
+
+  \mode<presentation>{\vfill\pause}
+  \item Una \textgood{referencia} mantiene un \textmark{vínculo} con una variable
     \begin{itemize}
-      \item No se puede modificar la dirección de memoria, pero si el valor del objeto.
+      \item \textbad{No se puede modificar} la \textmark{dirección de memoria}, 
     \end{itemize}
 \begin{lstlisting}
 int & r = x; // r es una referencia a x
+&r = y; // Error
+\end{lstlisting}
+      \item Pero \textgood{si se puede modificar} el \textmark{valor del objeto}.
+\begin{lstlisting}
 r = 12; // x == 12
 \end{lstlisting}
 \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]
+\begin{frame}[fragile]{Iniciación asignación}
 \begin{itemize}
-  \item Un puntero se puede declarar sin valor inicial, pero una referencia debe vincularse
+  \item Un puntero se puede declarar sin valor inicial, 
+        pero una referencia \textbad{debe vincularse}
         a un objeto al declararse.
 \begin{lstlisting}
 int x;
@@ -33,8 +41,10 @@ p = &x; // p apunta a x
 int & r = x;
 int & s; // Error: Falta valor
 \end{lstlisting}
-  \item Una asignación a una referencia cambia el objeto.
-  \item Una asignación a un puntero cambia la dirección.
+
+  \mode<presentation>{\vfill\pause}
+  \item Una \textmark{asignación a una referencia} \textgood{cambia el objeto}, 
+        pero una \textmark{asignación a un puntero} \textgood{cambia la dirección}.
 \begin{lstlisting}
 int x = 0;
 int & r = x;
