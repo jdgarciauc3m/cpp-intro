@@ -1,7 +1,8 @@
 VECTOR_BASE= 05-vector
 VECTOR_PARTS= \
 $(VECTOR_BASE)/*.tex  \
-metadata.tex
+metadata.tex \
+license-cc.tex
 
 VECTOR_PDF=$(VECTOR_BASE).pdf
 

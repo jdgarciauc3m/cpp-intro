@@ -6,7 +6,8 @@ ejemplos/$(IOSTREAM_BASE)/ruta/* \
 ejemplos/$(IOSTREAM_BASE)/error/* \
 ejemplos/$(IOSTREAM_BASE)/except/* \
 ejemplos/$(IOSTREAM_BASE)/calendario/* \
-metadata.tex
+metadata.tex \
+license-cc.tex
 
 IOSTREAM_PDF=$(IOSTREAM_BASE).pdf
 

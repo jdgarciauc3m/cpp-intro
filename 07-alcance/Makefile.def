@@ -1,7 +1,8 @@
 ALCANCE_BASE= 07-alcance
 ALCANCE_PARTS= \
 $(ALCANCE_BASE)/*.tex  \
-metadata.tex
+metadata.tex \
+license-cc.tex
 
 ALCANCE_PDF=$(ALCANCE_BASE).pdf
 

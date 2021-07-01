@@ -1,7 +1,8 @@
 VALORES_BASE= 03-valores
 VALORES_PARTS= \
 $(VALORES_BASE)/*.tex  \
-metadata.tex
+metadata.tex \
+license-cc.tex
 
 VALORES_PDF=$(VALORES_BASE).pdf
 

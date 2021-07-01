@@ -2,6 +2,7 @@ ERRORES_BASE= 06-errores
 ERRORES_PARTS= \
 $(ERRORES_BASE)/*.tex  \
 metadata.tex \
+license-cc.tex \
 ejemplos/$(ERRORES_BASE)/enlace/*cpp \
 ejemplos/$(ERRORES_BASE)/prepost/*.cpp
 

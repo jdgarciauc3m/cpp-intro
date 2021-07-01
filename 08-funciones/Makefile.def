@@ -1,7 +1,8 @@
 FUNCIONES_BASE= 08-funciones
 FUNCIONES_PARTS= \
 $(FUNCIONES_BASE)/*.tex  \
-metadata.tex
+metadata.tex \
+license-cc.tex
 
 FUNCIONES_PDF=$(FUNCIONES_BASE).pdf
 

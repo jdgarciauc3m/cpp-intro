@@ -5,7 +5,8 @@ ejemplos/$(CLASES_BASE)/fecha-flibres/* \
 ejemplos/$(CLASES_BASE)/fecha-fmiembro/* \
 ejemplos/$(CLASES_BASE)/fecha-clase/* \
 ejemplos/$(CLASES_BASE)/fecha-ctor/* \
-metadata.tex
+metadata.tex \
+license-cc.tex
 
 CLASES_PDF=$(CLASES_BASE).pdf
 

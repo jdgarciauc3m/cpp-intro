@@ -1,7 +1,8 @@
 ENUM_BASE= 10-enum
 ENUM_PARTS= \
 $(ENUM_BASE)/*.tex  \
-metadata.tex
+metadata.tex \
+license-cc.tex
 
 ENUM_PDF=$(ENUM_BASE).pdf
 

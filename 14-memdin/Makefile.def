@@ -1,7 +1,8 @@
 MEMDIN_BASE= 14-memdin
 MEMDIN_PARTS= \
 $(MEMDIN_BASE)/*.tex  \
-metadata.tex
+metadata.tex \
+license-cc.tex
 
 MEMDIN_PDF=$(MEMDIN_BASE).pdf
 

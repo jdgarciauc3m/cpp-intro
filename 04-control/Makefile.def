@@ -1,7 +1,8 @@
 CONTROL_BASE= 04-control
 CONTROL_PARTS= \
 $(CONTROL_BASE)/*.tex  \
-metadata.tex
+metadata.tex \
+license-cc.tex
 
 CONTROL_PDF=$(CONTROL_BASE).pdf
 

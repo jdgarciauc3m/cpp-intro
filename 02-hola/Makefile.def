@@ -1,7 +1,8 @@
 HOLA_BASE= 02-hola
 HOLA_PARTS= \
 $(HOLA_BASE)/*.tex  \
-metadata.tex
+metadata.tex \
+license-cc.tex
 
 HOLA_PDF=$(HOLA_BASE).pdf
 
