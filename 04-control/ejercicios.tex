@@ -23,4 +23,23 @@ El programa debe pedir los valores para los coeficientes \cppid{a}, \cppid{b} y
          puedes utilizar el operador \cppkey{static\_cast}
          (detalles en \url{https://en.cppreference.com/w/cpp/language/static_cast}).
 
+\item Escribe un programa que pida un valor real \cppid{x} y determine su seno y su
+      coseno mediante el desarrollo en serie de MacLaurin para los 10 primeros términos
+      de la serie. Compara el valor obtenido con el de las funciones \cppid{std::sin()} 
+      y \cppid{std::cos()}.
+
+\textmark{Nota}: Los desarrollos en serie correspondientes son:
+
+\[
+cos(x) = 1 - \frac{x^2}{2!} + \frac{x^4}{4!} - \ldots + \frac{(-1)^n x^{2n}}{(2n)!} + \ldots
+=
+\sum_{k=0}^{+\infty} \frac{(-1)^k x^{2k}}{(2k)!}
+\]
+
+\[
+sin(x) = x - \frac{x^3}{3!} + \frac{x^5}{5!} - \ldots + \frac{(-1)^n x{2n+1}}{(2n+1)!} + \ldots
+=
+\sum_{k=0}^{+\infty} \frac{(-1)^k x^{2k+1}}{(2k+1)!}
+\]
+
 \end{enumerate}
