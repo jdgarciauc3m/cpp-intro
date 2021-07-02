@@ -1,1 +1,49 @@
 \section{Ejercicios}
+
+\begin{enumerate}
+
+\item Escribe una clase \cppid{racional} que representa un número faccionario como
+      una fracción con un numerador y un denominador enteros. El tipo de datos
+      debe soportar, al menos, las siguientes operaciones:
+
+\begin{itemize}
+
+  \item Construcción a partir del numerador y el denominador.
+  \item Suma y resta de números racionales.
+  \item Producto de números racionales.
+  \item División de números racionales.
+
+\end{itemize}
+
+\textmark{Nota}: En todas las operaciones se ofrecerá como resultado la fracción
+                 más simplificada posible (p.ej $\frac{1}{2}$ en vez $\frac{4}{8}$).
+
+\item Escribe una clase \cppid{matriz} que represente una matriz numérica bidimencional.
+      Utiliza para representar los valores números reales en doble precisión.
+      Puedes utilizar internamente un \cppid{std::vector} del tamaño adecuado
+      para representar los valores, de manera que cada fila se almacena dentro
+      del vector a continuación de la siguiente (primero la fila 0, depués
+      la fila 1, \ldots).
+
+      De esta forma para determinar la posición que ocupa el elemento $m_{i,j}$
+      en una matriz $A$ de $m$ filas y $n$ columnas, se realizará el siguiente
+      cálculo:
+\[
+pos = i \times m + j
+\]
+
+
+      El tipo de datos debe soportar las siguientes operaciones:
+
+\begin{itemize}
+  \item Constructor a partir de un número de filas y columnas.
+  \item Obtención del número de filas y número de columnas.
+  \item Asignación de un valor a una posición $(i,j)$.
+  \item Consulta de un valor que está en una posición.
+  \item Suma de dos matrices que deben tener el mismo número de filas y de columnas.
+  \item Producto de dos matrices.
+\end{itemize}
+
+      Escribe un conjunto de pruebas unitarias para este tipo de datos.
+
+\end{enumerate}
