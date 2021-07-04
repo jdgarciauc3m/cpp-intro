@@ -10,7 +10,7 @@ guide/foreword.tex \
 guide/ack.tex \
 bib/*.bib
 
-GUIDE_OUT=guide
+GUIDE_OUT=guia-cpp-intro
 
 GUIDE_PDF=$(GUIDE_OUT).pdf
 

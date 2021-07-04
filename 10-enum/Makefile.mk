@@ -1,2 +1,6 @@
 $(FINAL_ENUM_PDF): $(ENUM_PARTS) $(CONFIG_INPUT) $(IMG_INPUT)
 	$(LATEXMK) -jobname=$(ENUM_BASE) $(ENUM_BASE)/slides.tex
+
+$(FINAL_ENUM_EJ_PDF):	$(ENUM_EJ_PARTS) $(CONFIG_INPUT)
+	$(LATEXMK) -jobname=$(ENUM_BASE)-ej $(ENUM_BASE)/hoja-ej.tex
+
