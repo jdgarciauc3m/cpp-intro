@@ -77,7 +77,8 @@ build:
 	mkdir $(BUILD_DIR)
 
 updatevers:	$(BUILD_DIR)
-	git log -1 --format=%ad --date=format:'\date{%d de %B de %Y}' > $(BUILD_DIR)/date.tex
+	git log -1 --format=%ad --date=format:'\date{%B de %Y}' > $(BUILD_DIR)/date.tex
+#	git log -1 --format=%ad --date=format:'\date{%d de %B de %Y}' > $(BUILD_DIR)/date.tex
 
 $(FINAL_DIR):
 	mkdir $(FINAL_DIR)
