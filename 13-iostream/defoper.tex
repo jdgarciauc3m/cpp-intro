@@ -15,7 +15,7 @@ ostream & operator<<(ostream & fs, const tipo & x);
   \mode<presentation>{\vfill\pause}
   \item Para definir la operación de entrada:
 \begin{lstlisting}
-istream & operator<<(istream & fs,tipo & x);
+istream & operator>>(istream & fs,tipo & x);
 \end{lstlisting}
     \begin{itemize}
       \item Al definirse para \cppid{istream \&} se puede usar
