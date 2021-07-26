@@ -1,0 +1,225 @@
+\section{Práctica}
+
+\subsection{Objetivo}
+
+El objetivo de esta práctica es ejercitar los siguientes conceptos:
+
+\begin{itemize}
+
+\item Diseño de tipos abstractos de datos.
+\item Constructores.
+\item Mecanismos de copia.
+\item Sobrecarga de operadores.
+\item Gestión de errores.
+\item Entrada/salida definida por el usuario.
+\item Pruebas unitarias.
+
+\end{itemize}
+
+\subsection{Descripción general}
+
+El objetivo de esta práctica es el diseño de un tipo abstracto de datos que
+represente una matriz (tipo \cppid{matriz}) bidimensional de números reales
+dentro de una biblioteca de álgebra lineal (espacio d enombres \cppid{linalg}).
+
+El tipo de datos diseñado debera soportar la siguiente funcionalidad:
+
+\begin{itemize}
+  \item Construcción de una matriz a partir de un número de filas y columnas.
+  \item Construcción por defecto.
+  \item Consulta de filas y columnas.
+  \item Operador de acceso.
+  \item Suma de matrices.
+  \item Producto de matrices.
+  \item Lectura de una matriz de un archivo de texto.
+  \item Lectura de una matriz de un archivo binario.
+  \item Escritura de una matriz en un archivo de texto.
+  \item Escritura de una matriz en un archivo binario.
+\end{itemize}
+
+\subsubsection{Representación interna}
+
+Para representar internamente la matriz se utilizarán los siguientes datos
+miembro:
+
+\begin{itemize}
+  \item \cppid{filas\_}: Número de filas de la matriz. Se representará como un
+número entero.
+  \item \cppid{columnas\_}: Número de columnas de la matriz. Se representará
+como un número entero.
+  \item \cppid{vec\_}: Vector unidimensional de números reales en doble
+precisión con los valores de la matriz. Se almancenarán primero todos los
+elementos de la primera fila, a continuación los de la segunda fila, y así
+sucesivamente.  
+\end{itemize}
+
+\subsubsection{Organización del código}
+
+La clase \cppid{matriz} debe definirse dentro del espacio de nombres
+\cppid{linalg}. Para ello se usará la siguiente organización:
+
+\begin{itemize}
+  \item \textmark{matriz.hpp}: Archivo de cabecera con las declaraciones
+necesarias.
+  \item \textmark{matriz.cpp}: Archivo de implementación con las definiciones
+necesarias.
+  \item \textmark{matriz\_ut.cpp}: Archivo con las pruebas unitarias necesarias
+utilizando la biblioteca \textemph{Google Test}.
+enunciado.
+\end{itemize}
+
+\subsubsection{Gestión de errores}
+
+Deberá documentar en todas las operaciones las precondiciones y postcondiciones
+correspondientes. Siempre que sea posible utilice la biblioteca
+\textemph{mincontracts}.
+
+\subsection{Operaciones}
+
+\subsubsection{Construcción}
+
+Se debe poder construir una \cppid{matriz} a partir de un número de filas y un
+número de columnas, siendo ambos enteros positivos. El tamaño del vector interno
+\cppid{vec\_} se fijará a \cppid{filas\_ * columnas\_} iniciando todos los
+elementos del vector a \cppid{0.0}.
+
+\begin{lstlisting}
+linalg::matriz a{3,4}; // Matriz de 3 filas y 4 columnas
+linalg::matriz b{-1,2}; // Violación de precondición
+\end{lstlisting}
+
+\subsubsection{Construcción por defecto}
+
+Se debe poder construir una \cppid{matriz} sin parámetros. En este caso se
+fijarán tanto el número de filas como el número de columnas a \cppid{0} y e
+tamaño del vector interno \cppid{vec\_} se fijará también a \cppid{0}.
+
+\subsubsection{Consulta de filas y columnas}
+
+\begin{lstlisting}
+linalg::matriz a; // Matriz de 0 filas y 0 columnas
+\end{lstlisting}
+
+\subsubsection{Operador de acceso}
+
+Redefina el operador \cppid{()} para que tome una posición de la matriz y
+devuelva o permita acceder al valor de una celda.
+
+Tenga en cuenta que para esto necesitará definir dos versiones del operador:
+
+\begin{lstlisting}
+double operator()(int i, int j) const;
+double & operator()(int i, int j);
+\end{lstlisting}
+
+Si los índices \cppid{i} o \cppid{j} no son válidos debera tratarse como una
+violación de precondición.
+
+Con esta definición, el siguiente código debe ser válido:
+
+\begin{lstlisting}
+linalg::matriz a{3,4};
+a(0,2) = 5.0;
+double x = a(2,3);
+a(3,4) = 1.5; // Cuidado violación de precondición.
+\end{lstlisting}
+
+\subsubsection{Suma de matrices}
+
+Sobrecargue el operador \cppkey{+} para que se pueda calcular la suma de dos
+matrices. Recuerde que para que dos matrices puedan sumarse deben tener el mismo
+número de filas y de columnas. Así mismo sobrecargue el operador \cppkey{+=}.
+
+Con estas definiciones, el siguiente código debe ser válido:
+
+\begin{lstlisting}
+linalg::matriz a{3,4}, b{3,4};
+//...
+linalg::matriz c = a + b;
+c += a;
+\end{lstlisting}
+
+\subsubsection{Producto de matrices}
+
+Sobrecargue el operador \cppkey{*} para que se pueda calcular el producto de dos
+matrices. Recuerde que para que dos matrices puedan multiplica deben 
+cumplirse que el número de columnas de la primera matriz debe ser igual al
+número de filas de la segunda matriz.Así mismo sobrecargue el operador \cppkey{*=}.
+
+Con estas definiciones, el siguiente código debe ser válido:
+
+\begin{lstlisting}
+linalg::matriz a{3,3}, b{3,3};
+//...
+linalg::matriz c = a * b;
+c *= a;
+\end{lstlisting}
+
+\subsubsection{Escritura de un archivo de texto}
+
+Sobrecargue el operador \cppkey{<<} para que realice la escritura de texto en un
+flujo de salida.
+
+Escriba en una línea el número de filas y el número de columnas separados por un
+espacio. Posteriormente escriba en líneas separadas todos los valores
+correspondientes a cada fila separados entre sí por espacios.
+
+Gestione los errores modificando el estado del flujo.
+
+\subsubsection{Lectura de archivo de texto}
+
+Sobrecargue el operador \cppkey{>>} para que realice la lectura de texto de un
+flujo de entrada.
+
+Este operador debe leer correctamente los datos generados por un operador de
+salida de texto.
+
+Gestione los errores modificando el estado del flujo.
+
+\subsubsection{Escritura de un archivo binario}
+
+Defina una operación \cppid{guarda()} que tome como argumento un nombre de un
+archivo. La operación realizará las siguientes tareas:
+
+\begin{itemize}
+  \item Abrir para escritura en modo binario un archivo con ese nombre.
+  \item Si el archivo ya existía se eliminará su contenido anterior.
+  \item Escribir de forma binaria el número de filas y el número de columnas.
+  \item Escribir de forma binaria los datos del vector interno recorriendo por
+filas.
+  \item Cerrar el archivo binario.
+\end{itemize}
+
+\subsubsection{Lectura de un archivo binario}
+
+Defina una opración \cppid{carga()} que tome como argumento un nombre de un
+archivo. La operación realizará las siguientes tareas:
+
+\begin{itemize}
+  \item Abrir para lectura en modo binario un archivo con ese nombre.
+  \item Leer los datos de una matriz almacenada previamente con la función
+\cppid{guarda()}.
+  \item Cerrar el archivo.
+\end{itemize}
+
+\subsection{Pruebas unitarias}
+
+Como complemento al ejercicio deberá definir todas las pruebas unitarias
+necesarias para comprobar el correcto funcionamiento de cada una de las
+operaciones.
+
+\subsection{Material a entregar}
+
+Deberá entregar el siguiente material:
+
+\begin{itemize}
+  \item \textmark{matriz.hpp}: Archivo de cabecera para la clase \cppid{matriz}.
+  \item \textmark{matriz.cpp}: Archivo de implementación para la clase
+\cppid{matriz}.
+  \item \textmark{matriz\_ut.cpp}: Archivo con pruebas unitarias de la clase
+\cppid{matriz}.
+  \item \textmark{CMakeLists.txt}: Archivo de configuración \textemph{cmake}.
+  \item \textmark{memoria.pdf}: Breve archivo en formato PDF resumiendo las
+principales decisiones tomadas, las pruebas realizadas y una vaoloración global
+del trabajo y los resultados.
+\end{itemize}
