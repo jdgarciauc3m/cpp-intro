@@ -1,0 +1,359 @@
+\section{Arrays}
+
+\subsection{Objetos de tipo array}
+
+\begin{frame}[t,fragile]{Arrays sin memoria dinámica}
+\begin{columns}[T]
+\column{.5\textwidth}
+\begin{itemize}
+  \item Como variables globales:
+\begin{lstlisting}
+constexpr int max1 = 100;
+constexpr int max2 = 50;
+std::array<double,max1> v1;
+std::array<double,max2> v2;
+std::array<double,25> v3;
+\end{lstlisting}
+\end{itemize}
+
+\column{.5\textwidth}
+\begin{itemize}
+  \item Como variables locales:
+\begin{lstlisting}
+void f() {
+  std::array<double,10> v;
+  // ...
+}
+\end{lstlisting}
+\end{itemize}
+
+\end{columns}
+
+\mode<presentation>{\vfill\pause}
+\begin{itemize}
+  \item Diferencias con \cppid{std::vector}:
+    \begin{itemize}
+      \item No utiliza \textmark{memoria dinámica}.
+      \item El tamaño de un \cppid{std::array} \textbad{debe ser conocido} en tiempo de 
+            compilación.
+      \item Los arrays locales de tipos primitivos \textbad{no se inician} a ningún valor.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Tamaño de array}
+\begin{itemize}
+  \item No se puede definir un array usando como tamaño un parámetro de función.
+\begin{lstlisting}
+void f(int n) {
+ std::array<double,n> v; // Error
+ v[0] = 1.0;
+ // ...
+}
+\end{lstlisting}
+\end{itemize}
+
+\begin{columns}[T]
+
+\mode<presentation>{\pause}
+\column{.6\textwidth}
+\begin{itemize}
+  \item Pero si se puede hacer con memoria dinámica
+\begin{lstlisting}
+void f(int n) {
+  auto v = std::make_unique<double[]>(n);
+  v[0] = 1.0;
+  // ...
+} // Se destruye v al salir
+\end{lstlisting}
+\end{itemize}
+
+\mode<presentation>{\pause}
+\column{.4\textwidth}
+\begin{itemize}
+  \item O con \cppid{std::vector}:
+\begin{lstlisting}
+void f(int n) {
+ vector<double> v(n);
+ v[0] = 1.0;
+ // ...
+} // Se destruye v al salir
+\end{lstlisting}
+\end{itemize}
+\end{columns}
+
+\end{frame}
+
+\subsection{Iniciación de arrays}
+
+\begin{frame}[t,fragile]{Iniciadores}
+\mode<presentation>{\vspace{-0.5em}}
+\begin{itemize}
+  \item Un array puede \textgood{iniciarse} con una \textmark{lista de valores}.
+\begin{lstlisting}
+std::array<double,4> v { 1.0, 2.0, 3.5, 4.7 };
+std::array<char,4> c { 'c', '+', '+', 0 };
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item No se puede \textbad{omitir el tamaño} aunque haya un valor inicial.
+\begin{lstlisting}
+std::array<double> v {1.2, 2.4, 3.6 }; // Error
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item Pero se puede \textgood{omitir tipo y tamaño} cuando hay valor inicial
+\begin{lstlisting}
+std::array v {1.2, 2.4, 3.6 }; // std::array<double,3>
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item Si \textbad{faltan iniciadores}, \textgood{se completa} con \cppid{0}.
+\begin{lstlisting}
+std::array<double,4> v {1.5, 2.5}; // v[2]==0.0, v[3]==0.0
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item No se pueden especificar \textbad{más iniciadores de los necesarios}.
+\begin{lstlisting}
+std::array<char,3> c { 'H', 'o', 'l', 'a' };
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item Iniciación a \textgood{0}.
+\begin{lstlisting}
+std::array<double,10> v {};
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Consulta del tamaño de un array}
+\begin{itemize}
+  \item Se puede consultar el tamaño de un \cppid{std::array} con la 
+        operación \cppid{size()}.
+    \begin{itemize}
+      \item El resultado es de tipo sin signo \cppid{std::size\_t}.
+    \end{itemize}
+\begin{lstlisting}
+std::array v {1, 2, 3, 4, 5};
+std::size_t s = v.size();
+auto n = v.size(); // n es de tipo std::size_t
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item También se puede usar en versión de función libre.
+\begin{lstlisting}
+std::array v {1, 2, 3, 4, 5};
+std::size_t s = std::size(v);
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item Se puede obtener el tamaño como un valor con signo de tipo \cppid{ssize\_t}.
+\begin{lstlisting}
+std::array v {1, 2, 3, 4, 5};
+auto n = std::ssize(v); // n es de tipo std::ssize_t
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Iniciación de array como dato miembro}
+\begin{itemize}
+  \item Un dato miembro que sea de tipo \cppid{std::array} \textgood{se puede iniciar} 
+        con una \textmark{lista de valores}.
+\begin{lstlisting}
+class conversor {
+private:
+  std::array<double,4> coef;
+public:
+  conversor(double x, double y, double z, double t) : coef{x,y,z,t} {}
+  double convierte(double a) {
+    return coef[0] * a + coef[1] * a + coef[2] * a + coef[3] * a;
+  }
+};
+
+void f() {
+  conversor c{1.0, 0.0, -1, 2};
+  cout << c.convierte(3) << "\n";
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\subsection{Arrays y aritmética de punteros}
+
+\begin{frame}[t,fragile]{Iteradores a posiciones de un array}
+\begin{itemize}
+  \item Un \textgood{iterador} permite \textmark{acceder directamente} 
+        a una posición de un 
+        \cppid{std::array}
+    \begin{itemize}
+      \item La operación \cppid{begin()} devuelve un iterador a la 
+            \textmark{primera posición} del \cppid{std::array}.
+    \end{itemize}
+\begin{lstlisting}
+std::array<double,4> v;
+auto i = v.begin();
+*i = 1.5;
+double x = v[0]; // x == 1.5
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item Se puede \textgood{iniciar} un iterador a \textmark{cualquier posición} del 
+        \cppid{std::array}.
+\begin{lstlisting}
+auto p = v.begin() + 1;
+p = v.begin() + 3;
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Límites de un array}
+\begin{itemize}
+  \item También se puede apuntar a la \textmark{posición siguiente a la última}
+        con \cppid{end()}.
+    \begin{itemize}
+      \item Pero no a posiciones anteriores o posteriores.
+    \end{itemize}
+\begin{lstlisting}
+auto p = v.end(); // OK. Posición siguiente a la última
+p = v.begin() + v.size(); // OK. Posición siguiente a la última.
+p = v.begin() - 1; // Comportamiento no definido
+p = v.end() + 1; // Comportamiento no definido
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Aritmética de iteradores}
+\begin{itemize}
+  \item Se puede \textgood{avanzar} con un iterador en un \cppid{std::array}, 
+        \textmark{sumando un entero} al puntero.
+\begin{lstlisting}
+std::array<double,4> v {};
+auto p = v.begin() + 1; // Apunta a v[1]
+p = p + 2; // Apunta a v[3];
+++p; // Apunta a v[4]
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item Igualmente se puede \textgood{retroceder};
+\begin{lstlisting}
+--p; // Apunta a v[3]
+p = p - 2; // Apunta a v[1]
+p -=1; // Apunta a v[0]
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Distancia entre dos posiciones}
+\begin{itemize}
+  \item Se puede \textgood{calcular la distancia} entre dos iteradores 
+        como número de elementos.
+    \begin{itemize}
+      \item Solamente si apuntan a objetos del mismo array.
+    \end{itemize}
+\begin{lstlisting}
+std::array<double> v {}, w {};
+auto p = v.begin();
+auto q = v.end();
+auto n = q - p; // n == 4
+n = std::distance(p,q); // n == 4
+auto m = std::distance(v.begin(), w.end()); // No definido
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Paso como parámetro}
+\begin{itemize}
+  \item Se puede pasar un array como argumento a una función.
+
+  \begin{columns}[T]
+
+  \column{.5\textwidth}
+\begin{block}{Paso por valor}
+\begin{lstlisting}
+double f(std::array<double,5> vec) {
+  double r = 0.0;
+  for (auto x : vec) {
+    r += x;
+  }
+  return r;
+}
+\end{lstlisting}
+\end{block}
+
+  \mode<presentation>{\pause}
+  \column{.55\textwidth}
+\begin{block}{Paso por referencia}
+\begin{lstlisting}
+double f(const std::array<double,5> & vec) {
+  double r = 0.0;
+  for (auto & x : v) {
+    r += x;
+  }
+  return r;
+}
+\end{lstlisting}
+\end{block}
+  \end{columns}
+
+  \mode<presentation>{\vfill\pause}
+  \item Es necesario fijar el tamaño como parte del tipo del parámetro.
+    \begin{itemize}
+      \item \textgood{Alternativa}: Usar \cppid{std::vector} o 
+            \textemph{programación genérica}.
+    \end{itemize}
+
+\end{itemize}
+\end{frame}
+
+\subsection{Copia de arrays}
+
+\begin{frame}[t,fragile]{Copia de arrays}
+\begin{itemize}
+  \item Se pueden copiar variables \cppid{std::array} con el operador \cppkey{=}.
+\begin{lstlisting}
+std::array v {1, 2, 3, 4};
+std::array w {5, 6, 7, 8}
+v = w;
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item Solamente se puede realizar la copia si tienen el mismo tipo de elemento
+        y el mismo tamaño.
+\begin{lstlisting}
+std::array z {1.0, 2.0, 3.0};
+std::array t {1, 2, 3};
+z = t; // Error distinto tipo de elemento
+v = t; // Error distinto tamaño
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Alternativas de copia}
+\begin{itemize}
+  \item \textmark{Copia explícita} elemento a elemento.
+\begin{lstlisting}
+std::array v {1, 2, 3, 4}; // std::array<int,4>
+std::array w {2, 4, 6 , 8, 10, 12, 14}; // std::array<int,7>
+for (int i=0; i<4; ++i) {
+  w[i] = v[i];
+}
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item \textmark{Algoritmo de copia} con límites.
+\begin{lstlisting}
+std::array v {1, 2, 3, 4}; // std::array<int,4>
+std::array w {2, 4, 6 , 8, 10, 12, 14}; // std::array<int,7>
+std::copy(v.begin(), v.end(), w.begin());
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item \textmark{Algoritmo de copia} con tamaño.
+\begin{lstlisting}
+std::array v {1, 2, 3, 4}; // std::array<int,4>
+std::array w {2, 4, 6 , 8, 10, 12, 14}; // std::array<int,7>
+std::copy(v.begin(), 4, w.begin());
+\end{lstlisting}
+\end{itemize}
+\end{frame}

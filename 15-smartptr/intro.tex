@@ -1,0 +1,55 @@
+\section{Introducción}
+
+\begin{frame}[t]{Pila y montículo}
+\begin{itemize}
+  \item La mayor parte de las operaciones pueden realizarse con objetos 
+        \textmark{alojados en la pila}.
+  \begin{itemize}
+    \item \textgood{Más sencillos} de usar:
+      \begin{itemize}
+        \item Reglas claras sobre el alcance.
+        \item No es necesario hacer uso del concepto de puntero.
+      \end{itemize}
+  \end{itemize}
+
+  \mode<presentation>{\vfill\pause}
+  \item Los objetos almacenados en el montículo ofrecen \textgood{más flexibilidad}.
+    \begin{itemize}
+      \item Gestión del tamaño en tiempo de ejecución.
+      \item Uso más eficiente de la memoria.
+      \item Coste adicional en tiempo de ejecución.
+    \end{itemize}
+
+  \mode<presentation>{\vfill\pause}
+  \item Algunos tipos (como \cppid{vector} o \cppid{string}) usan internamente el montículo.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Punteros únicos}
+\begin{itemize}
+  \item Un \textmark{puntero único} (\cppid{unique\_ptr}) almacena la dirección
+        donde se encuentra un objeto alojado en memoria dinámica.
+    \begin{itemize}
+      \item Tiene asociado un tipo y solamente puede apuntar a objetos de ese tipo.
+    \end{itemize}
+\end{itemize}
+\begin{lstlisting}
+std::unique_ptr<int> pi{new int{5}}; // pi apunta a un entero con valor 5
+auto pj = std::make_unique<int>(5); // pi apunta a un entero con valor 5
+\end{lstlisting}
+
+\mode<presentation>{\vfill\pause}
+\begin{itemize}
+  \item El operador \cppkey{*} permite acceder al objeto apuntado por un 
+        \cppid{unique\_ptr}.
+\end{itemize}
+\begin{lstlisting}
+auto pi = std::make_unique<int>{5};
+int x = *pi; // x = 5
+
+auto pc = std::make_unique<char>{'a'};
+*pc = 'z'; 
+char c = *pc; // c = 'z'
+\end{lstlisting}
+\end{frame}
+

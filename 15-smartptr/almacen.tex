@@ -1,0 +1,215 @@
+\section{El almacén libre}
+
+\subsection{Asignación de memoria}
+
+\begin{frame}[t]{Memoria del almacén libre}
+\begin{itemize}
+  \item El \textmark{almacén libre} contiene la memoria libre que un programa
+        puede adquirir y liberar.
+    \begin{itemize}
+      \item Típicamente implementado mediante el \textgood{montículo} (\emph{heap}).
+    \end{itemize}
+
+  \mode<presentation>{\vfill\pause}
+  \item \cppid{unique\_ptr} gestiona automáticamente un recurso de memoria
+        dinámica.
+    \begin{itemize}
+      \item Se construye con el resultado de \cppkey{new} o \cppid{std::make\_unique()}.
+      \item Cuando se sale del alcance el objeto se destruye y se libera la memoria.
+    \end{itemize}
+
+  \mode<presentation>{\vfill}
+  \item \textbad{IMPORTANTE}: Es es distinto de \textmark{recolección de basura}.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Operador de asignación de memoria: \textbf{new}}
+\begin{itemize}
+  \item El operador \cppkey{new} permite asignar memoria del almacén libre.
+\begin{lstlisting}
+std::unique_ptr<int> p{new int}; // Asigna memoria para un int
+std::unique_ptr<char[]> q{new char[10]}; // Asigna memoria para 10 char
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item \textgood{Efecto}:
+    \begin{itemize}
+      \item El operador \cppkey{new} devuelve un puntero al inicio de la memoria asignada.
+      \item Una expresión \cppkey{new} \cppid{T} devuelve un valor de tipo \cppid{T*}.
+      \item El resultado de \cppkey{new} se utiliza para iniciar un \cppid{std::unique\_ptr}.
+    \end{itemize}
+
+  \mode<presentation>{\vfill\pause}
+  \item \textbad{IMPORTANTE}: No se puede saber el tamaño de la memoria asignada 
+        después de evaluar la expresión \cppkey{new}.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Función de reserva: \textbf{std::make\_unique()}}
+\begin{itemize}
+  \item La función \cppid{std::make\_unique()} permite asignar memoria del 
+        almacén libre.
+\begin{lstlisting}
+auto p = std::make_unique<int>(); // Asigna memoria para un int iniciado a 0
+auto q = std::make_unique<int>(5); // Asigna memoria para un int iniciado a 5
+auto r = std::make_unique<char[]>(10); // Asigna memoria ara 10 char
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item \textgood{Efecto}:
+    \begin{itemize}
+      \item \cppid{std::make\_unique()} reserva memoria y devuelve 
+            un \cppid{std::unique\_ptr}.
+    \end{itemize}
+
+  \mode<presentation>{\vfill\pause}
+  \item \textbad{IMPORTANTE}: No se puede saber el tamaño de la memoria asignada 
+        después de construir un \cppkey{std::unique\_ptr}.
+\end{itemize}
+\end{frame}
+
+\subsection{Acceso a memoria mediante punteros}
+
+\begin{frame}[t,fragile]{Operadores de acceso}
+\begin{itemize}
+  \item \textgood{Relativo}: Operador \cppkey{[]} (indexación).
+    \begin{itemize}
+      \item Accede de forma indexada en una secuencia de valores.
+      \item Solamente con \cppid{std::unique\_ptr<T[]>}.
+\begin{lstlisting}
+auto v = std::make_unique<int[]>(10); // Array
+v[1] = 84;
+auto w = std::make_unique<int>(10); // Valor
+v[0] = 5; // Error. No es array
+\end{lstlisting}
+    \end{itemize}
+
+  \mode<presentation>{\vfill\pause}
+  \item \textgood{Indirecto}: Operador \cppkey{*} (desreferencia).
+    \begin{itemize}
+      \item Si se apunta a un valor, accede al valor apuntado.
+\begin{lstlisting}
+auto p = std::make_unique<int>(5);
+*p = 42;
+int x = *p; // x = 42
+\end{lstlisting}
+
+      \mode<presentation>{\vfill\pause}
+      \item Si se apunta a una secuencia de valores, accede al primer valor de la secuencia.
+\begin{lstlisting}
+auto v = std::make_unique<int[]>(10);
+*v = 42; // Equivale a v[0] = 42;
+\end{lstlisting}
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Problemas de acceso}
+\begin{itemize}
+  \item Una variable de tipo puntero iniciada a una secuencia 
+        \textbad{solamente} puede accederse 
+        \textmark{dentro de sus límites} establecidos.
+\begin{lstlisting}
+auto v = std::make_unique<int>(10);
+v[0] = 42; // OK
+x = v[-1]; // No definido
+x = v[15]; // No definido
+v[10] = 0; // No definido
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{El puntero nulo}
+\begin{itemize}
+  \item Se puede iniciar un \cppid{std::unique\_ptr} al valor 
+        \textemph{puntero-nulo} para indicar 
+        que \textbad{no apunta a ningún objeto}.
+    \begin{itemize}
+      \item Literal \cppkey{nullptr}.
+    \end{itemize}
+\begin{lstlisting}
+std::unique_ptr<int> p{nullptr}; // No tiene memoria asociada
+std::unique_ptr<char> q; // No tiene memoria aosicada
+if (p != nullptr) { /* ... */ }
+if (q == nullptr) { /* ... */ }
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item Un \cppid{std::unique\_ptr} es \textmark{contextualmente convertible} 
+        a \textemph{booleano}.
+    \begin{itemize}
+      \item Si aparece en el contexto en que se espera un \textemph{booleano}.
+    \end{itemize}
+\begin{lstlisting}
+if (p) { /* ... */ } // if (p != nullptr) 
+if (!q) { /* ... */ } // if (q == nullptr)
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Problemas de acceso}
+\begin{itemize}
+  \item Una variable de tipo \cppid{std::unique\_ptr} 
+        \textmark{se inicia de forma automática} al \textemph{puntero nulo}.
+    \begin{itemize}
+      \item Si se \textmark{desreferencia} un \textemph{puntero nulo} se tiene un 
+            \textbad{comportamiento no definido}.
+    \end{itemize}
+\begin{lstlisting}
+std::unique_ptr<int> p;
+*p = 42; // Comportamiento no definido.
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item Una variable de tipo \cppid{std::unique\_ptr<T[]>}
+        \textmark{se inicia de forma automática} al \textemph{puntero nulo}.
+\begin{lstlisting}
+std::unique_ptr<int> v;
+v[0] = 42; // Comportamiento no definido.
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Asignación de memoria e iniciación}
+\begin{itemize}
+  \item \cppid{std::make\_unique()} inicia el objeto para el que reserva memoria.
+\begin{lstlisting}
+auto p = std::make_unique<int>(); // *p == 0
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item Se puede indicar el \textmark{valor inicial} como argumento a
+        \cppid{std::make\_unique()}.
+\begin{lstlisting}
+auto q = std::make_unique<int>(42); // *p == 42
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item Si se reserva una secuencia con \cppid{std::make\_unique<T[]>()} 
+        \textbad{se inician} todos los elementos.
+\begin{lstlisting}
+auto v = std::make_unique<int[]>(10); // 10 elementos iniciados a 0
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Asignación de memoria sin iniciación}
+\begin{itemize}
+  \item Se puede reservar memoria sin iniciar el objeto con
+        \cppid{std::make\_unique\_for\_overwrite()}.
+\begin{lstlisting}
+auto p = std::make_unique_for_overwrite<int>(); // *p sin iniciar
+auto v = std::make_unique_for_overwrite<int[]>(10); // v[0] a v[9] sin iniciar
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item Útil para evitar iniciar innecesariamente la memoria que se va a modificar
+        posteriormente.
+\begin{lstlisting}
+auto v = std::make_unique_for_overwrite<int[]>(10);
+for (int i=0; i<n; ++i) {
+  is >> v[i];
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}
