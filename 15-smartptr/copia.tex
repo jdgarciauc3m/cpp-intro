@@ -1,0 +1,50 @@
+\section{Copia}
+
+\begin{frame}[t,fragile]{Copia frente a movimiento}
+\begin{itemize}
+  \item Un \cppid{unique\_ptr} \textbad{no se puede} copiar en otro
+        \cppid{unique\_ptr}.
+\begin{lstlisting}
+auto p = std::make_unique<int>(42);
+auto q = std::make_unique<int>(33);
+p = q; // Error
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item Pero si se puede transferir o \textemph{mover} la memoria 
+        apuntada por un puntero a otro puntero.
+\begin{lstlisting}
+auto p = std::make_unique<int>(42);
+auto q = std::make_unique<int>(33);
+p = std::move(q);
+\end{lstlisting}
+    
+    \mode<presentation>{\vfill\pause}
+    \begin{itemize}
+      \item Se libera la memoria apuntada por \cppid{p}.
+      \item \cppid{p} apunta a la memoria apuntado por \cppid{q}.
+      \item \cppid{q} vale \cppkey{nullptr}.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Intercambio de punteros}
+\begin{itemize}
+  \item La función miembro \cppid{swap()} permite \textmark{intercambiar} el contenido
+        con el de otro puntero.
+\begin{lstlisting}
+auto p = std::make_unique<int>(42);
+auto q = std::make_unique<int>(33);
+p.swap(q); // *p==33, *q==42
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item También se puede usar al función libre \cppid{std::swap()}.
+\begin{lstlisting}
+auto p = std::make_unique<int>(42);
+auto q = std::make_unique<int>(33);
+std::swap(p,q); // *p==33, *q==42
+\end{lstlisting}
+
+\end{itemize}
+\end{frame}
