@@ -30,6 +30,7 @@ include 13-iostream/Makefile.def
 include 14-cpparrays/Makefile.def
 include 15-smartptr/Makefile.def
 include 16-punteros/Makefile.def
+include 17-arrays/Makefile.def
 
 include 99-practica-1/Makefile.def
 
@@ -51,6 +52,7 @@ $(IOSTREAM_PARTS) \
 $(CPPARRAYS_PARTS) \
 $(SMARTPTR_PARTS) \
 $(PUNTEROS_PARTS) \
+$(ARRAYS_PARTS) \
 $(PRACTICA_A_PARTS) \
 
 ALL_SLIDES_FINAL_PDF= \
@@ -70,6 +72,7 @@ $(FINAL_DIR)/$(IOSTREAM_PDF) \
 $(FINAL_DIR)/$(CPPARRAYS_PDF) \
 $(FINAL_DIR)/$(SMARTPTR_PDF) \
 $(FINAL_DIR)/$(PUNTEROS_PDF) \
+$(FINAL_DIR)/$(ARRAYS_PDF) \
 $(FINAL_DIR)/$(SMART_PTR) \
 
 ALL_EJ_FINAL_PDF= \
@@ -89,6 +92,7 @@ $(FINAL_DIR)/$(IOSTREAM_EJ_PDF) \
 $(FINAL_DIR)/$(CPPARRAYS_EJ_PDF) \
 $(FINAL_DIR)/$(SMARTPTR_EJ_PDF) \
 $(FINAL_DIR)/$(PUNTEROS_EJ_PDF) \
+$(FINAL_DIR)/$(ARRAYS_EJ_PDF) \
 $(FINAL_DIR)/$(PRACTICA_A_PDF) \
 
 
@@ -131,4 +135,5 @@ include $(IOSTREAM_BASE)/Makefile.mk
 include $(CPPARRAYS_BASE)/Makefile.mk
 include $(SMARTPTR_BASE)/Makefile.mk
 include $(PUNTEROS_BASE)/Makefile.mk
+include $(ARRAYS_BASE)/Makefile.mk
 include $(PRACTICA_A_BASE)/Makefile.mk
