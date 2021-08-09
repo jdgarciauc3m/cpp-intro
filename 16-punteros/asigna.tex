@@ -1,0 +1,68 @@
+\section{Asignación de memoria}
+
+\begin{frame}[t]{Memoria del almacén libre}
+\begin{itemize}
+  \item El \textmark{almacén libre} contiene la memoria libre que un programa
+        puede adquirir y liberar.
+    \begin{itemize}
+      \item Típicamente implementado mediante el \textgood{montículo} (\emph{heap}).
+    \end{itemize}
+
+  \mode<presentation>{\vfill\pause}
+  \item \textbad{IMPORTANTE}: C++ no es un lenguaje con 
+        \textbad{gestión automática de recursos}.
+    \begin{itemize}
+      \item Si se adquiere un recurso, éste se debe liberar.
+      \item Si se adquire memoria del almacén libre, ésta se debe devolver.
+      \item Los punteros elegantes ofrecen cierta automatización.
+    \end{itemize}
+\end{itemize}
+
+  \mode<presentation>{\vfill}
+\begin{quote}
+C++ Is my favorite garbage collected language because it generates so little garbage.
+
+\textbf{Bjarne Stroustrup}
+\end{quote}
+\end{frame}
+
+\begin{frame}[t,fragile]{Operador de asignación de memoria: \textbf{new}}
+\begin{itemize}
+  \item El operador \cppkey{new} permite asignar memoria del almacén libre.
+\begin{lstlisting}
+int * p = new int; // Asigna memoria para un int
+char * q = new char[10]; // Asigna memoria para 10 char
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item \textgood{Efecto}:
+    \begin{itemize}
+      \item El operador \cppkey{new} devuelve un puntero al inicio de la memoria asignada.
+      \item Una expresión \cppkey{new} \cppid{T} devuelve un valor de tipo \cppid{T*}.
+    \end{itemize}
+
+  \mode<presentation>{\vfill\pause}
+  \item \textbad{IMPORTANTE}: No se puede saber el tamaño de la memoria asignada 
+        después de evaluar la expresión \cppkey{new}.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{\textbf{new} y punteros elegantes}
+\begin{itemize}
+  \item El resultado de una operación \cppkey{new} 
+        puede pasarse al constructor de un puntero elegante.
+\begin{lstlisting}
+std::unique_ptr<int> p{new int}; // Asigna memoria para un int
+std::unique_ptr<char[]> q{new char[10]}; // Asigna memoria para 10 char
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item \textgood{Efecto}:
+    \begin{itemize}
+      \item El operador \cppkey{new} devuelve un puntero al inicio de la memoria asignada.
+      \item Una expresión \cppkey{new} \cppid{T} devuelve un valor de tipo \cppid{T*}.
+      \item El resultado de \cppkey{new} se utiliza para iniciar un \cppid{std::unique\_ptr}.
+    \end{itemize}
+
+\end{itemize}
+\end{frame}

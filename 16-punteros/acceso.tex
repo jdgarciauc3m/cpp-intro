@@ -1,0 +1,130 @@
+\section{Acceso a memoria mediante punteros}
+
+\begin{frame}[t,fragile]{Operadores de acceso}
+\begin{itemize}
+  \item \textgood{Indirecto}: Operador \cppkey{*} (desreferencia).
+    \begin{itemize}
+      \item Si se apunta a un valor, accede al valor apuntado.
+\begin{lstlisting}
+int * p = new int;
+*p = 42;
+int x = *p; // x = 42
+\end{lstlisting}
+
+
+      \mode<presentation>{\vfill\pause}
+      \item Si se apunta a una secuencia de valores, accede al primer valor de la secuencia.
+\begin{lstlisting}
+int * v = new int[10];
+*v = 42; // Equivale a v[0] = 42;
+\end{lstlisting}
+    \end{itemize}
+
+  \mode<presentation>{\vfill\pause}
+  \item \textgood{Relativo}: Operador \cppkey{[]} (indexación).
+    \begin{itemize}
+      \item Accede de forma indexada en una secuencia de valores.
+\begin{lstlisting}
+int * v = new int[10];
+v[0] = 42;
+v[1] = 84;
+\end{lstlisting}
+    \end{itemize}
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Problemas de acceso}
+\begin{itemize}
+  \item Una variable de tipo puntero \textbad{no se inicia de forma automática} 
+        a ningún valor.
+    \begin{itemize}
+      \item Si se desreferencia un \textmark{puntero no iniciado} se tiene un 
+            \textbad{comportamiento no definido}.
+    \end{itemize}
+\begin{lstlisting}
+int * p;
+*p = 42; // Comportamiento no definido.
+p[0] = 42; // Comportamiento no definido.
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item Una variable de tipo puntero iniciada a una secuencia 
+        \textbad{solamente} puede accederse 
+        \textmark{dentro de sus límites} establecidos.
+\begin{lstlisting}
+int * v = new int[10];
+v[0] = 42; // OK
+x = v[-1]; // No definido
+x = v[15]; // No definido
+v[10] = 0; // No definido
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{El puntero nulo}
+\begin{itemize}
+  \item Se puede iniciar un puntero al valor \textemph{puntero-nulo} para indicar 
+        que \textbad{no apunta a ningún objeto}.
+    \begin{itemize}
+      \item Literal \cppkey{nullptr}.
+    \end{itemize}
+\begin{lstlisting}
+int * p = nullptr;
+char * q = nullptr;
+if (p != nullptr) { /* ... */ }
+if (q == nullptr) { /* ... */ }
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item Otras alternativas heredadas de C y C++98:
+    \begin{itemize}
+      \item Literal \cppid{0}.
+      \item Macro predefinida \cppid{NULL}.
+    \end{itemize}
+
+  \mode<presentation>{\vfill\pause}
+  \item Un puntero es \textmark{contextualmente convertible} a \textemph{booleano}.
+    \begin{itemize}
+      \item Si aparece en el contexto en que se espera un booleano.
+    \end{itemize}
+\begin{lstlisting}
+if (p) { /* ... */ } // if (p != nullptr) 
+if (!q) { /* ... */ } // if (q == nullptr)
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Asignación de memoria e iniciación}
+\begin{itemize}
+  \item El operador \cppkey{new} \textbad{no inicia} el objeto asignado.
+\begin{lstlisting}
+int * p = new int;
+x = *p; // x tiene un valor desconocido
+\end{lstlisting}
+    \begin{itemize}
+      \item Se puede indicar el \textmark{valor inicial} entre llaves.
+    \end{itemize}
+\begin{lstlisting}
+p = new int{42}; // *p == 42
+p = new int{}; // *p == 0
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item Si se reserva una secuencia con \cppkey{new} 
+        \textbad{no se inician} los objetos.
+\begin{lstlisting}
+int * v = new int[10];
+\end{lstlisting}
+    \begin{itemize}
+      \item Se puede indicar los \textmark{valores iniciales} entre llaves.
+    \end{itemize}
+\begin{lstlisting}
+v = new int[4]{1,2,3,4}; // v[0] = 1, v[1] = 2, v[2] = 3, v[3] = 4
+v = new int[4]{1, 2};    // v[0] = 1, v[1] = 2, v[2] = 0, v[3] = 0
+v = new int[4]{};        // v[0] = 0, v[1] = 0, v[2] = 0, v[3] = 0
+v = new int[4]{1,2,3,4,5}; // Error demasiados iniciadores
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+

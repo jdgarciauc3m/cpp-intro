@@ -1,0 +1,81 @@
+\section{Desasignación de memoria}
+
+\begin{frame}[t,fragile]{Operador de desasignación de memoria}
+\begin{itemize}
+  \item El operador \cppkey{delete} permite \textgood{liberar memoria} 
+        y \textgood{marcarla} como no asignada.
+  \item Pude aplicarse solamente a:
+    \begin{itemize}
+      \item Memoria devuelta por el operador \cppkey{new} y asignada.
+      \item El puntero nulo.
+    \end{itemize}
+\begin{lstlisting}
+int * p = new int{10};
+*p = 20;
+delete p; // Libera p
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item Es un \textbad{error} invocar dos veces a \cppkey{delete} sobre un mismo puntero.
+\begin{lstlisting}
+int * p = new int{10};
+delete p; // Libera p
+delete p; // Comportamiento no definido
+p = nullptr;
+delete p; // OK
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Desasignación de arrays}
+\begin{itemize}
+  \item Existe una versión diferente para liberar \emph{arrays}.
+\begin{lstlisting}
+int * p = new int{10};
+int * v = new int[10];
+delete p; // Libera p
+delete []v;
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item \textmark{Importante}: Se debe usar la \textbad{versión correcta} de desasignación.
+    \begin{itemize}
+      \item Si se reserva memoria con \cppkey{new T} debe liberarse con \cppkey{delete}.
+      \item Si se reserva memoria con \cppkey{new T[n]} debe liberarse con \cppkey{delete[]}.
+    \end{itemize}
+\begin{lstlisting}
+int * p = new int{10};
+int * v = new int[10];
+delete []p; // Comportamiento no definido
+delete v; // Comportamiento no definido
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Razones para desasignar}
+\begin{itemize}
+  \item Si se reserva memoria y no se libera esta \textmark{queda asignada}.
+\begin{lstlisting}
+void f() {
+  int * v = new int[1024*1024];
+  // ...
+}
+\end{lstlisting}
+    \begin{itemize}
+      \item Cada vez que se invoca a \cppid{f()} \textbad{se pierden} 8 MB 
+            (si \cppkey{sizeof(int)}\cppid{==8}).
+    \end{itemize}
+
+  \mode<presentation>{\vfill\pause}
+  \item \textbad{Problemas} con los goteos de memoria:
+    \begin{itemize}
+      \item En cada asignación de memoria puede requerirse \textbad{más tiempo}.
+      \item Si el programa se ejecuta durante mucho tiempo, 
+            puede acabar \textbad{agotándose} la memoria.
+    \end{itemize}
+
+  \mode<presentation>{\vfill}
+  \item Se se agota la memoria se lanza la excepción \cppid{bad\_alloc}.
+\end{itemize}
+\end{frame}
+

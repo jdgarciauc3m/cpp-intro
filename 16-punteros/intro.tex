@@ -1,32 +1,11 @@
 \section{Introducción}
 
-\begin{frame}[t]{Pila y montículo}
-\begin{itemize}
-  \item La mayor parte de las operaciones pueden realizarse con objetos 
-        \textmark{alojados en la pila}.
-  \begin{itemize}
-    \item \textgood{Más sencillos} de usar:
-      \begin{itemize}
-        \item Reglas claras sobre el alcance.
-        \item No es necesario hacer uso del concepto de puntero.
-      \end{itemize}
-  \end{itemize}
-
-  \mode<presentation>{\vfill\pause}
-  \item Los objetos almacenados en el montículo ofrecen \textgood{más flexibilidad}.
-    \begin{itemize}
-      \item Gestión del tamaño en tiempo de ejecución.
-      \item Uso más eficiente de la memoria.
-      \item Coste adicional en tiempo de ejecución.
-    \end{itemize}
-
-  \mode<presentation>{\vfill\pause}
-  \item Algunos tipos (como \cppid{vector} o \cppid{string}) usan internamente el montículo.
-\end{itemize}
-\end{frame}
-
 \begin{frame}[t,fragile]{Punteros}
 \begin{itemize}
+  \item Un \textgood{puntero} es un \textmark{tipo primitivo} de más bajo 
+        nivel que un \textemph{puntero elegante}.
+
+  \mode<presentation>{\vfill\pause}
   \item Un \textmark{puntero} es un objeto que almacena la dirección de otro objeto.
     \begin{itemize}
       \item Tiene asociado un tipo y solamente puede apuntar a objetos de ese tipo.
@@ -35,8 +14,11 @@
 int * pi; // pi es un puntero a entero
 char * pc; // pc es un puntero a carácter
 \end{lstlisting}
+\end{itemize}
+\end{frame}
 
-  \mode<presentation>{\vfill\pause}
+\begin{frame}[t,fragile]{Operaciones sobre punteros}
+\begin{itemize}
   \item El operador \cppkey{\&} permite obtener la dirección de un objeto.
 \begin{lstlisting}
 int i = 42;
