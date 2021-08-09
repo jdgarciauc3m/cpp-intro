@@ -1,0 +1,36 @@
+\section{Copia de arrays}
+
+\begin{frame}[t,fragile]{Copia de arrays}
+\begin{itemize}
+  \item La \textgood{asignación} de punteros \textbad{copia direcciones}.
+\begin{lstlisting}
+double v[4]={}, w[4]={};
+double * p = v; // p apunta a v
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item No se puede \textbad{colocar el nombre de un array} 
+        en la parte izquierda de una asignación.
+\begin{lstlisting}
+v = w; // Error: v no es una variable
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item \textgood{Alternativas}:
+    \begin{itemize}
+      \item \textmark{Copia explícita} elemento a elemento.
+\begin{lstlisting}
+for (int i=0; i<4; ++i) v[i] = w[i];
+\end{lstlisting}
+      \item \textmark{Copia de memoria por bytes}.
+\begin{lstlisting}
+std::memcpy(v, w, 4 * sizeof(double)); // Cuidado
+\end{lstlisting}
+      \item \textmark{Algoritmo de copia}.
+\begin{lstlisting}
+std::copy_n(w, 4, v); // Preferida
+\end{lstlisting}
+    \end{itemize}
+\end{itemize}
+\end{frame}
+

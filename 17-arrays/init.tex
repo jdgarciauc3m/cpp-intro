@@ -1,0 +1,117 @@
+\section{Iniciación de arrays}
+
+\begin{frame}[t,fragile]{Iniciadores}
+\begin{itemize}
+  \item Un array puede \textgood{iniciarse} con una \textmark{lista de valores}.
+\begin{lstlisting}
+double v[4] = { 1.0, 2.0, 3.5, 4.7 };
+char c[4] = { 'c', '+', '+', 0 };
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item Se puede \textgood{omitir el tamaño} si hay un valor inicial.
+\begin{lstlisting}
+double v[] = {1.2, 2.4, 3.6 }; // Tamaño = 3
+char c[] = { 'H', 'o', 'l', 'a' }; // Tamaño = 4
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item Si \textbad{faltan iniciadores}, \textgood{se completa} con \cppid{0}.
+\begin{lstlisting}
+double v[4] = {1.5, 2.5}; // v[2]==0.0, v[3]==0.0
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item No se pueden especificar \textbad{más iniciadores de los necesarios}.
+\begin{lstlisting}
+char c[3] = { 'H', 'o', 'l', 'a' };
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item Iniciación a \textgood{0}.
+\begin{lstlisting}
+double v[10] = {};
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Iniciación de cadenas}
+\begin{itemize}
+  \item Un \textmark{literal de cadena} equivale a 
+        un \textgood{array de caracteres constantes} con 
+        un \textemph{carácter adicional} para el terminador (\textgood{0}). 
+\begin{lstlisting}
+const char c1[5] = "Hola";
+const char c2[5] = {'H', 'o', 'l', 'a', 0 };
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item Se puede asignar un literal de cadena a un \textmark{array no constante}.
+\begin{lstlisting}
+char c[] = "Hola";
+c[0] = 'C';
+c[2] = 's';
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item Se puede iniciar con un literal un \textmark{puntero a carácter constante}.
+\begin{lstlisting}
+const char * p = "Hola";
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item Pero no un puntero a carácter no constante.
+\begin{lstlisting}
+char * p = "Hola"; // Error
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Otros tipos de cadenas}
+\begin{itemize}
+  \item Cadenas en modo \textemph{crudo} (\emph{raw}):
+\begin{lstlisting}
+cout << R"(\t")"; // Imprime '\', 't', '"'
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item Cadenas UTF:
+    \begin{itemize}
+      \item Cadenas UTF-8.
+        \begin{itemize}
+          \item \cppid{u8"Hola"};
+        \end{itemize}
+      \item Cadenas UTF-16.
+        \begin{itemize}
+          \item \cppid{u"Hola"};
+        \end{itemize}
+      \item Cadenas UTF-32.
+        \begin{itemize}
+          \item \cppid{U"Hola"};
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Iniciación de array como dato miembro}
+\begin{itemize}
+  \item Un dato miembro que sea de tipo array \textgood{se puede iniciar} 
+        con una \textmark{lista de valores}.
+\begin{lstlisting}
+class conversor {
+private:
+  double coef[4];
+public:
+  conversor(double x, double y, double z, double t) : coef{x,y,z,t} {}
+  double convierte(double a) {
+    return coef[0] * a + coef[1] * a + coef[2] * a + coef[3] * a;
+  }
+};
+
+void f() {
+  conversor c{1.0, 0.0, -1, 2};
+  cout << c.convierte(3) << "\n";
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}

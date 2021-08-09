@@ -1,0 +1,107 @@
+\section{Arrays y aritmética de punteros}
+
+\begin{frame}[t,fragile]{Punteros a posiciones de un array}
+\begin{itemize}
+  \item Un objeto de tipo \textmark{array} \textgood{se puede usar} 
+        como un \textmark{puntero} a la primera posición del array.
+\begin{lstlisting}
+double v[4];
+*v = 1.5;
+double x = v[0]; // x == 1.5
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item Se puede \textgood{iniciar} un puntero a \textmark{cualquier posición} del array.
+\begin{lstlisting}
+double v[4];
+double * p = &v[1];
+p = &v[3];
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item También se puede apuntar a la \textmark{posición siguiente a la última}.
+    \begin{itemize}
+      \item Pero no a posiciones anteriores o posteriores.
+    \end{itemize}
+\begin{lstlisting}
+double v[4];
+double * p = &v[-1]; // Comportamiento no definido
+double * p = &v[7]; // Comportamiento no definido
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Aritmética de punteros}
+\begin{itemize}
+  \item Se puede \textgood{avanzar} con un puntero en un array, 
+        \textmark{sumando un entero} al puntero.
+\begin{lstlisting}
+double v[4] = {}
+double * p = v + 1; // Apunta a v[1]
+p = p + 2; // Apunta a v[3];
+++p; // Apunta a v[4]
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item Igualmente se puede \textgood{retroceder};
+\begin{lstlisting}
+--p; // Apunta a v[3]
+p = p - 2; // Apunta a v[1]
+p -=1; // Apunta a v[0]
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item Se puede \textgood{calcular la distancia} entre dos punteros 
+        como número de elementos.
+    \begin{itemize}
+      \item Solamente si apuntan a objetos del mismo array.
+    \end{itemize}
+\begin{lstlisting}
+double v[4] = {};
+int n = &v[4] - &v[0]; // n == 4
+int m = &v[4] - &w[2]; // No definido
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Conversión}
+\begin{itemize}
+  \item Existe una \textgood{conversión implícita} 
+        del \textmark{nombre de un array a puntero}.
+\begin{lstlisting}
+double v[4] = {};
+f(v); // Pasa a f el puntero &v[0]
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item Esto \textbad{impide el paso por valor} de arrays a funciones.
+    \begin{itemize}
+      \item \textmark{Objetivo}: Evitar paso accidental por copia de arrays grandes.
+    \end{itemize}
+\begin{lstlisting}
+double f(double vec[], int n) {
+  double r{}; // r = 0.0
+  for (int i = 0; i<n; ++i) {
+    r += vec[i];
+  }
+  return r;
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Conversión}
+\begin{itemize}
+  \item El resultado de la conversión es un valor, no una variable.
+\begin{lstlisting}
+double v[4] = {};
+v = new double[4]; // Error: v no es una variable puntero
+
+double * w = nullptr;
+w = new double[4]; // OK
+\end{lstlisting}
+    \begin{itemize}
+      \item Los punteros y arrays no son siempre intercambiables.
+    \end{itemize}
+\end{itemize}
+\end{frame}

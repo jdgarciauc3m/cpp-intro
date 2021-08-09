@@ -1,0 +1,107 @@
+\section{Objetos de tipo array}
+
+\begin{frame}[t,fragile]{Arrays sin memoria dinámica}
+\mode<presentation>{\vspace{-0.5cm}}
+\begin{columns}[T]
+\column{.5\textwidth}
+\begin{itemize}
+  \item Como variables globales:
+\begin{lstlisting}
+constexpr int max1 = 100;
+constexpr int max2 = 50;
+double v1[max1];
+double v2[max2];
+double v3[25];
+\end{lstlisting}
+\end{itemize}
+
+\column{.5\textwidth}
+\begin{itemize}
+  \item Como variables locales:
+\begin{lstlisting}
+void f() {
+  double v[10];
+  // ...
+}
+\end{lstlisting}
+\end{itemize}
+
+\end{columns}
+
+\mode<presentation>{\vfill\pause}
+\begin{columns}[T]
+
+\column{.5\textwidth}
+
+\begin{itemize}
+  \item Frente a \cppid{std::vector}:
+    \begin{itemize}
+      \item El \textmark{tamaño} de un \cppid{std::vector} \textgood{no necesita conocerse} 
+            en tiempo de compilación.
+      \item \textgood{Se puede} obtener el \textmark{número de elementos} de un 
+            \cppid{std::vector}.
+      \item Los \cppid{std::vector} locales \textgood{se inician} por defecto.
+    \end{itemize}
+\end{itemize}
+
+\column{.5\textwidth}
+
+\mode<presentation>{\vfill\pause}
+\begin{itemize}
+  \item Frente a \cppid{std::array}:
+    \begin{itemize}
+      \item El \textmark{tamaño} de un \cppid{std::array} \textbad{debe ser conocido}
+            en tiempo de compilación.
+      \item \textgood{Se puede} obtener el \textmark{número de elementos} de un 
+            \cppid{std::array}.
+      \item Los \cppid{std::array} locales \textbad{no se inician} por defecto.
+    \end{itemize}
+\end{itemize}
+
+\end{columns}
+
+\end{frame}
+
+\begin{frame}[t,fragile]{Tamaño de array}
+\begin{itemize}
+  \item No se puede definir un array usando como tamaño un parámetro de función.
+\begin{lstlisting}
+void f(int n) {
+ double v[n]; // Error
+ v[0] = 1.0;
+ // ...
+}
+\end{lstlisting}
+\end{itemize}
+
+\begin{columns}[T]
+
+\mode<presentation>{\pause}
+\column{.5\textwidth}
+\begin{itemize}
+  \item Pero si se puede hacer con memoria dinámica
+\begin{lstlisting}
+void f(int n) {
+ double * v = new double[n];
+ v[0] = 1.0;
+ // ...
+ delete []v; // Si se olvida hay goteo
+}
+\end{lstlisting}
+\end{itemize}
+
+\mode<presentation>{\pause}
+\column{.5\textwidth}
+\begin{itemize}
+  \item O con \cppid{std::vector}:
+\begin{lstlisting}
+void f(int n) {
+ vector<double> v(n);
+ v[0] = 1.0;
+ // ...
+}
+\end{lstlisting}
+\end{itemize}
+\end{columns}
+
+\end{frame}

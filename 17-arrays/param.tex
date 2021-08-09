@@ -1,0 +1,112 @@
+\section{Paso de parámetros array}
+
+\begin{frame}[t,fragile]{Cuestión de estilo}
+\begin{itemize}
+  \item \textmark{Estilo alternativo} a paso de dirección más tamaño:
+\begin{lstlisting}
+double suma(double * b, double * e) {
+  double r{};
+  while (b!=e) {
+    r+= *b++;
+  }
+  return r;
+}
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item \textgood{Invocación}:
+\begin{lstlisting}
+void f() {
+  double v[] = { 1, 2, 3, 4 };
+  cout << suma(v, v+4) << endl;
+}
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item \textgood{Enfoque}: Paso de un \textmark{rango semiabierto}.
+    \begin{itemize}
+      \item \textmark{Inicio}: Puntero a primer elemento.
+      \item \textmark{Fin}: Puntero al siguiente del último elemento.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Constantes arrays y punteros}
+\begin{itemize}
+  \item El calificador \cppkey{const} indica la \textmark{inmutabilidad de un objeto}.
+    \begin{itemize}
+      \item Forma parte del tipo.
+    \end{itemize}
+\begin{lstlisting}
+const int max = 4; // max es const int
+const double v[max] = { 1, 2, 3, 4 }; // v[0] es const double
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item En el caso de un puntero realmente hay dos objetos:
+    \begin{itemize}
+      \item El \textmark{puntero} (dirección de memoria).
+      \item El \textgood{objeto apuntado}.
+    \end{itemize}
+
+  \mode<presentation>{\vfill\pause}
+  \item \textgood{Implicaciones}
+    \begin{itemize}
+      \item Si el puntero es constante $\Rightarrow$ 
+            no se puede cambiar el lugar apuntado.
+      \item Si el objeto apuntado es constante $\Rightarrow$
+            no se puede cambiar el valor del objeto.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Alternativas}
+\mode<presentation>{\vspace{-0.5em}}
+\begin{itemize}
+  \item Puntero a valor constante:
+\begin{lstlisting}
+const double * p = v; // p apunta a v[0]
+p = v + 2; // OK. Modificación del puntero
+*p = 10; // Error: elementos constantes
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item Puntero a valor constante (notación alternativa):
+\begin{lstlisting}
+double const * p = v; // p apunta a v[0]
+p = v + 2; // OK. Modificación del puntero
+*p = 10; // Error: elementos constantes
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item Puntero constante a valor variable:
+\begin{lstlisting}
+double * const p = v; // p apunta a v[0]
+p = v + 2; // Error no se puede apuntar a otro sitio
+*p = 10; // OK: Modificación de objeto apuntado
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item Puntero constante a valor constante:
+\begin{lstlisting}
+const double * const p = v; // p apunta a v[0]
+p = v + 2; // Error no se puede apuntar a otro sitio
+*p = 10; // OK: Modificación de objeto apuntado
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Parámetros de función constantes}
+\begin{itemize}
+  \item \cppkey{const} forma parte del tipo $\rightarrow$ se puede usar para restringir las operaciones que se
+        pueden realizar sobre un parámetro.
+\begin{lstlisting}
+void copia(char * dest, const char * orig) {
+  while (*orig) {
+    *dest++ = *orig++;
+  }
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
