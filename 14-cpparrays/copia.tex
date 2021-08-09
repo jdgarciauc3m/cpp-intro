@@ -1,0 +1,51 @@
+\section{Copia de arrays}
+
+\begin{frame}[t,fragile]{Copia de arrays}
+\begin{itemize}
+  \item Se pueden copiar variables \cppid{std::array} con el operador \cppkey{=}.
+\begin{lstlisting}
+std::array v {1, 2, 3, 4};
+std::array w {5, 6, 7, 8}
+v = w;
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item Solamente se puede realizar la copia si tienen el mismo tipo de elemento
+        y el mismo tamaño.
+\begin{lstlisting}
+std::array z {1.0, 2.0, 3.0};
+std::array t {1, 2, 3};
+z = t; // Error distinto tipo de elemento
+v = t; // Error distinto tamaño
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Alternativas de copia}
+\begin{itemize}
+  \item \textmark{Copia explícita} elemento a elemento.
+\begin{lstlisting}
+std::array v {1, 2, 3, 4}; // std::array<int,4>
+std::array w {2, 4, 6 , 8, 10, 12, 14}; // std::array<int,7>
+for (int i=0; i<4; ++i) {
+  w[i] = v[i];
+}
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item \textmark{Algoritmo de copia} con límites.
+\begin{lstlisting}
+std::array v {1, 2, 3, 4}; // std::array<int,4>
+std::array w {2, 4, 6 , 8, 10, 12, 14}; // std::array<int,7>
+std::copy(v.begin(), v.end(), w.begin());
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item \textmark{Algoritmo de copia} con tamaño.
+\begin{lstlisting}
+std::array v {1, 2, 3, 4}; // std::array<int,4>
+std::array w {2, 4, 6 , 8, 10, 12, 14}; // std::array<int,7>
+std::copy(v.begin(), 4, w.begin());
+\end{lstlisting}
+\end{itemize}
+\end{frame}

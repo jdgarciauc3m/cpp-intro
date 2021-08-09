@@ -27,6 +27,7 @@ include 10-enum/Makefile.def
 include 11-operadores/Makefile.def
 include 12-interfaz/Makefile.def
 include 13-iostream/Makefile.def
+include 14-cpparrays/Makefile.def
 include 15-smartptr/Makefile.def
 include 16-punteros/Makefile.def
 
@@ -47,6 +48,7 @@ $(ENUM_PARTS) \
 $(OPERADORES_PARTS) \
 $(INTERFAZ_PARTS) \
 $(IOSTREAM_PARTS) \
+$(CPPARRAYS_PARTS) \
 $(SMARTPTR_PARTS) \
 $(PUNTEROS_PARTS) \
 $(PRACTICA_A_PARTS) \
@@ -65,6 +67,7 @@ $(FINAL_DIR)/$(ENUM_PDF) \
 $(FINAL_DIR)/$(OPERADORES_PDF) \
 $(FINAL_DIR)/$(INTERFAZ_PDF) \
 $(FINAL_DIR)/$(IOSTREAM_PDF) \
+$(FINAL_DIR)/$(CPPARRAYS_PDF) \
 $(FINAL_DIR)/$(SMARTPTR_PDF) \
 $(FINAL_DIR)/$(PUNTEROS_PDF) \
 $(FINAL_DIR)/$(SMART_PTR) \
@@ -83,6 +86,7 @@ $(FINAL_DIR)/$(ENUM_EJ_PDF) \
 $(FINAL_DIR)/$(OPERADORES_EJ_PDF) \
 $(FINAL_DIR)/$(INTERFAZ_EJ_PDF) \
 $(FINAL_DIR)/$(IOSTREAM_EJ_PDF) \
+$(FINAL_DIR)/$(CPPARRAYS_EJ_PDF) \
 $(FINAL_DIR)/$(SMARTPTR_EJ_PDF) \
 $(FINAL_DIR)/$(PUNTEROS_EJ_PDF) \
 $(FINAL_DIR)/$(PRACTICA_A_PDF) \
@@ -124,6 +128,7 @@ include $(ENUM_BASE)/Makefile.mk
 include $(OPERADORES_BASE)/Makefile.mk
 include $(INTERFAZ_BASE)/Makefile.mk
 include $(IOSTREAM_BASE)/Makefile.mk
+include $(CPPARRAYS_BASE)/Makefile.mk
 include $(SMARTPTR_BASE)/Makefile.mk
 include $(PUNTEROS_BASE)/Makefile.mk
 include $(PRACTICA_A_BASE)/Makefile.mk

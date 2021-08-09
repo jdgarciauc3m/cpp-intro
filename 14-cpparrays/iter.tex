@@ -1,0 +1,155 @@
+\section{Arrays y aritmética de iterador}
+
+\begin{frame}[t,fragile]{Iteradores a posiciones de un array}
+\begin{itemize}
+  \item Un \textgood{iterador} permite \textmark{acceder directamente} 
+        a una posición de un 
+        \cppid{std::array}
+    \begin{itemize}
+      \item La operación \cppid{begin()} devuelve un iterador a la 
+            \textmark{primera posición} del \cppid{std::array}.
+\begin{lstlisting}
+std::array<double,4> v;
+auto i = v.begin();
+\end{lstlisting}
+
+      \mode<presentation>{\vfill\pause}
+      \item El operador \cppkey{*} permite acceder al 
+            elemento \textmark{apuntado} por el \textgood{iterador}.
+\begin{lstlisting}
+*i = 1.5;
+double x = v[0]; // x == 1.5
+\end{lstlisting}
+    \end{itemize}
+
+  \mode<presentation>{\vfill\pause}
+  \item Se puede \textgood{iniciar} un iterador a \textmark{cualquier posición} del 
+        \cppid{std::array}.
+\begin{lstlisting}
+auto p = v.begin() + 1; // p apunta a v[1]
+p = v.begin() + 3; // p apunta a v[3]
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Límites de un array}
+\begin{itemize}
+  \item También se puede apuntar a la \textmark{posición siguiente a la última}
+        con \cppid{end()}.
+    \begin{itemize}
+      \item Pero no a posiciones anteriores o posteriores.
+    \end{itemize}
+\begin{lstlisting}
+auto p = v.end(); // OK. Posición siguiente a la última
+p = v.begin() + v.size(); // OK. Posición siguiente a la última.
+p = v.begin() - 1; // Comportamiento no definido
+p = v.end() + 1; // Comportamiento no definido
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Aritmética de iteradores}
+\begin{itemize}
+  \item Se puede \textgood{avanzar} con un iterador en un \cppid{std::array}, 
+        \textmark{sumando un entero} al puntero.
+\begin{lstlisting}
+std::array<double,4> v {};
+auto p = v.begin() + 1; // Apunta a v[1]
+p = p + 2; // Apunta a v[3];
+++p; // Apunta a v[4]
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item Igualmente se puede \textgood{retroceder};
+\begin{lstlisting}
+--p; // Apunta a v[3]
+p = p - 2; // Apunta a v[1]
+p -=1; // Apunta a v[0]
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Recorrido con iteradores}
+\begin{itemize}
+  \item Se puede utilizar un \textgood{iterador} para \textmark{recorrer}
+        un \cppid{std::array}.
+\begin{lstlisting}
+std::array v {1, 2, 3, 4, 5, 6, 7, 8, 9};
+for (auto p=v.begin(); p!=v.end(); ++p) {
+  std::cout << *p << '\n';
+}
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item Se puede utilizar también un \textgood{iterador inverso} para 
+        \textmark{recorrer de fin a principio}.
+\begin{lstlisting}
+std::array v {1, 2, 3, 4, 5, 6, 7, 8, 9};
+for (auto p=v.rbegin(); p!=v.rend(); ++p) {
+  std::cout << *p << '\n';
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Distancia entre dos posiciones}
+\begin{itemize}
+  \item Se puede \textgood{calcular la distancia} entre dos iteradores 
+        como número de elementos.
+    \begin{itemize}
+      \item Solamente si apuntan a objetos del mismo array.
+    \end{itemize}
+\begin{lstlisting}
+std::array<double> v {}, w {};
+auto p = v.begin();
+auto q = v.end();
+auto n = q - p; // n == 4
+n = std::distance(p,q); // n == 4
+auto m = std::distance(v.begin(), w.end()); // No definido
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Paso como parámetro}
+\begin{itemize}
+  \item Se puede pasar un array como argumento a una función.
+
+  \begin{columns}[T]
+
+  \column{.5\textwidth}
+\begin{block}{Paso por valor}
+\begin{lstlisting}
+double f(std::array<double,5> vec) {
+  double r = 0.0;
+  for (auto x : vec) {
+    r += x;
+  }
+  return r;
+}
+\end{lstlisting}
+\end{block}
+
+  \mode<presentation>{\pause}
+  \column{.55\textwidth}
+\begin{block}{Paso por referencia}
+\begin{lstlisting}
+double f(const std::array<double,5> & vec) {
+  double r = 0.0;
+  for (auto & x : v) {
+    r += x;
+  }
+  return r;
+}
+\end{lstlisting}
+\end{block}
+  \end{columns}
+
+  \mode<presentation>{\vfill\pause}
+  \item Es necesario fijar el tamaño como parte del tipo del parámetro.
+    \begin{itemize}
+      \item \textgood{Alternativa}: Usar \cppid{std::vector} o 
+            \textemph{programación genérica}.
+    \end{itemize}
+
+\end{itemize}
+\end{frame}

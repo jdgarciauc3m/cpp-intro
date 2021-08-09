@@ -1,0 +1,64 @@
+\section{Objetos de tipo array}
+
+\begin{frame}[t,fragile]{Arrays de tamaño fijo}
+\begin{columns}[T]
+\column{.5\textwidth}
+\begin{itemize}
+  \item Como variables globales:
+\begin{lstlisting}
+constexpr int max1 = 100;
+constexpr int max2 = 50;
+std::array<double,max1> v1;
+std::array<double,max2> v2;
+std::array<double,25> v3;
+\end{lstlisting}
+\end{itemize}
+
+\column{.5\textwidth}
+\begin{itemize}
+  \item Como variables locales:
+\begin{lstlisting}
+void f() {
+  std::array<double,10> v;
+  // ...
+}
+\end{lstlisting}
+\end{itemize}
+
+\end{columns}
+
+\mode<presentation>{\vfill\pause}
+\begin{itemize}
+  \item Diferencias con \cppid{std::vector}:
+    \begin{itemize}
+      \item No utiliza \textmark{memoria dinámica}.
+      \item El tamaño de un \cppid{std::array} \textbad{debe ser conocido} en tiempo de 
+            compilación.
+      \item Los arrays locales de tipos primitivos \textbad{no se inician} a ningún valor.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Tamaño de array}
+\begin{itemize}
+  \item No se puede definir un array usando como tamaño un parámetro de función.
+\begin{lstlisting}
+void f(int n) {
+ std::array<double,n> v; // Error
+ v[0] = 1.0;
+ // ...
+}
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item Pero se puede usar \cppid{std::vector}:
+\begin{lstlisting}
+void f(int n) {
+ vector<double> v(n);
+ v[0] = 1.0;
+ // ...
+} // Se destruye v al salir
+\end{lstlisting}
+\end{itemize}
+
+\end{frame}
