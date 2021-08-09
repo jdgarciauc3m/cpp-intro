@@ -1,0 +1,46 @@
+\section{Iniciación de memoria asignada}
+
+\begin{frame}[t,fragile]{Asignación de memoria e iniciación}
+\begin{itemize}
+  \item \cppid{std::make\_unique()} inicia el objeto para el que reserva memoria.
+\begin{lstlisting}
+auto p = std::make_unique<int>(); // *p == 0
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item Se puede indicar el \textmark{valor inicial} como argumento a
+        \cppid{std::make\_unique()}.
+\begin{lstlisting}
+auto q = std::make_unique<int>(42); // *p == 42
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item Si se reserva una secuencia con \cppid{std::make\_unique<T[]>()} 
+        \textbad{se inician} todos los elementos.
+\begin{lstlisting}
+auto v = std::make_unique<int[]>(10); // 10 elementos iniciados a 0
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Asignación de memoria sin iniciación}
+\begin{itemize}
+  \item Se puede reservar memoria sin iniciar el objeto con
+        \cppid{std::make\_unique\_for\_overwrite()}.
+\begin{lstlisting}
+auto p = std::make_unique_for_overwrite<int>(); // *p sin iniciar
+auto v = std::make_unique_for_overwrite<int[]>(10); // v[0] a v[9] sin iniciar
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item Útil para evitar iniciar innecesariamente la memoria que se va a modificar
+        posteriormente.
+\begin{lstlisting}
+auto v = std::make_unique_for_overwrite<int[]>(10);
+for (int i=0; i<n; ++i) {
+  is >> v[i];
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+

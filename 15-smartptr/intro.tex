@@ -34,8 +34,8 @@
     \end{itemize}
 \end{itemize}
 \begin{lstlisting}
-std::unique_ptr<int> pi{new int{5}}; // pi apunta a un entero con valor 5
-auto pj = std::make_unique<int>(5); // pi apunta a un entero con valor 5
+auto pj = std::make_unique<int>(5); // pj apunta a un entero con valor 5
+                                    // pj de tipo std::unique_ptr<int>
 \end{lstlisting}
 
 \mode<presentation>{\vfill\pause}
@@ -44,12 +44,30 @@ auto pj = std::make_unique<int>(5); // pi apunta a un entero con valor 5
         \cppid{unique\_ptr}.
 \end{itemize}
 \begin{lstlisting}
-auto pi = std::make_unique<int>{5};
+auto pi = std::make_unique<int>(5);
 int x = *pi; // x = 5
 
-auto pc = std::make_unique<char>{'a'};
+auto pc = std::make_unique<char>('a');
 *pc = 'z'; 
 char c = *pc; // c = 'z'
 \end{lstlisting}
 \end{frame}
 
+\begin{frame}[t,fragile]{Punteros únicos y tipos no primitivos}
+\begin{itemize}
+  \item La función \cppid{make\_unique()} toma cualquier número de argumentos
+        y los pasa al constructor correspondiente.
+\begin{lstlisting}
+class punto {
+public:
+  punto(double x, double y);
+  //...
+};
+
+void f() {
+  auto p = std::make_unique<punto>(1.0, 5.0); // Crea un punto{1.0,5.0}
+  //...
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}

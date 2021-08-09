@@ -48,6 +48,28 @@ char * q = new char[10]; // Asigna memoria para 10 char
 \end{itemize}
 \end{frame}
 
+\begin{frame}[t,fragile]{Operador de asignación de memoria: \textbf{new}}
+\begin{itemize}
+  \item El operador \cppkey{new} permite asignar memoria del almacén libre.
+\begin{lstlisting}
+std::unique_ptr<int> p{new int}; // Asigna memoria para un int
+std::unique_ptr<char[]> q{new char[10]}; // Asigna memoria para 10 char
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item \textgood{Efecto}:
+    \begin{itemize}
+      \item El operador \cppkey{new} devuelve un puntero al inicio de la memoria asignada.
+      \item Una expresión \cppkey{new} \cppid{T} devuelve un valor de tipo \cppid{T*}.
+      \item El resultado de \cppkey{new} se utiliza para iniciar un \cppid{std::unique\_ptr}.
+    \end{itemize}
+
+  \mode<presentation>{\vfill\pause}
+  \item \textbad{IMPORTANTE}: No se puede saber el tamaño de la memoria asignada 
+        después de evaluar la expresión \cppkey{new}.
+\end{itemize}
+\end{frame}
+
 \subsection{Acceso e memoria mediante punteros}
 
 \begin{frame}[t,fragile]{Operadores de acceso}
