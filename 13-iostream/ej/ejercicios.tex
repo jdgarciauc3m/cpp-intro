@@ -1,1 +1,30 @@
 \section{Ejercicios}
+
+\begin{enumerate}
+
+\item Desarrolle un tipo de datos \cppid{opcion} que representa una opción financiera
+      definida por los siguientes datos miembro:
+  \begin{itemize}
+    \item \cppid{tipo}: Puede ser \cppid{call} o \cppid{put}. Utilice un tipo enumerado.
+    \item \cppid{prima}: Valor en doble precisión.
+    \item \cppid{precio}: Valor en doble precisión.
+  \end{itemize}
+
+  Defina los operadores \cppkey{<{}<} y \cppkey{>{}>} sobre flujos para poder
+  realizar lecturas y escrituras de archivos de texto.
+
+  Defina la operación \cppid{write()} que escribirá en un archivo binario 
+  (abierto previamente como un \cppid{ofstream}) la
+  representación de una opción de la siguiente manera:
+    \begin{itemize}
+      \item \cppid{tipo} (1 byte): \cppstr{'C'} para \cppid{call} y 
+            \cppstr{'P'} para \cppid{put}.
+      \item \cppid{prima} (8 bytes): Representación binara del valor en doble precisión.
+      \item \cppid{precio} (8 bytes): Representación binaria del valor en doble precisión
+    \end{itemize}
+
+  Defina la operación \cppid{read()} que leerá de un archivo binario
+  (abierto previamente como un \cppid{ifstream}) la representación de una
+  opción escrita con una operación \cppid{write()}.
+
+\end{enumerate}
