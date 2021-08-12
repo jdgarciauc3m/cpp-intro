@@ -1,1 +1,62 @@
 \section{Ejercicios}
+
+\begin{itemize}
+
+\item
+Diseña los tipos de datos para representar una opción financiera, teniendo en cuenta los siguientes requisitos:
+
+\begin{itemize}
+
+\item Una opción puede ser de dos tipos: \textgood{call} (opción de compra) o
+      \textgood{put} opción de venta. Utiliza un \textmark{tipo enumerado} para
+      representar los tipos de opción.
+
+\item Una opción tiene asociado una \textgood{prima} que es el valor al que se
+      ha comprado la opción.
+
+\item Una opción tiene asociado un \textgood{precio} que es el valor al que se
+      compra o se vende el activo subuyacente a la compra.
+
+\item Una opción ofrece dos operaciones importantes:
+
+  \begin{itemize}
+
+    \item \cppid{valor\_vencimiento(valor\_subyacente)}: Determina el valor al
+          vencimiento de la opción dependiendo del valor del activo subyacente.
+
+          Si se trata de una opción de compra, el valor será la diferencia entre
+          el \cppid{valor\_subyacente} y el \cppid{precio} si este es positivo o
+          \cppid{0} en otro caso.
+
+          Si se trata de una opción de venta, el valor será la diferencia entre
+          el \cppid{precio} y el \cppid{valor\_subyacente} si este es positivo o
+          \cppid{0} en otro caso. 
+
+    \item \cppid{beneficio\_vencimiento(valor\_subyacente)}: Determina el
+          beneficio al vencimiento de la opción dependiendo del valor del activo
+          subyacente.
+
+          El beneficio depende del valor al vencimiento. Si el valor al vencimiento
+          es mayor que la \cppid{prima}, el beneficio es la diferencia entre ambos.
+          En otro caso, el beneficio es \cppid{0}.
+
+  \end{itemize}
+
+\end{itemize}
+
+\item Escribe un programa que lea de la entrada estándar líneas con datos de opciones
+      y valores subyacentes y escriba a la salida estándar el valor y el beneficio al
+      rendimiento de cada una de las opciones.
+
+      El formato de las líneas incluirá en este orden: tipo, prima, precio, valorsuby.
+      Por ejemplo:
+
+  \begin{itemize}
+
+    \item PUT 100.0 90.0 95.0
+    \item CALL 90.5 95.0 83.5
+    \item \ldots
+
+  \end{itemize}
+
+\end{itemize}
