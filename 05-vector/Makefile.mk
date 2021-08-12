@@ -2,5 +2,4 @@ $(FINAL_VECTOR_PDF): $(VECTOR_PARTS) $(CONFIG_INPUT) $(IMG_INPUT)
 	$(LATEXMK) -jobname=$(VECTOR_BASE) $(VECTOR_BASE)/slides.tex
 
 $(FINAL_VECTOR_EJ_PDF):	$(VECTOR_EJ_PARTS) $(CONFIG_INPUT)
-	$(LATEXMK) -jobname=$(VECTOR_BASE)-ej $(VECTOR_BASE)/hoja-ej.tex
-
+	$(LATEXMK) -jobname=$(VECTOR_BASE)-ej $(VECTOR_BASE)/ej/hoja-ej.tex

@@ -2,5 +2,5 @@ $(FINAL_CLASES_PDF): $(CLASES_PARTS) $(CONFIG_INPUT) $(IMG_INPUT)
 	$(LATEXMK) -jobname=$(CLASES_BASE) $(CLASES_BASE)/slides.tex
 
 $(FINAL_CLASES_EJ_PDF):	$(CLASES_EJ_PARTS) $(CONFIG_INPUT)
-	$(LATEXMK) -jobname=$(CLASES_BASE)-ej $(CLASES_BASE)/hoja-ej.tex
+	$(LATEXMK) -jobname=$(CLASES_BASE)-ej $(CLASES_BASE)/ej/hoja-ej.tex
 
