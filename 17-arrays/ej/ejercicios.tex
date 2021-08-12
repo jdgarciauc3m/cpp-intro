@@ -2,6 +2,52 @@
 
 \begin{enumerate}
 
-\item .
+\item
+Define un tipo de datos \cppid{punto} que representa un punto del plano dado por
+sus coordenadas en doble precisión \cppid{x}, \cppid{y} y \cppid{z}. La
+representación interna debe venir dada por una única variable miembro
+\cppid{vec\_} usando un \textmark{array primitivo}.
 
+Debe ofrecer las siguientes operaciones:
+
+\begin{itemize}
+
+\item Constructor por defecto:
+\begin{lstlisting}
+punto p; // Construye en coordenadas 0.0, 0.0, 0.0
+\end{lstlisting}
+
+\item Constructor a partir de coordenadas:
+\begin{lstlisting}
+punto p{1.0, 5.5, 7.2}; // Construye en coordenadas 1.0, 5.5, 7.2
+\end{lstlisting}
+
+\item Funciones miembro para obtener las coordenadas:
+\begin{lstlisting}
+double cx = p.x();
+auto cy = p.y();
+auto cz = p.z();
+\end{lstlisting}
+
+\item Funciones miembro para modificar las coordenadas:
+\begin{lstlisting}
+p.x(2.5);
+p.y(3.9);
+p.z(4.2);
+\end{lstlisting}
+
+\item Copia de puntos:
+\begin{lstlisting}
+punto p{1.0, 2.0, 3.0};
+punto q{p};
+punto r;
+r = q;
+\end{lstlisting}
+
+\item Distancia entre puntos:
+\begin{lstlisting}
+double d = distancia(p,q);
+\end{lstlisting}
+
+\end{itemize}
 \end{enumerate}
