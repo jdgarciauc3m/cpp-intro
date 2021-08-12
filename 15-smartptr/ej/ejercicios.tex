@@ -1,1 +1,37 @@
 \section{Ejercicios}
+
+\begin{enumerate}
+
+\item
+Escribe un programa que lea una lista de números reales. El programa debe:
+
+\begin{itemize}
+  \item Imprimir el valor medio.
+  \item Imprimir el valor absoluto de la diferencia entre cada valor y el promedio.
+  \item Imprimir la desviación típica.
+\end{itemize}
+
+No utilice el tipo \cppid{std::vector}. En vez de esto utilice la siguiente estrategia:
+
+\begin{itemize}
+  \item Comience con un \cppid{std::unique\_ptr<double[]>} a una secuencia de 10 valores
+        (variable \cppid{lista}) y mantenga dos variables enteras separadas 
+        \cppid{capacidad} (inicialmente con el valor \cppid{10}) y \cppid{numvals} 
+        (inicialmente con el valor \cppid{0}).
+
+  \item Cada vez que tenga que añadir un número a la lista, colóquelo en la posición
+        \cppid{lista[numvals]} en incremente \cppid{numvals}.
+
+  \item Si después de añadir un número a la lista \cppid{numvals} ha alcanzado el valor
+        de \cppid{capacidad} es hora para conseguir una \cppid{lista} más grande:
+    \begin{enumerate}
+      \item Aumente \cppid{capacidad} al doble de su valor actual.
+      \item Reserve una nueva lista \cppid{nueva\_lista} con el tamaño definido por el 
+            nuevo valor de \cppid{capacidad}.
+      \item Copie todos los valores de la lista antigua a la lista nueva.
+      \item Esta será la lista a utilizar a partir de ahora transfiera la memoria de
+            \cppid{nueva\_lista} a \cppid{lista}.
+    \end{enumerate}
+\end{itemize}
+
+\end{enumerate}
