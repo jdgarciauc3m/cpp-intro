@@ -1,0 +1,87 @@
+\section{Punteros primitivos y \textbf{unique\_ptr}}
+
+\begin{frame}[t,fragile]{Representación de \textbf{unique\_ptr}}
+\begin{itemize}
+  \item Un objeto de tipo \cppid{unique\_ptr} almacena internamente
+        un \textemph{puntero primitivo} que apunta a
+        la \textmark{memoria asignada}.
+
+  \mode<presentation>{\vfill\pause}
+  \item Se puede acceder al puntero primitivo con la operación \cppid{get()}
+\begin{lstlisting}
+auto p = std::make_unique<double>(42);
+auto q = p.get(); // p es un double*
+
+auto v = std::make_unique<int[]>(5);
+auto w = v.get(); // v es un int*
+\end{lstlisting}
+
+
+  \mode<presentation>{\vfill\pause}
+  \item \cppid{get()} da acceso al puntero pero la memoria 
+        \textbad{se seguirá liberando} al destruirse el \cppid{unique\_ptr}.
+\begin{lstlisting}
+void print_value(int * p);
+//...
+auto q = std::make_unique<int>(42);
+print_value(q.get());
+//...
+\end{lstlisting}
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Liberación del puntero interno}
+\begin{itemize}
+  \item Se puede obtener el puntero interno liberando al \cppid{unique\_ptr} de
+        su gestión.
+    \begin{itemize}
+      \item Al destruirse no se libera la memoria.
+      \item Cualquier llamada a \cppid{get()} devuelve \cppkey{nullptr}
+    \end{itemize}
+\begin{lstlisting}
+void f() {
+  auto p = std::make_unique<int>(42);
+  //...
+  auto q = p.release(); // q es int*
+  auto r = p.get(); // r es nullptr
+} // Cuidado: goteo de memoria
+\end{lstlisting}
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Modificación del puntero interno}
+\begin{itemize}
+  \item Se puede modificar el puntero interno de un \cppid{unique\_ptr}
+        con \cppid{p.reset(ptr)}.
+\begin{lstlisting}
+std::unique_ptr<int[]> v = new int[100];
+//...
+v.reset(new int[200]);
+\end{lstlisting}
+
+  \mode<presentation>{\vfill\pause}
+  \item Cuando se invoca a \cppid{p.reset(ptr)}:
+    \begin{enumerate}
+      \item Se guarda el valor actual en un puntero auxiliar \cppid{aux}.
+      \item Se actualiza el valor actual a \cppid{ptr}.
+      \item Si el puntero auxiliar es no nulo, se libera la memoria asignada.
+    \end{enumerate}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Transferencia de la propiedad}
+\begin{itemize}
+  \item Se puede combinar \cppid{release()} y \cppid{reset()} para 
+        \textmark{transferir la propiedad} de un recurso.
+\begin{lstlisting}
+auto p = std::make_unique<int>(42);
+auto q = std::make_unique<int>(99);
+p.reset(q.release()); // libera valor apuntado por p
+
+int x = *p; // x == 99
+auto ptr = q.get(); // q == nullptr
+\end{lstlisting}
+\end{itemize}
+\end{frame}
